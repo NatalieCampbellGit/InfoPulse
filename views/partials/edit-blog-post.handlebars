@@ -1,0 +1,36 @@
+<!-- Edit Blog Post -->
+<div class="container mt-2">
+    <div class="card">
+        <div class="card-header bg-success-subtle">
+            <h3 class="card-title text-dark ms-2">Edit Blog Post</h3>
+        </div>
+        <div class="card-body">
+            <form id="edit-blog-post-form" data-blog-id="{{id}}">
+                <div class="form-group">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                        <label for="title">Title</label>
+                        <p class="card-subtitle text-muted">Created: {{formatBlogDate created_at}}
+                            {{#compareValues updated_at created_at}}{{else}} | Updated:
+                            {{formatBlogDate updated_at}} {{/compareValues}}
+                        </p>
+                    </div>
+                    <input type="text" class="form-control" id="title" name="title" value="{{title}}">
+                </div>
+                <div class="form-group">
+                    <label for="content">Content</label>
+                    <textarea class="form-control" id="content" rows="5" name="content">{{content}}</textarea>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <button type="submit" id="save-post-button" class="btn btn-success mt-1">Save</button>
+                        <button type="button" id="cancel-button"
+                            class="btn btn-outline-success btn mt-1">Cancel</button>
+                    </div>
+                    <div>
+                        <button type="button" id="delete-button" class="btn btn-danger btn mt-1">Delete</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

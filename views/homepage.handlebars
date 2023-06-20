@@ -1,0 +1,39 @@
+<!-- Homepage {{body}} template -->
+<!-- Show the instructions if the user is logged in -->
+{{#if loggedIn}}
+<div class="container mt-2">
+    <div class="card text-center mb-3">
+        <div class="card-header bg-light">
+            <h5 class="card-title text-muted">Instructions</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text text-muted">
+                Click on the blog post to add a comment. Select Dashboard to show your posts, and to create, edit or
+                delete
+                your blog posts.
+            </p>
+        </div>
+    </div>
+</div>
+{{/if}}
+<!-- Show all blog posts -->
+<div class="container mt-2">
+    {{#if hasPosts}}
+    {{#each blogPosts as |post|}}
+
+    {{> blog-post post}}
+
+    {{/each}}
+    {{else}}
+    <div class="alert alert-info">
+        <h2>No posts yet. Start the conversation!</h2>
+        {{#if loggedIn}}
+        <a href="/api/blogs/new" class="button">Create a post</a>
+        {{else}}
+        <a href="/login" class="button">Log in to create a post</a>
+        {{/if}}
+    </div>
+    {{/if}}
+</div>
+
+<!-- Homepage javascript is handled by script.js -->
