@@ -13,5 +13,9 @@
     "mysql2": "^3.4.0",
     "sequelize": "^6.32.1",
     "tailwindcss": "^3.3.2"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "^2.8.8"
   }
 }
