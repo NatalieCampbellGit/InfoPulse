@@ -2,27 +2,19 @@ const { Model, DataTypes } = require('sequelize')
 const bcrypt = require('bcrypt')
 const sequelize = require('../config/connection')
 
-class User extends Model {
+class Administrator extends Model {
   checkPassword (loginPassword) {
     return bcrypt.compareSync(loginPassword, this.password)
   }
 }
 
-User.init(
+Administrator.init(
   {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
-    },
-    administrator_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'administrator',
-        key: 'id'
-      }
     },
     first_name: {
       type: DataTypes.STRING,
@@ -38,32 +30,11 @@ User.init(
         len: [1, 64]
       }
     },
-    date_of_birth: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-      validate: {
-        isDate: true
-      }
-    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         isEmail: true,
-        len: [1, 64]
-      }
-    },
-    mobile_phone: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        len: [11, 18]
-      }
-    },
-    crm_id: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
         len: [1, 64]
       }
     },
@@ -81,21 +52,35 @@ User.init(
       validate: {
         len: [12, 64]
       }
+    },
+    permissions: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     }
   },
   {
     hooks: {
-      beforeCreate: async (newUserData) => {
-        newUserData.password = await bcrypt.hash(newUserData.password, 10)
-        return newUserData
+      beforeCreate: async (newData) => {
+        newData.password = await bcrypt.hash(newData.password, 10)
+        return newData
+      },
+      beforeUpdate: async (newData) => {
+        newData.password = await bcrypt.hash(newData.password, 10)
+        return newData
       }
+
     },
     sequelize,
     timestamps: true,
     freezeTableName: true,
     underscored: true,
-    modelName: 'user'
+    modelName: 'administrator'
   }
 )
 
-module.exports = User
+module.exports = Administrator
