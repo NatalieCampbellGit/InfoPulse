@@ -2,12 +2,12 @@ const { UserComment } = require('../models')
 
 async function seedUserComments () {
   const comments = [
-    { factSheetId: 1, content: 'Catching problems early is key in so many aspects of health, and it\'s no different with our eyes. Regular eye examinations can catch issues before they become serious. I\'ve always believed in prevention rather than cure.' },
-    { factSheetId: 2, content: 'Eyesight is a precious gift, and it\'s our responsibility to care for it' },
-    { factSheetId: 3, content: 'What do you call a fish without eyes? Fsh!' },
-    { factSheetId: 4, content: 'Why don\'t eyes make good school teachers? They can\'t control their pupils!' },
-    { factSheetId: 5, content: 'Why do we rarely fight with our eyes? Because they always see eye-to-eye!' },
-    { factSheetId: 6, content: 'Why did the phone wear glasses? It lost all its contacts!' }
+    { factsheet_id: 1, content: 'Catching problems early is key in so many aspects of health, and it\'s no different with our eyes. Regular eye examinations can catch issues before they become serious. I\'ve always believed in prevention rather than cure.' },
+    { factsheet_id: 2, content: 'Eyesight is a precious gift, and it\'s our responsibility to care for it' },
+    { factsheet_id: 3, content: 'What do you call a fish without eyes? Fsh!' },
+    { factsheet_id: 4, content: 'Why don\'t eyes make good school teachers? They can\'t control their pupils!' },
+    { factsheet_id: 5, content: 'Why do we rarely fight with our eyes? Because they always see eye-to-eye!' },
+    { factsheet_id: 6, content: 'Why did the phone wear glasses? It lost all its contacts!' }
   ]
 
   for (let i = 0; i < comments.length; i++) {

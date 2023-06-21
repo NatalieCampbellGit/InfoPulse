@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require('sequelize')
 const sequelize = require('../config/connection')
-
+const convertMarkdownToHTML = require('../utils/markdown-utils')
+const sanitiseHTML = require('../utils/html-utils')
 class Template extends Model {
 
 }
@@ -21,23 +22,23 @@ Template.init(
       type: DataTypes.STRING,
       allowNull: false
     },
-    categoryId: {
+    category_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'category',
         key: 'id'
       }
     },
     markdown: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     html: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
-    administratorId: {
+    administrator_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -49,8 +50,18 @@ Template.init(
   {
     hooks: {
       beforeCreate: async (newData) => {
+        // convert markdown to html and sanitise the html
+        newData.html = await convertMarkdownToHTML(newData.markdown)
+        newData.html = sanitiseHTML(newData.html)
         return newData
+      },
+      beforeUpdate: async (updatedData) => {
+        // convert markdown to html and sanitise the html
+        updatedData.html = await convertMarkdownToHTML(updatedData.markdown)
+        updatedData.html = sanitiseHTML(updatedData.html)
+        return updatedData
       }
+
     },
     sequelize,
     timestamps: true,

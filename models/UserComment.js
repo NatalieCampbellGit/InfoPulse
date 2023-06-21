@@ -12,7 +12,7 @@ UserComment.init(
       primaryKey: true,
       autoIncrement: true
     },
-    factSheetId: {
+    factsheet_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

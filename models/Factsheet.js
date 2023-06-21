@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require('sequelize')
 const sequelize = require('../config/connection')
-
+const convertMarkdownToHTML = require('../utils/markdown-utils')
+const sanitiseHTML = require('../utils/html-utils')
 class Factsheet extends Model {
 
 }
@@ -13,7 +14,7 @@ Factsheet.init(
       primaryKey: true,
       autoIncrement: true
     },
-    userId: {
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -21,7 +22,7 @@ Factsheet.init(
         key: 'id'
       }
     },
-    templateId: {
+    template_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -29,7 +30,7 @@ Factsheet.init(
         key: 'id'
       }
     },
-    administratorId: {
+    administrator_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -37,23 +38,37 @@ Factsheet.init(
         key: 'id'
       }
     },
-    customMarkdown: {
-      type: DataTypes.STRING,
+    custom_markdown: {
+      type: DataTypes.TEXT,
       allowNull: true
     },
-    customHtml: {
-      type: DataTypes.STRING,
+    custom_html: {
+      type: DataTypes.TEXT,
       allowNull: true
     },
-    dateLastViewed: {
+    date_last_viewed: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: true
+    },
+    view_count: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0
     }
   },
   {
     hooks: {
       beforeCreate: async (newData) => {
+        // convert markdown to html and sanitise the html
+        newData.custom_html = await convertMarkdownToHTML(newData.custom_markdown)
+        newData.custom_html = sanitiseHTML(newData.custom_html)
         return newData
+      },
+      beforeUpdate: async (updatedData) => {
+        // convert markdown to html and sanitise the html
+        updatedData.custom_html = await convertMarkdownToHTML(updatedData.custom_markdown)
+        updatedData.custom_html = sanitiseHTML(updatedData.custom_html)
+        return updatedData
       }
     },
     sequelize,

@@ -5,7 +5,7 @@ async function seedAdministrators () {
     first_name: 'Jack',
     last_name: 'Kelly',
     email: 'jack.kelly@example.com',
-    pass_code: 'pass1234',
+    authentication_code: 'pass1234',
     username: 'jack.kelly',
     password: 'jackspassword',
     permissions: 1 // 1 = super admin, 2 = admin, 3 = user

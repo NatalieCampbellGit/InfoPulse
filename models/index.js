@@ -4,10 +4,11 @@ const Category = require('./Category')
 const UserComment = require('./UserComment')
 const Template = require('./Template')
 const Factsheet = require('./Factsheet')
+const TemplateImage = require('./TemplateImage')
 
 // set up associations
 Administrator.hasMany(User, {
-  onDelete: 'SET NULL',
+  onDelete: 'CASCADE',
   foreignKey: 'administrator_id'
 })
 
@@ -16,7 +17,7 @@ User.belongsTo(Administrator, {
 })
 
 Administrator.hasMany(Template, {
-  onDelete: 'SET NULL',
+  onDelete: 'CASCADE',
   foreignKey: 'administrator_id'
 })
 
@@ -25,7 +26,7 @@ Template.belongsTo(Administrator, {
 })
 
 Administrator.hasMany(Factsheet, {
-  onDelete: 'SET NULL',
+  onDelete: 'CASCADE',
   foreignKey: 'administrator_id'
 })
 
@@ -60,4 +61,4 @@ UserComment.belongsTo(Factsheet, {
   foreignKey: 'factsheet_id'
 })
 
-module.exports = { User, Administrator, Category, UserComment, Template, Factsheet }
+module.exports = { User, Administrator, Category, UserComment, Template, Factsheet, TemplateImage }

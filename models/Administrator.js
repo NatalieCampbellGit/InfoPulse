@@ -38,7 +38,7 @@ Administrator.init(
         len: [1, 64]
       }
     },
-    pass_code: {
+    authentication_code: {
       type: DataTypes.STRING,
       allowNull: true
     },
@@ -56,6 +56,11 @@ Administrator.init(
     permissions: {
       type: DataTypes.INTEGER,
       allowNull: true
+    },
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     }
   },
   {

@@ -24,6 +24,7 @@ router.get('/login', (req, res) => {
   }
   // otherwise, render the login template
   res.render('login', {
+    // send data to the template
   })
 })
 
@@ -54,7 +55,15 @@ router.get('/signup', (req, res) => {
   }
   // otherwise, render the signup template
   res.render('signup', {
-    // send the page title to the template
+    // send data to the template
+  })
+})
+
+// ! DELETE THIS ROUTE BEFORE DEPLOYING
+// Display the test page
+router.get('/rm-test', (req, res) => {
+  res.render('rm-test', {
+    // send data to the template
   })
 })
 

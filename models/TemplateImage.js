@@ -24,8 +24,8 @@ TemplateImage.init(
       type: DataTypes.STRING,
       allowNull: false
     },
-    imageData: {
-      type: DataTypes.BLOB,
+    image_data: {
+      type: DataTypes.BLOB('medium'),
       allowNull: false
     }
   },

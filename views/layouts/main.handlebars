@@ -45,16 +45,11 @@
             <a class="nav-link" id="signup-link" href="">Sign up</a>
             </li>
             {{/if}}
-            {{#if isDashboard}}
-            <li class="nav-item">
-              <a class="nav-link fw-semibold" id="new-post-link" href="">New Post</a>
-            </li>
-            {{/if}}
           </ul>
         </div>
       </nav>
       <div class="bg-body-secondary mt-0 d-flex flex-column flex-md-row justify-content-between align-items-baseline">
-        <h1 class="text-start ms-3 pt-2 pb-2">Tech Chronicles {{pageTitle}}</h1>
+        <h1 class="text-start ms-3 pt-2 pb-2">InfoPulse</h1>
         {{#if loggedIn}}
         <h6 class="text-end ms-3 me-3 pb-2 m ">{{username}}</h6>
         {{/if}}
@@ -79,7 +74,7 @@
           <button type="button" class="btn btn-primary mt-0 mb-2" id="new-post-button">New Post</button>
         </div>
         <div>
-          <p>© 2023 René Malingré</p>
+          <p>© 2023 Group 2</p>
         </div>
       </div>
       {{else}}
@@ -88,7 +83,7 @@
           <p>InfoPulse</p>
         </div>
         <div>
-          <p>© 2023 René Malingré</p>
+          <p>© 2023 Group 2</p>
         </div>
       </div>
       {{/if}}
@@ -133,4 +128,5 @@
     </div>
   </div>
 </body>
+
 </html>

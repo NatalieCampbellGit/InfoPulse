@@ -10,6 +10,7 @@ const seedFactsheets = require('./seed-factsheets.js')
 const seedUserComments = require('./seed-usercomments.js')
 
 const seedAll = async () => {
+  // create the tables and relationships
   await sequelize.sync({ force: true })
   // need to be in pretty much this order to maintain foreign key relationships
   await seedAdministrators()

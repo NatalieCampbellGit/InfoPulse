@@ -16,7 +16,7 @@ User.init(
       primaryKey: true,
       autoIncrement: true
     },
-    administratorId: {
+    administrator_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -24,21 +24,21 @@ User.init(
         key: 'id'
       }
     },
-    firstName: {
+    first_name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: [1, 64]
       }
     },
-    lastName: {
+    last_name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: [1, 64]
       }
     },
-    dateOfBirth: {
+    date_of_birth: {
       type: DataTypes.DATEONLY,
       allowNull: false,
       validate: {
@@ -53,21 +53,21 @@ User.init(
         len: [1, 64]
       }
     },
-    mobilePhone: {
+    mobile_phone: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
         len: [11, 18]
       }
     },
-    crmId: {
+    crm_id: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
         len: [1, 64]
       }
     },
-    passCode: {
+    authentication_code: {
       type: DataTypes.STRING,
       allowNull: true
     },

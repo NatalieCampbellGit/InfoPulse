@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@octokit/rest": "^19.0.13",
     "bcrypt": "^5.1.0",
     "connect-session-sequelize": "^7.1.7",
     "dompurify": "^3.0.3",
@@ -9,7 +10,10 @@
     "express-session": "^1.17.3",
     "generate-passphrase": "^1.2.0",
     "handlebars": "^4.7.7",
-    "marked": "^5.1.0",
+    "jsdom": "^22.1.0",
+    "marked": "^4.3.0",
+    "marked-emoji": "^1.0.1",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "^3.4.0",
     "node": "^20.2.0",
     "sequelize": "^6.32.1",
