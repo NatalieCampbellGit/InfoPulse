@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require('sequelize')
 const bcrypt = require('bcrypt')
 const sequelize = require('../config/connection')
+const generatePassphrase = require('../utils/codes-utils')
 
 class Administrator extends Model {
   checkPassword (loginPassword) {
@@ -67,10 +68,13 @@ Administrator.init(
     hooks: {
       beforeCreate: async (newData) => {
         newData.password = await bcrypt.hash(newData.password, 10)
+        newData.authentication_code = generatePassphrase()
+        newData.email = newData.email.toLowerCase()
         return newData
       },
       beforeUpdate: async (newData) => {
         newData.password = await bcrypt.hash(newData.password, 10)
+        newData.email = newData.email.toLowerCase()
         return newData
       }
 

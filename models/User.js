@@ -1,10 +1,21 @@
 const { Model, DataTypes } = require('sequelize')
 const bcrypt = require('bcrypt')
 const sequelize = require('../config/connection')
+const generatePassphrase = require('../utils/codes-utils')
 
 class User extends Model {
   checkPassword (loginPassword) {
     return bcrypt.compareSync(loginPassword, this.password)
+  }
+
+  checkAuthenticationCode (loginAuthenticationCode) {
+    // if the user has already created a password and username, then the authentication code is unnecessary
+    if (this.username && this.password) {
+      return true
+    } else {
+      const codeMatches = loginAuthenticationCode === this.authentication_code
+      return codeMatches
+    }
   }
 }
 
@@ -87,7 +98,14 @@ User.init(
     hooks: {
       beforeCreate: async (newUserData) => {
         newUserData.password = await bcrypt.hash(newUserData.password, 10)
+        newUserData.authentication_code = generatePassphrase()
+        newUserData.email = newUserData.email.toLowerCase()
         return newUserData
+      },
+      beforeUpdate: async (updatedUserData) => {
+        updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10)
+        updatedUserData.email = updatedUserData.email.toLowerCase()
+        return updatedUserData
       }
     },
     sequelize,

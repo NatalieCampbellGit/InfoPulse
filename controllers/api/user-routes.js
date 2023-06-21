@@ -2,7 +2,17 @@
 const router = require('express').Router()
 const { User } = require('../../models')
 
-// CREATE new user
+// CREATE new user: new users are created by administrators only
+// must have:
+// administrator_id
+// first_name
+// last_name
+// date_of_birth
+// email
+// authentication_code
+// mobile_phone (optional)
+// crm_id (optional)
+// the user will use the authentication_code to create their own username and password
 router.post('/', async (req, res) => {
 // check that the user does not already exist
   try {
@@ -44,6 +54,11 @@ router.post('/', async (req, res) => {
 })
 
 // Login
+// if it is the first time the user is logging in,
+// they will use the authentication_code to create their own username and password
+// the email address and the authentication_code identifies the user the first time
+// the user will use the username and password to log in from then on
+// so if the user has already created a username and password, then the authentication_code is unnecessary
 router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({
@@ -80,5 +95,8 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ err, message: 'Error logging in' })
   }
 })
+
+// maybe add a firstlogin route to handle the first login with the authentication_code
+// the user will use the authentication_code to create their own username and password
 
 module.exports = router

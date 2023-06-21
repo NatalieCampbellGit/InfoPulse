@@ -10,6 +10,9 @@ async function seedTemplates () {
 
 Glaucoma is a progressive eye disease that affects the optic nerve, which is responsible for transmitting visual information from the eye to the brain. It is often referred to as the "silent thief of vision" because it can gradually damage your eyesight without any noticeable symptoms until it reaches an advanced stage.
 
+![Test Image](/api/images/1)
+<img src="/api/images/1" alt="Image Description" width="200" height="200">
+
 ## What Causes Glaucoma?
 
 The primary cause of glaucoma is an increase in intraocular pressure (IOP) within the eye. This pressure builds up when the fluid inside the eye, called aqueous humor, cannot drain properly. The increased pressure puts strain on the optic nerve, leading to its gradual deterioration and potential vision loss.
