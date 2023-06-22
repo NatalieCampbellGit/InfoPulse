@@ -8,6 +8,7 @@ const seedCategories = require('./seed-categories.js')
 const seedTemplates = require('./seed-templates.js')
 const seedFactsheets = require('./seed-factsheets.js')
 const seedUserComments = require('./seed-usercomments.js')
+const seedImages = require('./seed-images.js')
 
 const seedAll = async () => {
   // create the tables and relationships
@@ -19,6 +20,7 @@ const seedAll = async () => {
   await seedTemplates()
   await seedFactsheets()
   await seedUserComments()
+  await seedImages()
   process.exit(0)
 }
 

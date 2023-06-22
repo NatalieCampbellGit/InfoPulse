@@ -5,5 +5,3 @@ function generatePassphrase () {
 }
 
 module.exports = generatePassphrase
-
-console.log(generatePassphrase())

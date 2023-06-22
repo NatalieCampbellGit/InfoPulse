@@ -8,7 +8,12 @@ async function seedFactsheets () {
     { user_id: 2, template_id: 3, administrator_id: 1, custom_markdown: 'You need to come back to let me check your eyes in 3 months', custom_html: '', date_last_viewed: null },
     { user_id: 2, template_id: 4, administrator_id: 1, custom_markdown: 'All of this applies to you', custom_html: '', date_last_viewed: null },
     { user_id: 3, template_id: 5, administrator_id: 1, custom_markdown: 'You are on the good end of this scale', custom_html: '', date_last_viewed: null },
-    { user_id: 3, template_id: 6, administrator_id: 1, custom_markdown: 'Give this to your mother', custom_html: '', date_last_viewed: null }
+    { user_id: 3, template_id: 6, administrator_id: 1, custom_markdown: 'Give this to your mother', custom_html: '', date_last_viewed: null },
+    { user_id: 3, template_id: 7, administrator_id: 1, custom_markdown: '', custom_html: '', date_last_viewed: null },
+    { user_id: 3, template_id: 8, administrator_id: 1, custom_markdown: '', custom_html: '', date_last_viewed: null },
+    { user_id: 3, template_id: 9, administrator_id: 1, custom_markdown: '', custom_html: '', date_last_viewed: null },
+    { user_id: 3, template_id: 10, administrator_id: 1, custom_markdown: '', custom_html: '', date_last_viewed: null },
+    { user_id: 3, template_id: 11, administrator_id: 1, custom_markdown: '', custom_html: '', date_last_viewed: null }
   ]
 
   for (let i = 0; i < factsheets.length; i++) {
