@@ -52,10 +52,10 @@ router.post('/', withAuth, upload.single('image'), async function (req, res) {
     }
     // get the dimensions of the image using sharp library
     let { width, height } = await sharp(image).metadata()
-    // scale image down to 800px wide if bigger than this
-    if (width > 800) {
+    // scale image down to 1200px wide if bigger than this
+    if (width > 1200) {
       try {
-        const scaledImage = await sharp(image).resize(800).toBuffer()
+        const scaledImage = await sharp(image).resize(1200).toBuffer()
         image = scaledImage
         const metaData = await sharp(image).metadata()
         width = metaData.width

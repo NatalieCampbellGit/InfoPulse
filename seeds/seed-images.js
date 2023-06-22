@@ -70,6 +70,31 @@ async function seedImages () {
       title: 'Blue Eye',
       description: 'Blue eye',
       filename: 'blue-eye.jpg'
+    },
+    {
+      title: 'Ishihara',
+      description: 'Ishihara colour vision test plates',
+      filename: 'ishihara.jpg'
+    },
+    {
+      title: 'Vision with ARM',
+      description: 'Distorted vision with age-related macular degeneration',
+      filename: 'arm.jpg'
+    },
+    {
+      title: 'Vision with Cataract',
+      description: 'Blurred and reduced contrast vision with cataract',
+      filename: 'cataract.jpg'
+    },
+    {
+      title: 'Diabetic Retinopathy',
+      description: 'Normal eye and eye with diabetic retinopathy',
+      filename: 'diabetes.jpg'
+    },
+    {
+      title: 'Retinal Examination',
+      description: 'Retinal examination with slit lamp',
+      filename: 'retinal-exam.jpg'
     }
   ]
 
@@ -79,6 +104,7 @@ async function seedImages () {
   // Loop through the images array
   for (let i = 0; i < images.length; i++) {
     // Get the file name from the images array
+    console.log('attempting to save ' + images[i].title)
     const file = images[i].filename
     if (!file) {
       console.error('No file name found.')
@@ -116,12 +142,12 @@ async function seedImages () {
 async function seedWithImage (fileDetails, dirPath) {
   try {
     try {
-      // scale image down to 800px wide if bigger than this
+      // scale image down to 1200px wide if bigger than this
       let image = fs.readFileSync(path.join(dirPath, fileDetails.filename))
 
-      if (fileDetails.width > 800) {
+      if (fileDetails.width > 1200) {
         try {
-          const scaledImage = await sharp(image).resize(800).toBuffer()
+          const scaledImage = await sharp(image).resize(1200).toBuffer()
           image = scaledImage
           const metaData = await sharp(image).metadata()
           fileDetails.width = metaData.width

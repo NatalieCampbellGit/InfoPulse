@@ -10,7 +10,7 @@ async function seedTemplates () {
 
 Glaucoma is a progressive eye disease that affects the optic nerve, which is responsible for transmitting visual information from the eye to the brain. It is often referred to as the "silent thief of vision" because it can gradually damage your eyesight without any noticeable symptoms until it reaches an advanced stage.
 
-<img class="template-img-full-width" src="/api/images/1" alt="Normal eye and eye with glaucoma" width="800" height="371">
+<img class="template-img-full-width" src="/api/images/1" alt="Normal eye and eye with glaucoma" width="1000" height="371">
 
 ## What Causes Glaucoma?
 
@@ -66,7 +66,7 @@ Myopia, commonly known as nearsightedness, is a refractive error that affects th
 
 Myopia occurs when the eyeball is slightly longer than normal or when the cornea (the clear front part of the eye) has excessive curvature. These factors cause the incoming light to focus in front of the retina instead of directly on it, resulting in blurred distance vision.
 
-<img class="template-img-half-width-centred" src="/api/images/2" alt="Myopic eye and myopic eye with lens" width="800">
+<img class="template-img-reduced-width-centred" src="/api/images/2" alt="Myopic eye and myopic eye with lens" width="1000">
 
 Common symptoms of myopia include:
 
@@ -143,7 +143,7 @@ It is important to note that the correction methods mentioned above are intended
 
 Hyperopia, commonly known as longsightedness or farsightedness, is a refractive error that affects the ability to see nearby objects clearly while distant objects appear relatively clearer. It is a common vision condition that can affect people of all ages. In hyperopia, the eyeball is shorter than normal or the cornea is less curved, causing light to focus behind the retina instead of directly on it. This results in blurred vision for close objects when you are young, and every distance when you are older.
 
-<img class="template-img-full-width" src="/api/images/3" alt="Normal eye and eye with hyperopia" width="800">
+<img class="template-img-full-width" src="/api/images/3" alt="Normal eye and eye with hyperopia" width="1000">
 
 ## Causes of Hyperopia
 
@@ -219,7 +219,7 @@ Astigmatism is a common vision condition that can affect your ability to see cle
 
 Astigmatism occurs when the cornea (the front surface of the eye) or the lens inside the eye has an non-spherical or irregular shape. Instead of having a smooth, spherical curvature, the cornea or lens may be shaped more like a football or the back of a spoon. This irregular shape causes light to focus on multiple points rather than a single point on the retina, resulting in blurred or distorted vision.
 
-<img class="template-img-full-width" src="/api/images/4" alt="Normal eye and eye with astigmatism" width="800">
+<img class="template-img-full-width" src="/api/images/4" alt="Normal eye and eye with astigmatism" width="1000">
 
 ## Signs and Symptoms
 
@@ -284,7 +284,7 @@ Presbyopia is a common age-related vision condition that affects the ability to 
 
 Presbyopia occurs when the natural lens inside the eye loses its flexibility and ability to focus on nearby objects. It is a normal age-related change that typically becomes noticeable after the age of 40, but the process begins when you are a small child. As a result, individuals with presbyopia find it challenging to read small print, perform tasks at close distances, or see objects clearly in low-light conditions.
 
-<img class="template-img-full-width" src="/api/images/5" alt="Presbyopic eye with book, clear and blurry" width="800">
+<img class="template-img-full-width" src="/api/images/5" alt="Presbyopic eye with book, clear and blurry" width="1000">
 
 ## Signs and Symptoms
 
@@ -344,7 +344,7 @@ Dry eye is a common condition that occurs when the eyes do not produce enough te
 
 ## Understanding Dry Eye
 
-<img class="template-img-full-width" src="/api/images/6" alt="artistic eye with dry cracks" width="800">
+<img class="template-img-full-width" src="/api/images/6" alt="artistic eye with dry cracks" width="1000">
 
 Dry eye occurs when the quantity or quality of tears is insufficient to keep the eyes adequately lubricated and nourished. This can result in a range of symptoms, including dryness, redness, stinging, burning, itchiness, and a feeling of grittiness in the eyes. In severe cases, it may lead to blurred vision and difficulty performing daily activities.
 
@@ -368,7 +368,7 @@ To diagnose dry eye and receive proper care, it is important to visit an optomet
 - Eye examination: Your eyes will be examined to assess tear production, measure tear quality, and evaluate the overall health of the ocular surface.
 - Additional tests: In some cases, additional tests may be performed to evaluate the tears, measure tear film stability, or assess the integrity of the ocular surface.
 
-<img class="template-img-full-width" src="/api/images/7" alt="Tear film layers" width="800">
+<img class="template-img-full-width" src="/api/images/7" alt="Tear film layers" width="1000">
 
 ## Management and Treatment
 
@@ -422,7 +422,7 @@ Wearing appropriate protective eyewear is one of the most effective ways to prev
 - Sports goggles: If you participate in sports activities, particularly those involving high-speed projectiles or physical contact, wear sports goggles specifically designed for that sport. These goggles provide impact protection and can help prevent eye injuries.
 - Sunglasses: When outdoors, protect your eyes from harmful ultraviolet (UV) radiation by wearing sunglasses that block 100% of UVA and UVB rays. Look for sunglasses labeled with UV protection.
 
-<img class="template-img-full-width" src="/api/images/8" alt="Safety Glasses" width="800">
+<img class="template-img-full-width" src="/api/images/8" alt="Safety Glasses" width="1000">
 
 ## Workplace Safety
 
@@ -486,7 +486,9 @@ Several vision problems can affect children. Here are some of the most common on
 
 6. **Strabismus:** Strabismus is a misalignment of the eyes, where one or both eyes may turn inward (esotropia), outward (exotropia), upward, or downward. It can lead to problems with depth perception and can sometimes be associated with amblyopia.
 
-7. **Color vision deficiency:** Color vision deficiency, commonly known as color blindness, is the inability to perceive certain colors or distinguish between them. It is usually inherited and more common in males, with 1 in 15 males and 1 in 200 females having the condition.
+7. **colour vision deficiency:** colour vision deficiency, commonly known as colour blindness, is the inability to perceive certain colours or distinguish between them. It is usually inherited and more common in males, with 1 in 15 males and 1 in 200 females having the condition.
+
+<img class="template-img-full-width" src="/api/images/14" alt="Ishihara colour vision test plates" width="1000">
 
 ## Signs and Symptoms
 
@@ -516,7 +518,7 @@ Treatment options for common vision problems in children may include:
 - Patching or eye drops: In cases of amblyopia, the stronger eye may be temporarily patched or treated with eye drops to encourage the weaker eye to develop proper vision.
 - Surgical intervention: Strabismus may require surgical correction to align the eyes.
 
-<img class="template-img-full-width" src="/api/images/9" alt="Girl with red-green glasses doing vision therapy" width="800">
+<img class="template-img-full-width" src="/api/images/9" alt="Girl with red-green glasses doing vision therapy" width="1000">
 
 ## Promoting Eye Health in Children
 
@@ -549,7 +551,7 @@ AMD is a common eye disease that primarily affects older individuals. It causes 
 
 2. **Wet AMD:** Wet AMD is less common but more severe. It occurs when abnormal blood vessels grow under the retina, leaking blood and fluid, which can lead to rapid and severe vision loss.
 
-<img class="template-img-full-width" src="/api/images/10" alt="Normal eye and eyes with macular degeneration" width="800">
+<img class="template-img-full-width" src="/api/images/10" alt="Normal eye and eyes with macular degeneration" width="1000">
 
 ## Risk Factors
 
@@ -563,12 +565,14 @@ Several factors increase the risk of developing AMD, including:
 
 ## Signs and Symptoms
 
+<img class="template-img-reduced-width" src="/api/images/15" alt="Distorted vision with age-related macular degeneration" width="600">
+
 Early stages of AMD may not exhibit noticeable symptoms. As the condition progresses, the following signs may become apparent:
 
 - Blurred or distorted central vision.
 - Difficulty reading or recognizing faces.
 - Needing brighter light for close-up tasks.
-- Decreased color perception.
+- Decreased colour perception.
 - Seeing straight lines as wavy or crooked.
 
 ## Diagnosis and Professional Care
@@ -624,7 +628,7 @@ When it comes to maintaining optimal eye health and vision, various types of eye
 
 **Optometrists** are primary eye care providers who specialize in assessing, diagnosing, and managing a wide range of eye conditions and visual disorders. Consider them the GPs of eye care. They typically hold a Master's degree, a Doctor of Optometry degree or a Bachelor's degree, depending on where and when they were educated. They are licensed to perform comprehensive eye examinations, prescribe corrective lenses, diagnose common eye diseases, and provide non-surgical treatments.
 
-<img class="template-img-full-width" src="/api/images/11" alt="Optometrist with eye chart and trial frame" width="800">
+<img class="template-img-full-width" src="/api/images/11" alt="Optometrist with eye chart and trial frame" width="1000">
 
 Optometrists can:
 
@@ -674,7 +678,6 @@ Optical dispensers/opticians can:
 - Provide guidance on lens options, coatings, and lens materials.
 - Adjust and repair eyeglasses to improve comfort and fit.
 
-
 Remember, regular eye examinations and appropriate care from qualified eye care practitioners are crucial for maintaining good eye health and optimal vision.
 
 Disclaimer: This guide provides general information and should not substitute professional medical advice. Please consult an eye care practitioner for personalized recommendations and guidance.`,
@@ -689,7 +692,7 @@ Disclaimer: This guide provides general information and should not substitute pr
 
 The human eye is a fascinating organ, responsible for processing visual information and allowing us to see the world around us. They give us so much information about the world, even if they are prone to falling for optical illusions.
 
-<img class="template-img-full-width" src="/api/images/12" alt="Optical illusion where straight lines look curved" width="800">
+<img class="template-img-full-width" src="/api/images/12" alt="Optical illusion where straight lines look curved" width="1000">
 
 ## Here are some fun facts about eyes and vision:
 
@@ -699,13 +702,13 @@ The human eye is a fascinating organ, responsible for processing visual informat
 
 3. **Your eyes don't grow much:** Your eyes are at two thirds of their adult size at birth.
 
-4. **Your eyes can distinguish millions of colors:** The human eye can detect approximately 10 million different colors, thanks to specialized cells called cones in the retina.
+4. **Your eyes can distinguish millions of colours:** The human eye can detect approximately 10 million different colours, thanks to specialized cells called cones in the retina.
 
 5. **Eyes heal quickly:** Compared to other parts of the body, the eyes have a remarkable ability to heal rapidly. Minor scratches or injuries to the cornea often heal within 48 hours.
 
 6. **Blinking keeps your eyes moisturized:** Blinking helps spread tears across the surface of the eye, keeping them moisturized and preventing dryness.
 
-7. **Newborn babies see in black and white:** At birth, babies see the world in black and white because their color vision is not fully developed yet.
+7. **Newborn babies see in black and white:** At birth, babies see the world in black and white because their colour vision is not fully developed yet.
 
 8. **Eyes are the only part of the body where blood vessels can be seen without a microscope:** By looking at someone's eyes, healthcare professionals can observe the blood vessels in the retina, providing valuable information about overall health.
 
@@ -723,11 +726,149 @@ The human eye is a fascinating organ, responsible for processing visual informat
 
 15. **Blue eyes are not blue:** They only appear blue because of the way light is scattered off the iris structures back out of they eye, in exactly the same way that the sky is blue through 'Rayleigh scattering'.
 
-<img class="template-img-full-width" src="/api/images/13" alt="Closeup of a blue eye" width="800">
+<img class="template-img-full-width" src="/api/images/13" alt="Closeup of a blue eye" width="1000">
 
 Remember, these fun facts about the eye and vision can be great conversation starters, but it's important to rely on accurate information from eye care professionals for any health-related concerns or questions.
 
 I hope you enjoy sharing these fun facts!`,
+      html: '',
+      administrator_id: 1
+    },
+    {
+      title: 'Understanding Cataracts',
+      description: 'Overview of cataracts and what can be done about them',
+      category_id: 1,
+      markdown: `# Understanding Cataracts
+
+## What are Cataracts?
+
+A cataract is a clouding of the normally clear lens of your eye. For people who have cataracts, seeing through cloudy lenses is a bit like looking through a frosty or fogged-up window.
+
+<img class="template-img-full-width" src="/api/images/16" alt="Cataracts vs normal eye and vision" width="1000">
+
+## Symptoms of Cataracts
+
+- Blurred vision, double vision, or rapidly increasing shortsightedness.
+- Sensitivity to light. Lights may seem too bright and/or present a glare.
+- Changes in color perception especially a reduction to brightness of blue colours.
+- Difficulty seeing at night.
+- Frequent prescription changes in your eyewear.
+
+## Causes of Cataracts
+
+Cataracts are a normal part of the aging process. Cataracts develop when aging or injury changes the tissue that makes up your eye's lens. Some inherited genetic disorders that cause other health problems can increase your risk of cataracts. Some medications can increase your risk of cataracts. Cataracts can also be caused by other eye conditions, past eye surgery or medical conditions such as diabetes.
+
+## Types of Cataracts
+
+### Common types of cataracts include:
+
+- **Nuclear Cataracts**: A nuclear cataract forms deep in the central zone (nucleus) of the lens. Nuclear cataracts usually are associated with aging.
+- **Cortical Cataracts**: A cortical cataract is characterized by white, wedge-like opacities that start in the periphery of the lens and work their way to the center in a spoke-like fashion.
+- **Posterior Sub-capsular Cataracts**: These types form at the back of the lens. They can interfere with your reading vision, reduce your vision in bright light, and cause glare or halos around lights at night.
+
+Often people with have a combination of nuclear and cortical cataracts, which we call **mixed cataract**.
+
+#### More rare types of cataracts include:
+
+- **Congenital Cataracts**: Some babies are born with cataracts or develop them in childhood, often in both eyes. These cataracts may be so small that they do not affect vision. If they do, the lenses may need to be removed.
+- **Traumatic Cataracts**: Cataracts can develop after an eye injury, sometimes years later.
+- **Secondary Cataracts**: These develop as a result of other medical conditions, like diabetes, or exposure to toxic substances, certain drugs (such as corticosteroids or diuretics), ultraviolet light, or radiation.
+- **Radiation Cataracts**: Cataracts can develop after exposure to some types of radiation.
+- **Glassblower's Cataracts**: These form as a result of intense heat and infrared radiation.
+
+
+## Risk Factors
+
+Several factors increase your risk of developing cataracts, including:
+
+- Older age - most people will develop cataracts in their 60s or 70s
+- Diabetes
+- Excessive exposure to sunlight/UV light
+- Smoking
+- Obesity
+- High blood pressure
+- Previous eye injury or inflammation
+- Prolonged use of corticosteroid medications
+- Drinking excessive amounts of alcohol
+
+## Preventive Measures
+
+Protecting yourself against UV from a young age is important, and protecting your eyes from trauma is too. A healthy diet and lifestyle can also help reduce your risk of developing cataracts but there is no specific dietary supplement that has been proven to prevent or slow down the progression of cataract.
+
+## Treatment
+
+The symptoms of early cataract may be improved with new eyeglasses, brighter lighting, anti-glare sunglasses, or magnifying lenses. If these measures do not help, surgery is the only effective treatment.
+
+### Success Rate of Cataract Surgery
+
+Cataract surgery is one of the most common operations performed. It is a highly successful procedure with an excellent success rate. It takes a skilled surgeon less than 15 minutes to perform the procedure, and it is usually bloodless, suture-less and it is usually done with simple local anaesthetic. Over 95% of cataract surgeries improve vision, according to the American Society of Cataract and Refractive Surgery (ASCRS). As with any surgical procedure, complications can occur, but they are relatively uncommon. Most complications can be treated successfully with medications or additional surgical procedures. Factors that can affect the success rate include the general health of the patient and the condition of the eye, apart from the cataract.
+
+### Types of Artificial Lenses
+
+Artificial lenses, known as intraocular lenses (IOLs), replace the eye's natural lens that is removed during cataract surgery. They are implanted inside the eye to help focus light onto the retina. There are several types of IOLs available:
+
+- **Monofocal Lenses**: These lenses have one focal point and can be set to improve either distance or close vision, but not both.
+
+- **Multifocal Lenses**: These lenses improve both near and distance vision and are similar to wearing multifocal eyeglasses.
+
+- **Toric Lenses**: These are used for patients with astigmatism. They correct both the cataract and the astigmatism simultaneously.
+
+- **Extended Depth of Focus (EDOF) Lenses**: These are a newer type of lens that provides a continuous range of vision for far, intermediate, and near distances.
+
+Your optometrist and your eye surgeon will help you choose the type of lens that best suits your lifestyle and vision needs based on your specific circumstances and the health of your eyes.
+
+## Conclusion
+
+Regular eye examinations can help detect cataracts and other eye problems at their earliest stages. Ask your optometrist how often you should have an eye examination.
+
+Disclaimer: This guide provides general information and should not substitute professional medical advice. Please consult an eye care practitioner for personalized recommendations and guidance.`,
+
+      html: '',
+      administrator_id: 1
+    },
+    {
+      title: 'Diabetes and Eye Care',
+      description: 'Overview of recommended eye care for people with diabetes',
+      category_id: 1,
+      markdown: `# The Importance of Eye Care for People with Diabetes
+
+## Introduction
+
+Diabetes can have significant effects on the eyes, leading to conditions like diabetic retinopathy, glaucoma, and cataract. The Australian National Health and Medical Research Council (NHMRC) and Optometry Australia recommend regular eye examinations for people with diabetes to prevent vision loss and manage these conditions. 
+
+## How Often Should Diabetic Patients Have Eye Examinations?
+
+For adults with diabetes, Optometry Australia and the NHMRC recommend an eye examination at least once every two years. However, if you have a known eye condition or your diabetes is not well-controlled, more frequent eye examinations may be necessary, potentially as often as every three to six months. Your optometrist will advise you on how often you should have an eye examination.
+
+Children with type 1 diabetes should have an initial eye examination within five years after diagnosis, while children with type 2 diabetes should have an eye examination at the time of diagnosis. 
+
+## Why Regular Eye Examinations are Important for People with Diabetes
+
+<img class="template-img-full-width" src="/api/images/17" alt="Diabetic retinopathy" width="1000">
+
+Regular eye examinations are important for people with diabetes because high blood sugar levels can damage the small blood vessels in the retina, leading to diabetic retinopathy. This condition can cause vision loss if not detected and treated early. 
+
+Eye examinations can also detect other eye conditions that are more common in people with diabetes, such as glaucoma and cataracts. Early detection and management of these conditions can help to prevent vision loss.
+
+## What Optometrists Look For 
+
+<img class="template-img-full-width" src="/api/images/18" alt="Retinal examination with a slitlamp" width="1000">
+
+During an eye examination, optometrists look for signs of diabetic retinopathy, including changes to the blood vessels in the retina, the growth of new blood vessels, and retinal swelling. They also check for cataracts, which are more common in people with diabetes, and for signs of glaucoma, which can occur when diabetes affects the blood flow to the optic nerve.
+
+Optometrists may use a variety of tests during the examination, including visual acuity testing, dilated eye examinations, tonometry (to check for glaucoma), and optical coherence tomography (to check the thickness of the retina). 
+
+## Consequences of Not Having Regular Eye Examinations
+
+Failure to have regular eye examinations when you have diabetes can lead to serious consequences. Diabetic retinopathy can progress without symptoms until it reaches an advanced stage where the risk of vision loss is high. Similarly, glaucoma and cataracts can develop slowly and without causing symptoms until they are quite advanced. 
+
+By having regular eye examinations, these conditions can be detected and managed early, greatly reducing the risk of vision loss.
+
+## Conclusion 
+
+Regular eye examinations are a crucial part of managing diabetes. By detecting and treating eye conditions early, optometrists can help to prevent vision loss in people with diabetes. 
+
+Please remember to schedule your regular eye examinations and to manage your diabetes as effectively as possible in consultation with your healthcare team. If you notice any changes to your vision, seek medical attention immediately.`,
       html: '',
       administrator_id: 1
     }
