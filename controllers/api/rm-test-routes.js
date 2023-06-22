@@ -11,6 +11,9 @@ const Administrator = require('../../models/Administrator')
 // const upload = multer()
 const withAuth = require('../../utils/auth')
 // const path = require('path')
+router.get('/edit', withAuth, async (req, res) => {
+  res.render('rm-test-edit-template')
+})
 
 router.get('/:id', withAuth, async (req, res) => {
   try {

@@ -1,0 +1,68 @@
+<section>
+  <h1>Search Section</h1>
+  <label for="category-list">Select a category:</label>
+  <select id="category-list">
+    <!-- insert categories here -->
+  </select><br />
+  <label for="search-box">Search:</label>
+  <input type="text" id="search-box"><br />
+  <button id="search-button">Search</button>
+  <div class="scrollable">
+    <ul id="results">
+      <!-- Search results will go here -->
+    </ul>
+  </div>
+
+  <button id="new">New</button>
+  <button id="edit">Edit</button>
+  <button id="delete">Delete</button>
+</section>
+
+<section>
+  <h1>Textarea Section</h1>
+  <textarea id="template-text" rows="40" cols="100" spellcheck="true" wrap="soft" resize="none">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor reiciendis, laboriosam, odio expedita aut itaque pariatur laborum dolorem minima vero eaque repudiandae nihil, soluta magni? Esse asperiores molestiae eligendi rerum!
+  </textarea>
+  <button id="insert-text">Insert stuff</button>
+</section>
+
+<section>
+  <h1>Image and Class Section</h1>
+  <label for="image-select">Select an image:</label>
+  <select id="image-select">
+    <!-- Add list of images here -->
+  </select><br />
+  <label for="classSelect">Select a class:</label>
+  <select id="classSelect">
+    <!-- list of CSS classes used to style the image in the factsheet (factsheet.css) -->
+    <option value="template-img-full-width" data-defaultWidth="1200">template-img-full-width-centred</option>
+    <option value="template-img-reduced-width" data-defaultWidth="800">template-img-reduced-width-centred</option>
+    <option value="template-img-small-width" data-defaultWidth="500">template-img-small-width-centred</option>
+    <option value="template-img-full-width-centred" data-defaultWidth="1200">template-img-full-width-centred</option>
+    <option value="template-img-reduced-width-centred" data-defaultWidth="800">template-img-reduced-width-centred
+    </option>
+    <option value="template-img-small-width-centred" data-defaultWidth="500">template-img-small-width-centred</option>
+
+    <!-- Add other classes here -->
+  </select>
+  <button id="openModal">Open Modal</button>
+  <button id="preview-html">Preview HTML</button>
+</section>
+<section>
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <h1>Modal Section</h1>
+      <label for="fileUpload">Upload an image:</label>
+      <input type="file" class="form-control-file" id="file-upload" name="uploaded_file" accept="image/*">
+      <label for="imgTitle">Image Title:</label>
+      <input type="text" id="file-title"><br />
+      <label for="imgDescription">Image Description:</label>
+      <input type="text" id="file-description"><br />
+      <button id="save">Save</button>
+      <button id="cancel">Cancel</button>
+    </div>
+  </div>
+
+
+</section>
+<script src="/assets/js/rm-test-template.js"></script>

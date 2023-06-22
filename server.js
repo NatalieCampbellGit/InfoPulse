@@ -13,6 +13,14 @@ require('dotenv').config()
 const app = express()
 const PORT = process.env.PORT || 3001
 
+// ! TODO REMOVE THIS BEFORE PRODUCTION
+// THIS IS TO ALLOW THE BROWSER TO ACCESS THE SERVER DURING TESTING
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*') // update to match the domain you will make the request from
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  next()
+})
+
 const userSession = {
   // TODO this should go in env, and when deployed to Heroku, should be
   // set to an environment variable there
