@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 mt-5">
+            <h2>User: {{user.username}}</h2>
+            <h3>Administrator: {{administrator.first_name}}</h3>
+            <textarea class="form-control">{{template.markdown}}</textarea>
+
+            <div class="mt-3">
+
+                {{{template.html}}}
+            </div>
+            <div class="mt-3">
+                <h3>Personalised Comment</h3>{{{custom_html}}}
+            </div>
+            <div class="mt-3">
+                {{#each usercomments as |comment|}}
+                {{> rm-comment comment }}
+                {{/each}}
+
+            </div>
+        </div>
+    </div>
+</div>

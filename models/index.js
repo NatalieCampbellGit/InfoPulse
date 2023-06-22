@@ -61,4 +61,13 @@ UserComment.belongsTo(Factsheet, {
   foreignKey: 'factsheet_id'
 })
 
+Template.hasMany(Factsheet, {
+  onDelete: 'CASCADE',
+  foreignKey: 'template_id'
+})
+
+Factsheet.belongsTo(Template, {
+  foreignKey: 'template_id'
+})
+
 module.exports = { User, Administrator, Category, UserComment, Template, Factsheet, TemplateImage }
