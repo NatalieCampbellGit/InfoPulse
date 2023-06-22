@@ -1,33 +1,98 @@
-<!-- Login Form -->
-<div class="container mt-2">
-    <div class="row d-flex justify-content-center">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-header bg-primary-subtle">
-                    <h3 class="card-title text-dark">Login</h3>
-                </div>
-                <div class="card-body">
-                    <form id="login-form">
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" name="username"
-                                autocomplete="username">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password"
-                                autocomplete="current-password">
-                        </div>
-                        <button type="submit" id="login-button" class="btn btn-primary mt-1">Login</button>
-                    </form>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Don't have an account? <a href="/signup">Sign up instead</a></small>
-                </div>
-            </div>
-        </div>
+<!-- login & signup on the same page - matching the lucid chart -->
+
+<!-- Header -->
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="/">  <!--LINK to ROOT page-->
+        <img src="/assets/images/logo.png" alt="Logo"> <!-- PLACEHOLDER for IMAGE-->
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a> <!--LINK to ROOT page-->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a> <!-- PATH (if there ends up being one) -->
+          </li>
+        </ul>
+      </div>
     </div>
+  </nav>
+</header>
+
+<!-- Login and Signup Forms -->
+<div class="container mt-2">
+  <div class="row d-flex justify-content-center">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header bg-primary-subtle">
+          <h3 class="card-title text-dark">Login</h3>
+        </div>
+        <div class="card-body">
+          <p>If you have already created a username and password, enter your username or email address and your password below.</p>
+          <form id="login-form">
+            <div class="form-group">
+              <label for="username">Username/email address</label>
+              <input type="text" class="form-control" id="username" name="username" autocomplete="username">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" name="password" autocomplete="current-password">
+            </div>
+            <button type="submit" id="login-button" class="btn btn-primary mt-1">Login</button>
+          </form>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Don't have an account? <a href="/signup">Sign up instead</a></small>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header bg-success-subtle text-dark">
+          <h3 class="card-title">Sign Up</h3>
+        </div>
+        <div class="card-body">
+          <p>If you have been given an authentication code, enter your passcode and email below, then choose a username and password and enter it below.</p>
+          <form id="signup-form">
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="generate-passcode" name="generate-passcode">
+              <label class="form-check-label" for="generate-passcode">One-Time Passcode</label>
+            </div>
+            <div class="form-group">
+              <label for="email">email</label>
+              <input type="email" class="form-control" id="email" name="email" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="signup-username">username</label>
+              <input type="text" class="form-control" id="signup-username" name="signup-username" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="signup-password">Password</label>
+              <input type="password" class="form-control" id="signup-password" name="signup-password" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="confirm-password">Confirm password</label>
+              <input type="password" class="form-control" id="confirm-password" name="confirm-password" autocomplete="off">
+            </div>
+            <button type="submit" id="sign-up-button" class="btn btn-success mt-1">Sign up</button>
+          </form>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Already have an account? <a href="/login">Login here</a></small>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- login script -->
+{{> footer}} 
+
+<!-- Script links -->
 <script src="/assets/js/login.js"></script>
+<script src="/assets/js/signup.js"></script>
