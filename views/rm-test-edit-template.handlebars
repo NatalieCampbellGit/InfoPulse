@@ -1,26 +1,111 @@
-<section>
-  <h1>Search Section</h1>
-  <label for="category-list">Select a category:</label>
-  <select id="category-list">
-    <!-- insert categories here -->
-  </select><br />
-  <label for="search-box">Search:</label>
-  <input type="text" id="search-box"><br />
-  <button id="search-button">Search</button>
-  <div class="scrollable">
-    <ul id="results">
-      <!-- Search results will go here -->
-    </ul>
-  </div>
+<!-- Select Template to Edit -->
+<div class="max-w-6xl mx-auto px-2 sm:px-4 bg-white">
+  <section>
+    <div class="">
+      <h1 class="text-4xl font-bold text-pulse-blue-500 text-center mb-4">Manage Factsheet Templates</h1>
+    </div>
+    <div class="space-y-4 w-full sm:max-w-screen-sm">
+      <div class="flex items-center">
+        <label for="search-category" class="w-40 text-left mr-4">Select category:</label>
+        <select id="search-category" class="border-gray-300 border rounded p-2 w-full">
+          <!-- Your options go here -->
+        </select>
+      </div>
 
-  <button id="new">New</button>
-  <button id="edit">Edit</button>
-  <button id="delete">Delete</button>
+      <div class="flex items-center">
+        <label for="search-text" class="w-40 text-left mr-4">Search:</label>
+        <input type="text" id="search-text" class="border-gray-300 border rounded p-2 w-full" />
+      </div>
+
+      <div class="flex justify-end">
+        <button class="bg-pulse-green-500 text-white rounded px-4 py-2" id="search-button">Search</button>
+      </div>
+
+      <ul aria-label="Search results">
+        <!-- templates go here -->
+        <li
+          class="border-1 rounded-full bg-pulse-lt-blue-100 border-pulse-blue-300 hover:bg-pulse-lt-blue-400 text-pulse-blue-700 hover:text-white py-1 px-4 mb-1">
+          Item 1
+        </li>
+        <li
+          class="border-1 rounded-full bg-pulse-lt-blue-100 border-pulse-blue-300 hover:bg-pulse-lt-blue-400 text-pulse-blue-700 hover:text-white py-1 px-4  mb-1">
+          Item 2
+        </li>
+      </ul>
+    </div>
+
+    <button id="new">New</button>
+    <button id="edit">Edit</button>
+    <button id="delete">Delete</button>
+</div>
 </section>
 
 <section>
-  <h1>Textarea Section</h1>
-  <textarea id="template-text" rows="40" cols="100" spellcheck="true" wrap="soft" resize="none">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor reiciendis, laboriosam, odio expedita aut itaque pariatur laborum dolorem minima vero eaque repudiandae nihil, soluta magni? Esse asperiores molestiae eligendi rerum!
+  <!-- menu bar above the textarea -->
+  <div class="flex flex-col sm:flex-row items-start sm:space-x-4 space-y-2 sm:space-y-0 m-2">
+    <!-- Image section -->
+    <div class="flex space-x-2">
+      <button
+        class="btn-style relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-1 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        data-tag="# ">
+        <i class="fa-solid fa-image text-pulse-lt-blue-700 hover:text-pulse-lt-blue-400"></i>
+      </button>
+      <!-- Headers section -->
+      <button
+        class="btn-style relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-1 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        data-tag="# ">
+        <i class="fa-solid fa-h1 text-pulse-blue-900 hover:text-pulse-lt-blue-400"></i>
+      </button>
+      <button
+        class="btn-style relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-1 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        data-tag="## ">
+        <i class="fa-solid fa-h2 text-pulse-blue-700 hover:text-pulse-lt-blue-400"></i>
+      </button>
+      <button
+        class="btn-style relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-1 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        data-tag="### ">
+        <i class="fa-solid fa-h3 text-pulse-blue-500 hover:text-pulse-lt-blue-400"></i>
+      </button>
+      <button
+        class="btn-style relative border-2 border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-1 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        data-tag="#### ">
+        <i class="fa-solid fa-h4 text-pulse-blue-400 hover:text-pulse-lt-blue-400"></i>
+      </button>
+    </div>
+
+    <!-- Text style section -->
+    <div class="flex space-x-2">
+      <button
+        class="btn-style relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-1 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        data-tag="**">
+        <i class="fa-solid fa-bold text-black hover:text-pulse-lt-blue-400"></i>
+      </button>
+      <button
+        class="btn-style relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-1 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        data-tag="_">
+        <i class="fa-solid fa-italic text-black hover:text-pulse-lt-blue-400"></i>
+      </button>
+      <button
+        class="btn-style relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-1 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        data-tag="***">
+        <i class="fa-solid fa-bold text-black hover:text-pulse-lt-blue-400"></i><i
+          class="fa-solid fa-italic text-black hover:text-pulse-lt-blue-400"></i>
+      </button>
+      <button
+        class="btn-style relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-1 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        data-tag="~~">
+        <i class="fa-solid fa-strikethrough text-pulse-grey-dark hover:text-pulse-lt-blue-400"></i>
+      </button>
+      <button
+        class="btn-style relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-1 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        data-tag="---">
+        <i class="fa-solid fa-minus text-pulse-green-800 hover:text-pulse-lt-blue-400"></i><i
+          class="fa-solid fa-minus text-pulse-green-800 hover:text-pulse-lt-blue-400"></i>
+      </button>
+    </div>
+  </div>
+  <textarea class="border border-pulse-blue-700 bg-white p-2 rounded-md w-full h-32" id="template-text" rows="40"
+    cols="100" spellcheck="true" wrap="soft" resize="none">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor reiciendis, laboriosam, odio expedita aut itaque pariatur laborum dolorem minima vero eaque repudiandae nihil, soluta magni? Esse asperiores molestiae eligendi rerum!
   </textarea>
   <button id="insert-text">Insert stuff</button>
 </section>
@@ -47,11 +132,26 @@
   <button id="openModal">Open Modal</button>
   <button id="preview-html">Preview HTML</button>
 </section>
+</div>
 <section>
   <!-- Modal -->
   <div id="myModal" class="modal">
     <div class="modal-content">
-      <h1>Modal Section</h1>
+      <h1>Insert Image Link</h1>
+      <!-- Select existing image -->
+      <div>
+        <div class="">
+          <label for=" modal-image-select">Select an image:</label>
+          <select id="modal-image-select">
+
+            <!-- Add list of images here -->
+          </select><br />
+        </div>
+        <!-- img to display selected image -->
+        <img id="modal-img" src="" alt="image preview" width="200" height="200">
+
+
+      </div>
       <label for="fileUpload">Upload an image:</label>
       <input type="file" class="form-control-file" id="file-upload" name="uploaded_file" accept="image/*">
       <label for="imgTitle">Image Title:</label>

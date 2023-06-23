@@ -2,13 +2,6 @@
 
 // Search for a specific template
 // =======================================================================
-document.getElementById('category-list').addEventListener('change', function () {
-  console.log('Category changed')
-})
-
-document.getElementById('search-box').addEventListener('keyup', function () {
-  console.log('Search text entered')
-})
 
 document.getElementById('search-button').addEventListener('click', async function () {
   console.log('Search button clicked')
@@ -21,8 +14,8 @@ document.getElementById('search-button').addEventListener('click', async functio
   }
   console.log(categoryId)
 
-  // get the value of the search-box input
-  const searchBox = document.getElementById('search-box')
+  // get the value of the search-text input
+  const searchBox = document.getElementById('search-text')
   const searchText = searchBox.value.trim()
   let returnedData
   console.log(searchText)
@@ -206,7 +199,7 @@ document.getElementById('insert-text').addEventListener('click', function (event
 
     return
   }
-  // construct html img tag
+  // construct proper html img tag to allow use of css class
   let imgTag = `<img src="/api/images/${imageId}" alt="${imageDescription}" class="${classCSSName}" width="${defaultWidthSelect}">`
   // add trailing and leading new lines
   imgTag = '\n\n' + imgTag + '\n\n'
@@ -236,9 +229,9 @@ async function getImages () {
   // send a GET request with the form data
   try {
     // ! TODO: change the URL to the correct one
-    const debugURL = 'http://localhost:3001/api/images'
-    // const productionURL = '/api/images'
-    const response = await fetch(debugURL, {
+    // const debugURL = 'http://localhost:3001/api/images'
+    const productionURL = '/api/images'
+    const response = await fetch(productionURL, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     })
@@ -278,34 +271,34 @@ document.getElementById('preview-html').addEventListener('click', async function
   const textArea = document.getElementById('template-text')
   const markdown = textArea.value.trim()
   // validate
-  if (!text) {
+  if (!markdown) {
     alert('Please enter some text.')
     return
   }
   // query the API
-try{
-  const response = await fetch('/api/markdown/html', {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ markdown })
-  })
-} catch (error) {
-  alert('error! ' + error.message)
-  return
-}
-// get the response (html)
-const returnedData = await response.json()
-if (!response.ok) {
-  alert('error! ' + returnedData.message)
+  let response
+  try {
+    response = await fetch('/api/markdown/html', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ markdown })
+    })
+  } catch (error) {
+    alert('error! ' + error.message)
+    return
+  }
+  // get the response (html)
+  const returnedData = await response.json()
+  if (!response.ok) {
+    alert('error! ' + returnedData.message)
 
-  // get the response body
-  // show the preview
-  const preview = document.getElementById('preview')
-  preview.innerHTML = markdown
+    // get the response body
+    // show the preview
+    const preview = document.getElementById('preview')
+    preview.innerHTML = markdown
   // TODO finish this code here!!!
+  }
 })
-
-
 
 // =======================================================================
 // call loadImages on page load
