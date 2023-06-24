@@ -11,13 +11,15 @@ const withAuth = require('../../utils/auth')
 const { template } = require('handlebars')
 const router = require('express').Router();
 
+// route a for a search on the templates model using either an id or text search
 router.get('/search', (res, req) => {
     
         const searchText = req.query.search;
         const searchTemplateID = req.query.type;
-
+        // create a empty query object
         let query = {};
 
+    
         if (searchTemplateID === 'id') {
           const id = parseInt(searchText);
           if (!isNaN(id)) {
