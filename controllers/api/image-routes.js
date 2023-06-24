@@ -10,7 +10,8 @@ const sharp = require('sharp')
 router.get('/', withAuth, async (req, res) => {
   try {
     const templateImages = await TemplateImage.findAll({
-      attributes: ['id', 'title']
+      attributes: ['id', 'title'],
+      order: [['title', 'ASC']]
     })
     res.json(templateImages)
   } catch (err) {
@@ -19,6 +20,8 @@ router.get('/', withAuth, async (req, res) => {
   }
 })
 
+// TODO: confirm that image request in html is using the auth cookie
+// if not, have to remove the withAuth middleware from this route
 router.get('/:id', withAuth, async (req, res) => {
   try {
     const id = req.params.id

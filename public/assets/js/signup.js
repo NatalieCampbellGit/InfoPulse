@@ -1,6 +1,7 @@
 const signupFormHandler = async (event) => {
   event.preventDefault()
   document.getElementById('sign-up-button').disabled = true
+  
   // TODO add other form validation here
   const username = document.querySelector('#username').value.trim()
   const password = document.querySelector('#password').value.trim()
