@@ -1,43 +1,46 @@
-/* eslint-disable camelcase */
-/* eslint-disable no-unused-expressions */
 const sequelize = require('sequelize')
 const express = require('express')
-const Template = require('../../models/Template')
-const FactSheet = require('../../models/Factsheet')
-const UserComment = require('../../models/UserComment')
-const User = require('../../models/User')
-const Administrator = require('../../models/Administrator')
+const template = require('../../models/Template')
 const withAuth = require('../../utils/auth')
-const { template } = require('handlebars')
 const router = require('express').Router();
+const Op = sequelize.op();
 
 // route a for a search on the templates model using either an id or text search
 router.get('/search', (res, req) => {
     
         const searchText = req.query.search;
-        const searchTemplateID = req.query.type;
+        const id = req.query.type;
         // create a empty query object
         let query = {};
 
     
-        if (searchTemplateID === 'id') {
-          const id = parseInt(searchText);
-          if (!isNaN(id)) {
-            query = { id };
+        if (id) {
+          const category_id = parseInt(id);
+          if (!isNaN(category_id)) {
+            query = { category_id };
           }
-        } else if (searchText === 'text') {
+        } if (searchText) {
           query = {
             text: {
               [sequelize.Op.like]: `%${searchText}%`
             }
           };
+        } else if (id && searchText){
+          const category_id = parseInt(id);
+          if (!isNaN(category_id)) {
+            query = { category_id,
+              text: {
+                [Op.like]: `%${searchText}%`
+              }
+            }
         }
+      }
       
         // Query the model based on the search criteria
         template.findAll({ where: query })
           .then((results) => {
-            // Handle the retrieved results and send a response
-            res.send(results);
+           
+            res.status(200).json(results);
           })
           .catch((error) => {
             console.error('Error retrieving results', error);

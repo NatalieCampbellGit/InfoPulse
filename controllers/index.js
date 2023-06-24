@@ -5,6 +5,7 @@ const apiRoutes = require('./api')
 
 router.use('/', homeRoutes)
 router.use('/api', apiRoutes)
+router.use('/search', apiRoutes)
 
 // add default 404 route for completeness
 router.use((req, res) => {
@@ -12,3 +13,5 @@ router.use((req, res) => {
 })
 
 module.exports = router
+
+
