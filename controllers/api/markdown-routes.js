@@ -12,11 +12,14 @@ router.post("/html", withAuth, async (req, res) => {
   try {
     const markdown = req.body.markdown;
     const addCustomHTMLTags = req.body.addHTMLTags;
+    console.log("markdown-routes.js: markdown = ", markdown);
     let html = await convertMarkdownToHTML(markdown);
+    console.log("markdown-routes.js: html = ", html);
     html = sanitiseHTML(html);
     if (addCustomHTMLTags) {
       html = await addHTMLTags(html);
       html = `<div class="markdown">${html}</div>`;
+      console.log("markdown-routes.js: html with tags = ", html);
     }
     res.status(200).json({ html });
   } catch (err) {
