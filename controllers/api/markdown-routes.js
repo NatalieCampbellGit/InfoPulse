@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const withAuth = require("../../utils/auth");
+const { withAuth } = require("../../utils/auth");
 const {
   convertMarkdownToHTML,
   addHTMLTags,
 } = require("../../utils/markdown-utils");
-const sanitiseHTML = require("../../utils/html-utils");
+const { sanitizeHTML } = require("../../utils/html-utils");
 
 // create a GET route that has an input parameter some markdown string and returns sanitized html
 router.post("/html", withAuth, async (req, res) => {
@@ -15,7 +15,7 @@ router.post("/html", withAuth, async (req, res) => {
     console.log("markdown-routes.js: markdown = ", markdown);
     let html = await convertMarkdownToHTML(markdown);
     console.log("markdown-routes.js: html = ", html);
-    html = sanitiseHTML(html);
+    html = sanitizeHTML(html);
     if (addCustomHTMLTags) {
       html = await addHTMLTags(html);
       html = `<div class="markdown">${html}</div>`;

@@ -55,3 +55,7 @@ This is a full-stack application using NodeJS for the server and Express for the
 
 - eslint: Linting for JavaScript
 - prettier: Formatting for JavaScript
+
+## Thanks
+
+[404 Image by storyset on Freepik](href="https://www.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_7906233.htm#query=404&position=18&from_view=keyword&track=sph")

@@ -1,0 +1,51 @@
+<div class="max-w-screen-xl mx-auto">
+    <div class="">
+        <div class="">
+            <div id="admin-menu">
+                <button type="button" class="btn btn-primary" id="manage-templates">Manage Templates</button>
+                <button type="button" class="btn btn-primary" id="manage-administrators">Manage Administrators</button>
+                <button type="button" class="btn btn-primary" id="manage-users">Manage Users</button>
+                <button type="button" class="btn btn-primary" id="manage-categories">Manage Categories</button>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <h1 class="text-3xl font-bold text-pulse-blue-500 text-center mb-4 py-2">{{pagetitle}}</h1>
+    </div>
+    {{#ifeq dashboardView 0}}
+    <div id="select-template">
+        <div class="mx-auto px-1 sm:px-2 bg-white">
+            {{!-- display a component to select a template --}}
+            <section id="search-area" class="px-2">
+                <div class="space-y-1 w-full mx-auto sm:max-w-screen-sm">
+                    {{> template-select }}
+                </div>
+            </section>
+        </div>
+    </div>
+    {{/ifeq}}
+    {{#ifeq dashboardView 1}}
+    <div id="edit-template">
+        <div class="mx-auto px-1 sm:px-2 bg-white">
+            {{!-- display a component to select a template --}}
+            <section id="edit-area" class="w-full mx-auto">
+                <div class="space-y-1 w-full mx-auto ">
+                    {{> template-edit }}
+                </div>
+            </section>
+        </div>
+    </div>
+    {{/ifeq}}
+    {{#ifeq dashboardView 2}}
+    <div id="manage-administrator"></div>
+    <div id="manage-users"></div>
+    <div id="manage-categories">
+        {{!-- display a list of categories to edit --}}
+        {{> category-list}}
+    </div>
+    {{/ifeq}}
+
+    {{> (lookup . 'partialname')}}
+</div>
+
+<script src="/assets/js/admin-dashboard.js"></script>

@@ -8,7 +8,7 @@ const markedEmoji = require("marked-emoji");
 const { Octokit } = require("@octokit/rest");
 const MarkdownTagStyle = require("../models/MarkdownTagStyle");
 
-// const sanitizeHtml = require('./html-utils')
+// const { sanitizeHTML } = require('./html-utils')
 
 // get emojis from github
 async function getEmojis() {

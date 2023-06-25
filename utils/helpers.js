@@ -1,4 +1,11 @@
-const Handlebars = require('handlebars')
+const Handlebars = require("handlebars");
 
 // register the helper function with Handlebars
-// Handlebars.registerHelper('compareValues', compareValues)
+function ifeq(a, b, options) {
+  if (a == b) {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+}
+
+Handlebars.registerHelper("ifeq", ifeq);

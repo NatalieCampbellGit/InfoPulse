@@ -6,10 +6,9 @@ const UserComment = require("../../models/UserComment");
 const User = require("../../models/User");
 const Administrator = require("../../models/Administrator");
 const Category = require("../../models/Category");
-const withAuth = require("../../utils/auth");
+const { withAuth, withAdminAuth } = require("../../utils/auth");
 
-// const path = require('path')
-router.get("/edit", withAuth, async (req, res) => {
+router.get("/edit", withAdminAuth, async (req, res) => {
   res.render("rm-test-edit-template");
 });
 

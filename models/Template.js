@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 const { convertMarkdownToHTML } = require("../utils/markdown-utils");
-const sanitiseHTML = require("../utils/html-utils");
+const { sanitizeHTML } = require("../utils/html-utils");
 class Template extends Model {}
 
 Template.init(
@@ -55,13 +55,13 @@ Template.init(
       beforeCreate: async (newData) => {
         // convert markdown to html and sanitise the html
         newData.html = await convertMarkdownToHTML(newData.markdown);
-        newData.html = sanitiseHTML(newData.html);
+        newData.html = sanitizeHTML(newData.html);
         return newData;
       },
       beforeUpdate: async (updatedData) => {
         // convert markdown to html and sanitise the html
         updatedData.html = await convertMarkdownToHTML(updatedData.markdown);
-        updatedData.html = sanitiseHTML(updatedData.html);
+        updatedData.html = sanitizeHTML(updatedData.html);
         return updatedData;
       },
     },

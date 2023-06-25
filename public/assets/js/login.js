@@ -7,11 +7,19 @@ const loginFormHandler = async (event) => {
 
   const username = document.querySelector('#username').value.trim()
   const password = document.querySelector('#password').value.trim()
+  const passcode = document.querySelector('#passcode').value.trim()
+  const confirmPassword = document.querySelector('#confirmPassword').value.trim()
+
+  if (!passcode) {
+    // using already registered user
+  } else {
+    // using first time user
+  }
 
   if (username && password) {
-    const response = await fetch('/api/users/login', {
+    const response = await fetch('/api/users/', {
       method: 'POST',
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, email, password, passcode, confirmPassword }),
       headers: { 'Content-Type': 'application/json' }
     })
     const data = await response.json()
