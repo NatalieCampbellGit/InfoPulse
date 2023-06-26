@@ -29,6 +29,19 @@ router.get("/login", (req, res) => {
   });
 });
 
+// Display the admin-login page
+router.get("/login", (req, res) => {
+  // if the user is already logged in, redirect to the homepage
+  if (req.session.loggedIn) {
+    res.redirect("/");
+    return;
+  }
+  // otherwise, render the login template
+  res.render("/admin-login", {
+    // send data to the template
+  });
+});
+
 // Log the user out
 router.get("/logout", withAuth, (req, res) => {
   // if the user is logged in, destroy the session and redirect to the homepage
