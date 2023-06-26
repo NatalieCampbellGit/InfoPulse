@@ -8,7 +8,7 @@ const markedEmoji = require("marked-emoji");
 const { Octokit } = require("@octokit/rest");
 const MarkdownTagStyle = require("../models/MarkdownTagStyle");
 
-// const sanitizeHtml = require('./html-utils')
+// const { sanitizeHTML } = require('./html-utils')
 
 // get emojis from github
 async function getEmojis() {
@@ -79,10 +79,23 @@ async function addHTMLTags(html) {
     // loop through the html tags and add them to the html
     global.markdownTags.forEach((htmlTag) => {
       const { tag, style } = htmlTag;
-      const tagWithoutPointyBrackets = tag.replace("<", "").replace(">", "");
-      newTag = `<${tagWithoutPointyBrackets} style="${style}">`;
-      html = html.replaceAll(tag, newTag);
-      html = html.replaceAll(tag.toUpperCase(), newTag);
+
+      // special rule for <a> tags to account for the href attribute
+      if (tag === "<a>") {
+        const search = new RegExp(`<A href="`, "gi");
+        const replace = `<a style="${style}" href="`;
+        html = html.replaceAll(search, replace);
+      } else if (tag.startsWith("class=")) {
+        // special rules for class="..." attributes
+        const replace = `style="${style}"`;
+        html = html.replaceAll(tag, replace);
+      } else {
+        // everything else
+        const tagWithoutPointyBrackets = tag.replace("<", "").replace(">", "");
+        newTag = `<${tagWithoutPointyBrackets} style="${style}">`;
+        html = html.replaceAll(tag, newTag);
+        html = html.replaceAll(tag.toUpperCase(), newTag);
+      }
     });
     console.log(html);
     return html;

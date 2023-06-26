@@ -8,7 +8,7 @@ const EditorView = {
 };
 
 const CurrentTemplate = {
-  currentlyEditing: false,
+  currentlyEditing: true,
   id: null,
   markdown: null,
   title: null,
@@ -17,137 +17,6 @@ const CurrentTemplate = {
   public: true,
   administratorId: null,
 };
-
-// Search for a specific template
-// =======================================================================
-
-document
-  .getElementById("search-button")
-  .addEventListener("click", async function () {
-    console.log("Search button clicked");
-
-    // get the value of the category-list select
-    let categoryId;
-    const categoryList = document.getElementById("category-list");
-    if (categoryList) {
-      categoryId = categoryList.options[categoryList.selectedIndex].value;
-    }
-    console.log(categoryId);
-
-    // get the value of the search-title-text input
-    const searchBox = document.getElementById("search-title-text");
-    const searchText = searchBox.value.trim();
-    let returnedData;
-    console.log(searchText);
-    // basic validation
-    if ((!categoryId || Number.isNaN(parseInt(categoryId))) && !searchText) {
-      alert("Please select a category or enter some search text.");
-      return;
-    }
-
-    // send a GET request with the form data
-    try {
-      const requestData = { category_id: categoryId, search_text: searchText };
-      const response = await fetch("/api/templates", {
-        method: "GET",
-        body: JSON.stringify(requestData),
-        headers: { "Content-Type": "application/json" },
-      });
-
-      returnedData = await response.json();
-      // check if the request was successful
-      if (!response.ok) {
-        // get the response body
-        alert("error! " + returnedData.message);
-        return;
-      }
-    } catch (error) {
-      alert("error! " + error.message);
-      return;
-    }
-
-    // load up the returned data into the template list
-    const templateList = document.getElementById("template-list");
-    templateList.innerHTML = "";
-    returnedData.forEach((template) => {
-      const templateListItem = document.createElement("li");
-      templateListItem.textContent = template.name;
-      // Store the template id in the data-id attribute
-      templateListItem.dataset.id = template.id;
-      templateList.appendChild(templateListItem);
-    });
-  });
-
-// =======================================================================
-// ** EDIT A TEMPLATE **
-// =======================================================================
-document
-  .getElementById("edit-template")
-  .addEventListener("click", async function (event) {
-    event.preventDefault();
-    // get the template id from the data-id attribute of the list item in template-list
-    const templateList = document.getElementById("template-list");
-    // find the li with the data-selected attribute
-    // const selectedTemplate = templateList.querySelector("[data-selected]");
-    // if (!selectedTemplate) {
-    //   alert("Please select a template to edit.");
-    // TODO uncomment this return
-    // return;
-    // }
-    // TODO uncomment this return
-    // const templateId = selectedTemplate.dataset.id;
-    const templateId = 1;
-    // if (!templateId || Number.isNaN(parseInt(templateId))) {
-    //   alert("Please select a template to edit.");
-    //   return;
-    // }
-    // get the template text from the server
-    let returnedData;
-    try {
-      const response = await fetch(`/api/rmtest/templates/${templateId}`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-      returnedData = await response.json();
-      // check if the request was successful
-      if (!response.ok) {
-        // get the response body
-        alert("error! " + returnedData.message);
-        return;
-      }
-    } catch (error) {
-      alert("error! " + error.message);
-      return;
-    }
-
-    CurrentTemplate.currentTemplateId = templateId;
-    const textEditor = document.getElementById("template-text");
-    CurrentTemplate.markdown = returnedData.markdown;
-    CurrentTemplate.title = returnedData.title;
-    CurrentTemplate.description = returnedData.description;
-    CurrentTemplate.category_id = returnedData.category_id;
-    CurrentTemplate.public = returnedData.public;
-    CurrentTemplate.administrator_id = returnedData.administrator_id;
-
-    // set the text in the textarea
-    textEditor.value = CurrentTemplate.markdown;
-    document.getElementById("template-category").value =
-      CurrentTemplate.category_id;
-    document.getElementById("template-title").value = CurrentTemplate.title;
-    document.getElementById("template-description").value =
-      CurrentTemplate.description;
-    document.getElementById("template-public").checked = CurrentTemplate.public;
-
-    // update the UI
-    // hide the search area
-    document.getElementById("search-area").classList.add("hidden");
-    // show the edit controls and set the flag
-    CurrentTemplate.currentlyEditing = true;
-    showCorrectEditMenu(EditorView.EDITING);
-    // set focus to the textarea
-    document.getElementById("template-text").focus();
-  });
-
 // save template
 async function saveTemplate() {
   // get the template text from the textarea
@@ -223,13 +92,8 @@ async function saveTemplate() {
     }
   }
   // update the UI
-  // hide the edit controls and set the flag
-  CurrentTemplate.currentlyEditing = false;
-  showCorrectEditMenu(EditorView.VIEWING);
-  // show the search area
-  document.getElementById("search-area").classList.remove("hidden");
-  // set focus to the search box
-  document.getElementById("search-title-text").focus();
+  CurrentTemplate.currentlyEditing = true;
+  showCorrectEditMenu(EditorView.EDITING);
 }
 
 // cancel editing
@@ -243,10 +107,8 @@ function cancelEditingTemplate() {
   // put it back to the original text
   document.getElementById("template-text").value = CurrentTemplate.markdown;
 
-  // show the search area
-  document.getElementById("search-area").classList.remove("hidden");
-  // set focus to the search box
-  document.getElementById("search-title-text").focus();
+  // go back to admin home
+  window.location.href = "/admin";
 }
 
 // =======================================================================
@@ -906,59 +768,54 @@ async function loadImages() {
   });
 }
 
-// =======================================================================
-// ** Load the Categories Selects **
-// =======================================================================
-async function loadCategories() {
-  // ! TODO change to the correct API endpoint
-  const response = await fetch("/api/rmtest/categories", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  });
-  if (!response.ok) {
-    alert("error! " + response.message);
+//=======================================================================
+// grab the initial data from the page
+async function collateInitialInformation() {
+  const optionsElement = document.getElementById("template-options");
+  const templateID = optionsElement.getAttribute("data-templateid");
+  const administratorId = optionsElement.getAttribute("data-administratorid");
+  const publicCheckbox = document.getElementById("template-public");
+  const publicValue = JSON.parse(publicCheckbox.getAttribute("data-public"));
+  CurrentTemplate.currentTemplateId = templateID;
+  CurrentTemplate.title = document.getElementById("template-title").value;
+  CurrentTemplate.description = document.getElementById(
+    "template-description"
+  ).value;
+  CurrentTemplate.category_id =
+    document.getElementById("template-category").value;
+  CurrentTemplate.public = publicValue;
+  CurrentTemplate.administrator_id = administratorId;
+
+  // get the current template from the api as markdown adds extraneous characters
+  try {
+    const templateData = await fetch(`/api/rmtemplate/${templateID}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (!templateData.ok) {
+      alert("error! " + templateData.message);
+      return;
+    }
+    const template = await templateData.json();
+    CurrentTemplate.markdown = template.markdown;
+    CurrentTemplate.html = template.html;
+    // add the markdown to the textarea
+    document.getElementById("template-text").value = CurrentTemplate.markdown;
+  } catch (error) {
+    alert("error! " + error.message);
     return;
   }
-
-  const returnedData = await response.json();
-  if (!returnedData) {
-    console.log("no category data returned");
-    return;
-  }
-  const categorySelect = document.getElementById("search-category");
-  const categorySelect2 = document.getElementById("template-category");
-  // add blank option
-  const option = document.createElement("option");
-  option.value = 0;
-  option.textContent = "No category selected";
-  categorySelect.appendChild(option);
-  const option2 = document.createElement("option");
-  option2.value = 0;
-  option2.textContent = "No category selected";
-  categorySelect2.appendChild(option2);
-
-  // console.log(returnedData);
-
-  // add the categories to the select
-  returnedData.forEach((category) => {
-    const option = document.createElement("option");
-    option.value = category.id;
-    option.textContent = category.title;
-    categorySelect.appendChild(option);
-    const option2 = document.createElement("option");
-    option2.value = category.id;
-    option2.textContent = category.title;
-    categorySelect2.appendChild(option2);
-  });
 }
-
 // =======================================================================
-// call loadImages on page load
 // detect page load
 window.addEventListener("load", async function () {
-  hideEditingSection(true);
-  CurrentTemplate.currentlyEditing = false;
-  showCorrectEditMenu(EditorView.VIEWING);
-  await loadCategories();
+  // get the data-initial from the category select
+  const categorySelect = document.getElementById("template-category");
+  const categoryID = categorySelect.getAttribute("data-initial");
+  // set the value of the select to the data-initial
+  categorySelect.value = categoryID;
+  collateInitialInformation();
+  CurrentTemplate.currentlyEditing = true;
+  showCorrectEditMenu(EditorView.EDITING);
   await loadImages();
 });
