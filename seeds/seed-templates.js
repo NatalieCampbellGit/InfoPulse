@@ -10,7 +10,7 @@ async function seedTemplates () {
 
 Glaucoma is a progressive eye disease that affects the optic nerve, which is responsible for transmitting visual information from the eye to the brain. It is often referred to as the "silent thief of vision" because it can gradually damage your eyesight without any noticeable symptoms until it reaches an advanced stage.
 
-<img class="template-img-full-width" src="/api/images/1" alt="Normal eye and eye with glaucoma" width="1000" height="371">
+<img class="img-full-width" src="/api/images/1" alt="Normal eye and eye with glaucoma" width="1000" height="371">
 
 ## What Causes Glaucoma?
 
@@ -66,7 +66,7 @@ Myopia, commonly known as nearsightedness, is a refractive error that affects th
 
 Myopia occurs when the eyeball is slightly longer than normal or when the cornea (the clear front part of the eye) has excessive curvature. These factors cause the incoming light to focus in front of the retina instead of directly on it, resulting in blurred distance vision.
 
-<img class="template-img-reduced-width-centred" src="/api/images/2" alt="Myopic eye and myopic eye with lens" width="1000">
+<img class="img-reduced-width-centred" src="/api/images/2" alt="Myopic eye and myopic eye with lens" width="1000">
 
 Common symptoms of myopia include:
 
@@ -143,7 +143,7 @@ It is important to note that the correction methods mentioned above are intended
 
 Hyperopia, commonly known as longsightedness or farsightedness, is a refractive error that affects the ability to see nearby objects clearly while distant objects appear relatively clearer. It is a common vision condition that can affect people of all ages. In hyperopia, the eyeball is shorter than normal or the cornea is less curved, causing light to focus behind the retina instead of directly on it. This results in blurred vision for close objects when you are young, and every distance when you are older.
 
-<img class="template-img-full-width" src="/api/images/3" alt="Normal eye and eye with hyperopia" width="1000">
+<img class="img-full-width" src="/api/images/3" alt="Normal eye and eye with hyperopia" width="1000">
 
 ## Causes of Hyperopia
 
@@ -219,7 +219,7 @@ Astigmatism is a common vision condition that can affect your ability to see cle
 
 Astigmatism occurs when the cornea (the front surface of the eye) or the lens inside the eye has an non-spherical or irregular shape. Instead of having a smooth, spherical curvature, the cornea or lens may be shaped more like a football or the back of a spoon. This irregular shape causes light to focus on multiple points rather than a single point on the retina, resulting in blurred or distorted vision.
 
-<img class="template-img-full-width" src="/api/images/4" alt="Normal eye and eye with astigmatism" width="1000">
+<img class="img-full-width" src="/api/images/4" alt="Normal eye and eye with astigmatism" width="1000">
 
 ## Signs and Symptoms
 
@@ -284,7 +284,7 @@ Presbyopia is a common age-related vision condition that affects the ability to 
 
 Presbyopia occurs when the natural lens inside the eye loses its flexibility and ability to focus on nearby objects. It is a normal age-related change that typically becomes noticeable after the age of 40, but the process begins when you are a small child. As a result, individuals with presbyopia find it challenging to read small print, perform tasks at close distances, or see objects clearly in low-light conditions.
 
-<img class="template-img-full-width" src="/api/images/5" alt="Presbyopic eye with book, clear and blurry" width="1000">
+<img class="img-full-width" src="/api/images/5" alt="Presbyopic eye with book, clear and blurry" width="1000">
 
 ## Signs and Symptoms
 
@@ -344,7 +344,7 @@ Dry eye is a common condition that occurs when the eyes do not produce enough te
 
 ## Understanding Dry Eye
 
-<img class="template-img-full-width" src="/api/images/6" alt="artistic eye with dry cracks" width="1000">
+<img class="img-full-width" src="/api/images/6" alt="artistic eye with dry cracks" width="1000">
 
 Dry eye occurs when the quantity or quality of tears is insufficient to keep the eyes adequately lubricated and nourished. This can result in a range of symptoms, including dryness, redness, stinging, burning, itchiness, and a feeling of grittiness in the eyes. In severe cases, it may lead to blurred vision and difficulty performing daily activities.
 
@@ -368,7 +368,7 @@ To diagnose dry eye and receive proper care, it is important to visit an optomet
 - Eye examination: Your eyes will be examined to assess tear production, measure tear quality, and evaluate the overall health of the ocular surface.
 - Additional tests: In some cases, additional tests may be performed to evaluate the tears, measure tear film stability, or assess the integrity of the ocular surface.
 
-<img class="template-img-full-width" src="/api/images/7" alt="Tear film layers" width="1000">
+<img class="img-full-width" src="/api/images/7" alt="Tear film layers" width="1000">
 
 ## Management and Treatment
 
@@ -422,7 +422,7 @@ Wearing appropriate protective eyewear is one of the most effective ways to prev
 - Sports goggles: If you participate in sports activities, particularly those involving high-speed projectiles or physical contact, wear sports goggles specifically designed for that sport. These goggles provide impact protection and can help prevent eye injuries.
 - Sunglasses: When outdoors, protect your eyes from harmful ultraviolet (UV) radiation by wearing sunglasses that block 100% of UVA and UVB rays. Look for sunglasses labeled with UV protection.
 
-<img class="template-img-full-width" src="/api/images/8" alt="Safety Glasses" width="1000">
+<img class="img-full-width" src="/api/images/8" alt="Safety Glasses" width="1000">
 
 ## Workplace Safety
 
@@ -488,7 +488,7 @@ Several vision problems can affect children. Here are some of the most common on
 
 7. **colour vision deficiency:** colour vision deficiency, commonly known as colour blindness, is the inability to perceive certain colours or distinguish between them. It is usually inherited and more common in males, with 1 in 15 males and 1 in 200 females having the condition.
 
-<img class="template-img-full-width" src="/api/images/14" alt="Ishihara colour vision test plates" width="1000">
+<img class="img-full-width" src="/api/images/14" alt="Ishihara colour vision test plates" width="1000">
 
 ## Signs and Symptoms
 
@@ -518,7 +518,7 @@ Treatment options for common vision problems in children may include:
 - Patching or eye drops: In cases of amblyopia, the stronger eye may be temporarily patched or treated with eye drops to encourage the weaker eye to develop proper vision.
 - Surgical intervention: Strabismus may require surgical correction to align the eyes.
 
-<img class="template-img-full-width" src="/api/images/9" alt="Girl with red-green glasses doing vision therapy" width="1000">
+<img class="img-full-width" src="/api/images/9" alt="Girl with red-green glasses doing vision therapy" width="1000">
 
 ## Promoting Eye Health in Children
 
@@ -551,7 +551,7 @@ AMD is a common eye disease that primarily affects older individuals. It causes 
 
 2. **Wet AMD:** Wet AMD is less common but more severe. It occurs when abnormal blood vessels grow under the retina, leaking blood and fluid, which can lead to rapid and severe vision loss.
 
-<img class="template-img-full-width" src="/api/images/10" alt="Normal eye and eyes with macular degeneration" width="1000">
+<img class="img-full-width" src="/api/images/10" alt="Normal eye and eyes with macular degeneration" width="1000">
 
 ## Risk Factors
 
@@ -565,7 +565,7 @@ Several factors increase the risk of developing AMD, including:
 
 ## Signs and Symptoms
 
-<img class="template-img-reduced-width" src="/api/images/15" alt="Distorted vision with age-related macular degeneration" width="600">
+<img class="img-reduced-width" src="/api/images/15" alt="Distorted vision with age-related macular degeneration" width="600">
 
 Early stages of AMD may not exhibit noticeable symptoms. As the condition progresses, the following signs may become apparent:
 
@@ -628,7 +628,7 @@ When it comes to maintaining optimal eye health and vision, various types of eye
 
 **Optometrists** are primary eye care providers who specialize in assessing, diagnosing, and managing a wide range of eye conditions and visual disorders. Consider them the GPs of eye care. They typically hold a Master's degree, a Doctor of Optometry degree or a Bachelor's degree, depending on where and when they were educated. They are licensed to perform comprehensive eye examinations, prescribe corrective lenses, diagnose common eye diseases, and provide non-surgical treatments.
 
-<img class="template-img-full-width" src="/api/images/11" alt="Optometrist with eye chart and trial frame" width="1000">
+<img class="img-full-width" src="/api/images/11" alt="Optometrist with eye chart and trial frame" width="1000">
 
 Optometrists can:
 
@@ -692,7 +692,7 @@ Disclaimer: This guide provides general information and should not substitute pr
 
 The human eye is a fascinating organ, responsible for processing visual information and allowing us to see the world around us. They give us so much information about the world, even if they are prone to falling for optical illusions.
 
-<img class="template-img-full-width" src="/api/images/12" alt="Optical illusion where straight lines look curved" width="1000">
+<img class="img-full-width" src="/api/images/12" alt="Optical illusion where straight lines look curved" width="1000">
 
 ## Here are some fun facts about eyes and vision:
 
@@ -726,7 +726,7 @@ The human eye is a fascinating organ, responsible for processing visual informat
 
 15. **Blue eyes are not blue:** They only appear blue because of the way light is scattered off the iris structures back out of they eye, in exactly the same way that the sky is blue through 'Rayleigh scattering'.
 
-<img class="template-img-full-width" src="/api/images/13" alt="Closeup of a blue eye" width="1000">
+<img class="img-full-width" src="/api/images/13" alt="Closeup of a blue eye" width="1000">
 
 Remember, these fun facts about the eye and vision can be great conversation starters, but it's important to rely on accurate information from eye care professionals for any health-related concerns or questions.
 
@@ -744,7 +744,7 @@ I hope you enjoy sharing these fun facts!`,
 
 A cataract is a clouding of the normally clear lens of your eye. For people who have cataracts, seeing through cloudy lenses is a bit like looking through a frosty or fogged-up window.
 
-<img class="template-img-full-width" src="/api/images/16" alt="Cataracts vs normal eye and vision" width="1000">
+<img class="img-full-width" src="/api/images/16" alt="Cataracts vs normal eye and vision" width="1000">
 
 ## Symptoms of Cataracts
 
@@ -844,7 +844,7 @@ Children with type 1 diabetes should have an initial eye examination within five
 
 ## Why Regular Eye Examinations are Important for People with Diabetes
 
-<img class="template-img-full-width" src="/api/images/17" alt="Diabetic retinopathy" width="1000">
+<img class="img-full-width" src="/api/images/17" alt="Diabetic retinopathy" width="1000">
 
 Regular eye examinations are important for people with diabetes because high blood sugar levels can damage the small blood vessels in the retina, leading to diabetic retinopathy. This condition can cause vision loss if not detected and treated early. 
 
@@ -852,7 +852,7 @@ Eye examinations can also detect other eye conditions that are more common in pe
 
 ## What Optometrists Look For 
 
-<img class="template-img-full-width" src="/api/images/18" alt="Retinal examination with a slitlamp" width="1000">
+<img class="img-full-width" src="/api/images/18" alt="Retinal examination with a slitlamp" width="1000">
 
 During an eye examination, optometrists look for signs of diabetic retinopathy, including changes to the blood vessels in the retina, the growth of new blood vessels, and retinal swelling. They also check for cataracts, which are more common in people with diabetes, and for signs of glaucoma, which can occur when diabetes affects the blood flow to the optic nerve.
 

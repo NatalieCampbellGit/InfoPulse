@@ -1,0 +1,258 @@
+<div id="editing-section" class="w-full py-1">
+    <div class="flex flex-col sm:flex-row items-baseline space-x-4 space-y-2 my-2 mx-0 px-2 pb-2 sm:py-0 rounded bg-pulse-lt-blue-200 text-sm overflow-auto"
+        id="template-options" data-templateid="{{template.id}}" data-administratorid="{{administrator_id}}">
+        <div class="flex flex-col items-baseline w-full">
+            <label for="template-category" class="w-auto text-left mr-2 text-pulse-blue-500">Category:</label>
+            <select id="template-category" class="border-gray-300 border rounded  px-2 py-0 w-72 mb-2"
+                data-initial="{{template.category_id}}">
+                <option value="0">All categories</option>
+                {{#each categories as |category|}}
+                <option value="{{category.id}}">{{category.title}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="flex flex-col items-baseline w-full">
+            <label for="template-title" class="w-auto text-left mr-2 text-pulse-blue-500">Title:</label>
+            <input type="text" value="{{template.title}}" id="template-title"
+                class="border-gray-300 border rounded px-2 py-0 w-72  mb-2" />
+        </div>
+        <div class="flex flex-col items-baseline w-full">
+            <label for="template-description" class="w-auto text-left mr-2 text-pulse-blue-500">Description:</label>
+            <input type="text" value="{{template.description}}" id="template-description"
+                class="border-gray-300 border rounded px-2 py-0 w-72  mb-2" />
+        </div>
+        <div class="flex items-baseline w-full">
+            <label for="template-public" class="w-auto text-left mr-2 text-pulse-blue-500">Show publicly:</label>
+            <input type="checkbox" value="Selected" {{#if template.public}}checked data-public="true"
+                {{else}}data-public="false" {{/if}} id="template-public"
+                class="border-gray-300 border rounded px-2 py-0 w-auto  mb-2" />
+        </div>
+    </div>
+
+    <div class="px-2  sm:px-0 mb-2 bg-white">
+        <section>
+            <!-- menu bar above the textarea -->
+            <div class="flex flex-col sm:flex-row items-start sm:space-x-4 space-y-2 sm:space-y-0 px-2 py-1 mb-2 mt-0 rounded bg-pulse-green-200"
+                id="edit-menu">
+                <div>
+                    <!-- preview button -->
+                    <button
+                        class="btn-style text-pulse-green-800 hover:text-pulse-green-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        data-tag="html">
+                        <i class="text-xl fa-brands fa-html5" data-tag="html"></i>
+                    </button>
+                    <!-- hide preview button hidden -->
+                    <button
+                        class="hidden btn-style text-pulse-green-800 hover:text-pulse-green-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        data-tag="md">
+                        <i class="text-xl fa-brands fa-markdown" data-tag="md"></i>
+                    </button>
+                </div>
+                <!-- Image and link section -->
+                <div class="flex space-x-2">
+                    <button
+                        class="btn-style  text-pulse-lt-blue-700 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        data-tag="image">
+                        <i class="text-xl fa-solid fa-image" data-tag="image"></i>
+                    </button>
+                    <button
+                        class="btn-style  text-pulse-lt-blue-700 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        data-tag="link">
+                        <i class="text-xl fa-solid fa-link" data-tag="link"></i>
+                    </button>
+
+                    <!-- Headers section -->
+                    <button
+                        class="btn-style text-pulse-blue-900 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        data-tag="#">
+                        <i class="text-xl fa-solid fa-h1" data-tag="#"></i>
+                    </button>
+                    <button
+                        class="btn-style  text-pulse-blue-700 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        data-tag="##">
+                        <i class="text-xl fa-solid fa-h2" data-tag="##"></i>
+                    </button>
+                    <button
+                        class="btn-style  text-pulse-blue-500 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        data-tag="###">
+                        <i class="text-xl fa-solid fa-h3" data-tag="###"></i>
+                    </button>
+                    <button
+                        class="btn-style  text-pulse-blue-500 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        data-tag="####">
+                        <i class="text-xl fa-solid fa-h4" data-tag="####"></i>
+                    </button>
+                </div>
+
+                <!-- Text style section -->
+                <div class="flex space-x-2">
+                    <button
+                        class="btn-style  text-pulse-blue-800 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        data-tag="**">
+                        <i class="text-xl fa-solid fa-bold" data-tag="**"></i>
+                    </button>
+                    <button
+                        class="btn-style  text-pulse-blue-800 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        data-tag="*">
+                        <i class="text-xl fa-solid fa-italic" data-tag="*"></i>
+                    </button>
+                    <button
+                        class="btn-style  text-pulse-blue-800 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        data-tag="***">
+                        <i class="text-xl fa-solid fa-bold" data-tag="***"></i><i class="text-xl fa-solid fa-italic"
+                            data-tag="***"></i>
+                    </button>
+                    <button
+                        class="btn-style  text-pulse-grey-dark hover:text-pulse-grey relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        data-tag="~~">
+                        <i class="text-xl fa-solid fa-strikethrough" data-tag="~~"></i>
+                    </button>
+                    <button
+                        class="btn-style  text-pulse-green-800 hover:text-pulse-green-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        data-tag="---">
+                        <i class="text-xl fa-solid fa-minus" data-tag="---"></i>
+                    </button>
+                </div>
+                <div>
+                    <button
+                        class="btn-style text-pulse-green-500 hover:text-pulse-green-400 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        data-tag="save">
+                        <i class="fa-regular fa-floppy-disk text-xl" data-tag="save"></i> save
+                    </button>
+                    <button
+                        class="btn-style text-red-500 hover:text-red-300 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        data-tag="cancel">
+                        <i class="fa-solid fa-ban text-xl" data-tag="cancel"></i> cancel
+                    </button>
+                </div>
+            </div>
+            <textarea
+                class="border border-pulse-green-600 outline-none focus:ring-2 focus:ring-pulse-green-500 bg-white p-2 rounded-md w-full h-96"
+                id="template-text" rows="40" wrap="soft" cols="100" resize="none"></textarea>
+            <div class="hidden border border-pulse-blue-700 bg-white px-5 py-2 m-1 rounded-md w-full" id="preview-html">
+                <!-- Preview HTML -->
+            </div>
+        </section>
+    </div>
+</div>
+<section>
+    <!-- Modal choosing file to insert link of -->
+    <div id="insert-image-link-modal" class="modal z-10">
+        <div class="modal-content w-full md:max-w-screen-md rounded-md shadow-lg">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold text-pulse-blue-500">Insert Image Link</h3>
+                <!-- Select existing image -->
+            </div>
+            <div class="flex flex-col space-y-2 sm:flex-row sm:space-x-2 ">
+                <div class="flex flex-col space-y-4">
+                    <label for="modal-image-select" class="mr-2">Select an image:</label>
+                    <select id="modal-image-select" class="border-gray-300 border rounded  px-2 py-0">
+                        <!-- Add list of images here -->
+                    </select>
+                    <div>
+                        <button class=" rounded bg-pulse-green-500 hover:bg-pulse-green-700 px-3 py-1 text-white"
+                            id="upload-new-image">Upload New Image...</button>
+                    </div>
+                    <div>
+                        <label for="modal-class-select" class="mr-2">Select a CSS class:</label>
+                        <select id="modal-class-select" class="border-gray-300 border rounded  px-2 py-0">
+                            <!-- list of CSS classes used to style the image in the factsheet (factsheet.css) -->
+                            <option value="img-small-width-centred" data-defaultwidth="420">img-small-width-centred
+                            </option>
+                            <option value="img-reduced-width-centred" data-defaultwidth="720">
+                                img-reduced-width-centred</option>
+                            <option value="img-full-width-centred" data-defaultwidth="1200">img-full-width-centred
+                            </option>
+                            <option value="img-small-width" data-defaultwidth="420">img-small-width-centred</option>
+                            <option value="img-reduced-width" data-defaultwidth="720">img-reduced-width-centred
+                            </option>
+                            <option value="img-full-width" data-defaultwidth="1200">img-full-width-centred</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button class="rounded bg-pulse-green-500 hover:bg-pulse-green-700 px-3 py-1 text-white"
+                            id="insert-image-link">Insert Link</button>
+                        <button class="rounded bg-red-500 hover:bg-red-700 px-3 py-1 text-white"
+                            id="cancel-insert-image-link">Cancel</button>
+                    </div>
+                </div>
+                <div>
+                    <!-- img to display selected image -->
+                    <img class="hidden border-2 rounded border-pulse-grey-dark" id="modal-selected-image" src=""
+                        alt="image preview" width="300">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<section>
+    <!-- Modal for adding uploading file -->
+    <div id="upload-image-modal" class="modal z-50">
+        <div class="modal-content bg-white  w-full sm:max-w-screen-sm rounded-md shadow-lg">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold text-pulse-blue-500">Select Image to Upload</h3>
+            </div>
+
+            <div class="flex flex-col space-y-2">
+
+                <div class="inline-block">
+                    <input type="file" class="hidden" id="file-upload" name="uploaded_file" accept="image/*">
+                    <label for="file-upload" id="file-upload-label"
+                        class="cursor-pointer bg-pulse-blue-500 hover:bg-pulse-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Select image...
+                    </label>
+                    <span id="upload-file-name" class="ml-4">No image file selected</span>
+                </div>
+                <div>
+                    <label for="image-title">Image Title:</label>
+                    <input type="text" id="image-title" class="border-gray-300 border rounded px-2 py-0 w-full"><br />
+                </div>
+                <div>
+                    <label for="image-description">Image Description:</label>
+                    <input type="text" id="image-description"
+                        class="border-gray-300 border rounded px-2 py-0 w-full"><br />
+                </div>
+                <div>
+                    <button id="upload-file"
+                        class="rounded bg-pulse-blue-500 hover:bg-pulse-blue-700 px-3 py-1 text-white">Upload</button>
+                    <button id="upload-cancel"
+                        class="rounded bg-red-500 hover:bg-red-700 px-3 py-1 text-white">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+
+    <!-- Modal for inserting a hyperlink into markdown -->
+    <div id="insert-url-modal" class="modal z-10">
+        <div class="modal-content w-full sm:max-w-screen-sm rounded-md shadow-lg">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold text-pulse-blue-500">Insert URL</h3>
+            </div>
+            <div class="flex flex-col space-y-2 ">
+
+                <div>
+                    <label for="url-title">URL Title:</label>
+                    <input type="text" id="url-title" class="border-gray-300 border rounded px-2 py-0 w-full"><br />
+                </div>
+                <div>
+                    <label for="url-hyperlink">URL:</label>
+                    <input type="text" id="url-hyperlink" class="border-gray-300 border rounded px-2 py-0 w-full"><br />
+                </div>
+                <div>
+                    <button class="rounded bg-pulse-green-500 hover:bg-pulse-green-700 px-3 py-1 text-white"
+                        id="insert-url">Insert Link</button>
+                    <button class="rounded bg-red-500 hover:bg-red-700 px-3 py-1 text-white"
+                        id="cancel-insert-url">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<script src="/assets/js/template-edit.js"></script>

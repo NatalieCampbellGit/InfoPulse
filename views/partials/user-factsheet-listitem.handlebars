@@ -1,0 +1,13 @@
+<div class="user-factsheet-listitem p-2 bg-white shadow-lg rounded border-2 border-pulse-green-300">
+    <h3 class="text-base text-pulse-blue-700 font-bold" data-id="{{id}}">{{template.title}}</h3>
+    <div class="pl-4 text-pulse-grey-dark text-sm">
+        <!-- Iterate over your comments and create an <li> for each one -->
+        {{#each usercomments as |usercomment|}}
+        <div>
+            <p class="text-xs">{{usercomment.content}}</p>
+            <p class="text-xs text-gray-500">Created at: {{format_date usercomment.createdAt}} {{format_time
+                usercomment.createdAt}}</p>
+        </div>
+        {{/each}}
+    </div>
+</div>

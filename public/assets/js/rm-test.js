@@ -1,4 +1,8 @@
 // ! REMOVE THIS FILE FROM PRODUCTION
+
+const manageTemplate = document.getElementById('manage-template')
+
+
 const uploadForm = document.getElementById('upload-form')
 uploadForm.addEventListener('submit', async event => {
   // prevent the form from submitting normally
