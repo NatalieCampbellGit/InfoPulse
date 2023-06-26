@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require('sequelize')
 const sequelize = require('../config/connection')
-const convertMarkdownToHTML = require('../utils/markdown-utils')
+const {convertMarkdownToHTML} = require('../utils/markdown-utils')
 const sanitiseHTML = require('../utils/html-utils')
 class Template extends Model {
 
