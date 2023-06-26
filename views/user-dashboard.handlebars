@@ -1,32 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>{{title}}</title>
-  <!-- Bootstrap CSS and JS CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"
-    defer></script>
-  <script src="https://kit.fontawesome.com/59c3993d07.js" crossorigin="anonymous" defer></script>
-  <!-- Tailwind CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.17/dist/tailwind.min.css">
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="/assets/css/styles.css">
-  <link rel="stylesheet" href="/assets/css/factsheet.css">
-  <link rel="stylesheet" href="/assets/css/custom.css">
-  <link rel="stylesheet" href="/assets/css/user.css">
-  <!-- Custom JS -->
-  <script src="/assets/js/script.js" defer></script>
-
-</head>
+<!-- User Dashboard -->
 <body class="bg-gray-100">
   <div class="container mx-auto p-4">
     <h1 class="text-2xl font-bold mb-4">{{title}}</h1>
 
     <div class="post-box bg-white p-4 mb-4">
       <h2 class="text-xl font-bold mb-2">Past Posts</h2>
-      <!-- Display past posts about the user here -->
+      {{#each pastPosts}}
+      <div>
+        <h3>{{title}}</h3>
+        <!-- Remove the line below to display only titles -->
+        <p>{{content}}</p>
+      </div>
+      {{/each}}
     </div>
 
     <div class="text-box bg-white p-4 mb-4">
@@ -42,6 +27,4 @@
       <button class="btn btn-danger" id="log-out">Log Out</button>
     </div>
   </div>
-
 </body>
-</html>
