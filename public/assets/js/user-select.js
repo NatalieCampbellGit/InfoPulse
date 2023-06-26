@@ -54,9 +54,7 @@ function addEventHandlers() {
   // add event handlers to the user list items
   userList = document.getElementsByClassName("user-list-item");
   Array.from(userList).forEach((item) => {
-    item.addEventListener("click", (event) => {
-      markUserAsSelected(event);
-    });
+    item.addEventListener("click", markUserAsSelected);
   });
 }
 

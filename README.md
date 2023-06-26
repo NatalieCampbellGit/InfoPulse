@@ -50,6 +50,7 @@ This is a full-stack application using NodeJS for the server and Express for the
 - marked-emoji: Convert emojis in markdown to HTML
 - multer: Handle file uploads from the user
 - sharp: Resize images and obtain metadata
+- 
 
 #### Packages used for formatting and linting
 

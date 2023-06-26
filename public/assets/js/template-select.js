@@ -10,13 +10,11 @@ let templateList = document.getElementsByClassName("template-list-item");
 let selectedTemplateId = 0;
 
 // add event handlers to template-list-item
-function addEventHandlers() {
+function addEventHandlersToTemplateList() {
   // add event handlers to the template list items
   templateList = document.getElementsByClassName("template-list-item");
   Array.from(templateList).forEach((item) => {
-    item.addEventListener("click", (event) => {
-      markTemplateAsSelected(event);
-    });
+    item.addEventListener("click", markTemplateAsSelected);
   });
 }
 
@@ -53,9 +51,10 @@ searchButton.addEventListener("click", async (event) => {
 
   if (categoryID >= 0 || searchText.length > 2 || searchMarkdown.length > 2) {
     searchResults.innerHTML = "";
+    let response;
     try {
       // if there is a category selected or a search term, send the request to the server
-      const response = await fetch("/api/rmtemplate/search", {
+      response = await fetch("/api/rmtemplate/search", {
         method: "POST",
         body: JSON.stringify({
           id: categoryID,
@@ -67,6 +66,7 @@ searchButton.addEventListener("click", async (event) => {
       });
     } catch (err) {
       console.log(err);
+      addEventHandlersToTemplateList();
       return;
     }
 
@@ -79,7 +79,7 @@ searchButton.addEventListener("click", async (event) => {
       alert("Error searching for templates");
     }
     // add back the event handlers to the template list items
-    addEventHandlers();
+    addEventHandlersToTemplateList();
   }
 });
 
@@ -125,4 +125,4 @@ deleteButton.addEventListener("click", (event) => {
 });
 
 // add event handlers to the template list items
-addEventHandlers();
+addEventHandlersToTemplateList();
