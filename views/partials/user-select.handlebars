@@ -1,0 +1,28 @@
+<div>
+    <h2 class="text-base text-pulse-lt-blue-500 font-bold mb-0">Select User:</h2>
+    <div class="space-y-4">
+        <div class="flex justify-between">
+            <input id="user-search-text" type="text" placeholder="Enter name"
+                class="w-2/3 px-2 py-1 border-2 border-pulse-green-300 rounded">
+            <button id="user-search-button"
+                class="w-1/4 bg-pulse-green-500 hover:bg-pulse-green-700 text-white rounded px-3 py-1 mt-0 mb-0">Search</button>
+        </div>
+
+        <div class="h-44 mt-0 overflow-y-auto border-2 border-pulse-green-300 p-2 rounded" id="user-search-results">
+            <!-- Iterate over the users and create an entry for each one -->
+            <!-- ... -->
+        </div>
+        {{!-- <button id="user-select" class="w-1/4 bg-pulse-green-400 text-white rounded p-2">Select</button> --}}
+        <div class="my-0 py-0">
+            <p class="my-0 py-0 text-pulse-lt-blue-500 text-sm">User's factsheets and comments:</p>
+            <div class="mt-0 h-56 overflow-y-auto border-2 border-pulse-green-300 px-2 pt-0 rounded"
+                id="user-factsheets">
+                <!-- Iterate over the selected users and create an entry for each one -->
+                <!-- ... -->
+            </div>
+        </div>
+        <button class="w-1/4 bg-pulse-lt-blue-500 text-white rounded p-2">Edit...</button>
+    </div>
+</div>
+
+<script src="/assets/js/user-select.js"></script>

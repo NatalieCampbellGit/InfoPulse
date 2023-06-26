@@ -51,4 +51,60 @@ function formatTemplateListItems(templates) {
     return "";
   }
 }
-module.exports = { sanitizeHTML, formatTemplateListItems };
+
+// Handlebars to format user list items
+function formatUserListItems(users) {
+  const handlebarsUserPath = path.join(
+    process.cwd(),
+    "views",
+    "partials",
+    "user-listitem.handlebars"
+  );
+  try {
+    const source = fs.readFileSync(handlebarsUserPath, "utf8");
+    const template = Handlebars.compile(source);
+    console.log(users);
+    console.log(source);
+    let htmlFormat = "";
+    for (let i = 0; i < users.length; i++) {
+      htmlFormat += template(users[i]);
+    }
+    console.log(htmlFormat);
+    return htmlFormat;
+  } catch (error) {
+    console.log(error);
+    return "";
+  }
+}
+
+// Handlebars to format user list items
+function formatFactsheetListItems(factsheets) {
+  const handlebarsUserPath = path.join(
+    process.cwd(),
+    "views",
+    "partials",
+    "user-factsheet-listitem.handlebars"
+  );
+  try {
+    const source = fs.readFileSync(handlebarsUserPath, "utf8");
+    const template = Handlebars.compile(source);
+    console.log(factsheets);
+    console.log(source);
+    let htmlFormat = "";
+
+    for (let i = 0; i < factsheets.length; i++) {
+      htmlFormat += template(factsheets[i]);
+    }
+
+    return htmlFormat;
+  } catch (error) {
+    console.log(error);
+    return "";
+  }
+}
+module.exports = {
+  sanitizeHTML,
+  formatTemplateListItems,
+  formatUserListItems,
+  formatFactsheetListItems,
+};

@@ -2,18 +2,7 @@
     <div class="">
         <h1 class="text-3xl font-bold text-pulse-blue-500 text-center mb-4 py-2">{{pagetitle}}</h1>
     </div>
-    {{#ifeq dashboardView 0}}
-    <div id="select-template">
-        <div class="mx-auto px-1 sm:px-2 bg-white">
-            {{!-- display a component to select a template --}}
-            <section id="search-area" class="px-2">
-                <div class="space-y-1 w-full mx-auto sm:max-w-screen-sm">
-                    {{> template-select }}
-                </div>
-            </section>
-        </div>
-    </div>
-    {{/ifeq}}
+
     {{#ifeq dashboardView 1}}
     <div id="edit-template">
         <div class="mx-auto px-1 sm:px-2 bg-white">
@@ -36,5 +25,55 @@
     {{/ifeq}}
 
 </div>
+<!-- temporary layout -->
+{{#ifeq dashboardView 0}}
+<div>
+    <header class="w-full text-center p-6">
+        <h1 class="text-4xl font-bold">Administrator Dashboard</h1>
+    </header>
+    <Section class="px-6 py-4">
+        <div class="grid lg:grid-cols-3 grid-cols-1 gap-4">
+            <div class="col border-2 border-pulse-green-300 bg-pulse-grey-light shadow-lg rounded p-2">
+                <h2 class="text-2xl font-bold mb-2 text-pulse-green-400 text-center">Manage Templates</h2>
+                <hr class="border-2 border-pulse-green-300 my-2">
+                <!-- UI Elements for Column 1 -->
+                <div id="select-template">
+                    <div class="mx-auto px-1 sm:px-2 bg-pulse-grey-light">
+                        {{!-- display a component to select a template --}}
+                        <section id="search-area" class="px-2">
+                            <div class="space-y-1 w-full mx-auto">
+                                {{> template-select }}
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="col border-2 border-pulse-green-300 bg-pulse-grey-light shadow-lg rounded p-2">
+                <h2 class="text-2xl font-bold mb-2 text-pulse-green-400 text-center">Enrol New User</h2>
+                <hr class="border-2 border-pulse-green-300 my-2">
+                </hr>
+                <!-- UI Elements for Column 2 -->
+                {{> user-register }}
+                <div class="flex justify-center">
+                    <button class="w-auto bg-pulse-lt-blue-500 text-white rounded px-4 py-2" id="registerButton"
+                        onclick="toggleRegister()">Register a
+                        User</button>
+                </div>
+            </div>
+            <div class="col border-2 border-pulse-green-300 bg-pulse-grey-light shadow-lg rounded p-2">
+                <h2 class="text-2xl font-bold mb-2 text-pulse-green-400 text-center">User Factsheets</h2>
+                <hr class="border-2 border-pulse-green-300 my-2">
+                <!-- UI Elements for Column 3 -->
+                <div class="col">
+                    {{> user-select }}
+                </div>
+
+            </div>
+        </div>
+    </Section>
+</div>
+{{/ifeq}}
+
+<!-- end temporary layout -->
 
 <script src="/assets/js/admin-dashboard.js"></script>

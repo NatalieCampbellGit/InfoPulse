@@ -1,8 +1,8 @@
-<div id="editing-section" class="w-full">
-    <div class="flex flex-col sm:flex-row items-baseline space-x-4 space-y-2 my-2 mx-0 px-2 pt-1 pb-4 sm:py-0 rounded bg-pulse-lt-blue-200 text-sm overflow-auto"
+<div id="editing-section" class="w-full py-1">
+    <div class="flex flex-col sm:flex-row items-baseline space-x-4 space-y-2 my-2 mx-0 px-2 pb-2 sm:py-0 rounded bg-pulse-lt-blue-200 text-sm overflow-auto"
         id="template-options" data-templateid="{{template.id}}" data-administratorid="{{administrator_id}}">
         <div class="flex flex-col items-baseline w-full">
-            <label for="template-category" class="w-auto text-left mr-2">Category:</label>
+            <label for="template-category" class="w-auto text-left mr-2 text-pulse-blue-500">Category:</label>
             <select id="template-category" class="border-gray-300 border rounded  px-2 py-0 w-72 mb-2"
                 data-initial="{{template.category_id}}">
                 <option value="0">All categories</option>
@@ -12,24 +12,24 @@
             </select>
         </div>
         <div class="flex flex-col items-baseline w-full">
-            <label for="template-title" class="w-auto text-left mr-2">Title:</label>
+            <label for="template-title" class="w-auto text-left mr-2 text-pulse-blue-500">Title:</label>
             <input type="text" value="{{template.title}}" id="template-title"
                 class="border-gray-300 border rounded px-2 py-0 w-72  mb-2" />
         </div>
         <div class="flex flex-col items-baseline w-full">
-            <label for="template-description" class="w-auto text-left mr-2">Description:</label>
+            <label for="template-description" class="w-auto text-left mr-2 text-pulse-blue-500">Description:</label>
             <input type="text" value="{{template.description}}" id="template-description"
                 class="border-gray-300 border rounded px-2 py-0 w-72  mb-2" />
         </div>
         <div class="flex items-baseline w-full">
-            <label for="template-public" class="w-auto text-left mr-2">Show publicly:</label>
+            <label for="template-public" class="w-auto text-left mr-2 text-pulse-blue-500">Show publicly:</label>
             <input type="checkbox" value="Selected" {{#if template.public}}checked data-public="true"
                 {{else}}data-public="false" {{/if}} id="template-public"
                 class="border-gray-300 border rounded px-2 py-0 w-auto  mb-2" />
         </div>
     </div>
 
-    <div class="px-2 sm:px-0 mb-2 bg-white">
+    <div class="px-2  sm:px-0 mb-2 bg-white">
         <section>
             <!-- menu bar above the textarea -->
             <div class="flex flex-col sm:flex-row items-start sm:space-x-4 space-y-2 sm:space-y-0 px-2 py-1 mb-2 mt-0 rounded bg-pulse-green-200"
@@ -138,7 +138,7 @@
 <section>
     <!-- Modal choosing file to insert link of -->
     <div id="insert-image-link-modal" class="modal z-10">
-        <div class="modal-content w-full md:max-w-screen-md">
+        <div class="modal-content w-full md:max-w-screen-md rounded-md shadow-lg">
             <div class="text-center">
                 <h3 class="text-2xl font-bold text-pulse-blue-500">Insert Image Link</h3>
                 <!-- Select existing image -->
@@ -178,7 +178,8 @@
                 </div>
                 <div>
                     <!-- img to display selected image -->
-                    <img class="hidden" id="modal-selected-image" src="" alt="image preview" width="200">
+                    <img class="hidden border-2 rounded border-pulse-grey-dark" id="modal-selected-image" src=""
+                        alt="image preview" width="300">
                 </div>
 
             </div>
@@ -190,7 +191,7 @@
 <section>
     <!-- Modal for adding uploading file -->
     <div id="upload-image-modal" class="modal z-50">
-        <div class="modal-content bg-white  w-full sm:max-w-screen-sm">
+        <div class="modal-content bg-white  w-full sm:max-w-screen-sm rounded-md shadow-lg">
             <div class="text-center">
                 <h3 class="text-2xl font-bold text-pulse-blue-500">Select Image to Upload</h3>
             </div>
@@ -225,30 +226,28 @@
     </div>
 </section>
 <section>
+
     <!-- Modal for inserting a hyperlink into markdown -->
     <div id="insert-url-modal" class="modal z-10">
-        <div class="modal-content w-full md:max-w-screen-md">
+        <div class="modal-content w-full sm:max-w-screen-sm rounded-md shadow-lg">
             <div class="text-center">
                 <h3 class="text-2xl font-bold text-pulse-blue-500">Insert URL</h3>
             </div>
-            <div class="flex flex-col space-y-2 sm:flex-row sm:space-x-2 ">
-                <div class="flex flex-col space-y-4">
+            <div class="flex flex-col space-y-2 ">
 
-                    <div>
-                        <label for="url-title">URL Title:</label>
-                        <input type="text" id="url-title" class="border-gray-300 border rounded px-2 py-0 w-full"><br />
-                    </div>
-                    <div>
-                        <label for="url-hyperlink">URL:</label>
-                        <input type="text" id="url-hyperlink"
-                            class="border-gray-300 border rounded px-2 py-0 w-full"><br />
-                    </div>
-                    <div>
-                        <button class="rounded bg-pulse-green-500 hover:bg-pulse-green-700 px-3 py-1 text-white"
-                            id="insert-url">Insert Link</button>
-                        <button class="rounded bg-red-500 hover:bg-red-700 px-3 py-1 text-white"
-                            id="cancel-insert-url">Cancel</button>
-                    </div>
+                <div>
+                    <label for="url-title">URL Title:</label>
+                    <input type="text" id="url-title" class="border-gray-300 border rounded px-2 py-0 w-full"><br />
+                </div>
+                <div>
+                    <label for="url-hyperlink">URL:</label>
+                    <input type="text" id="url-hyperlink" class="border-gray-300 border rounded px-2 py-0 w-full"><br />
+                </div>
+                <div>
+                    <button class="rounded bg-pulse-green-500 hover:bg-pulse-green-700 px-3 py-1 text-white"
+                        id="insert-url">Insert Link</button>
+                    <button class="rounded bg-red-500 hover:bg-red-700 px-3 py-1 text-white"
+                        id="cancel-insert-url">Cancel</button>
                 </div>
             </div>
         </div>

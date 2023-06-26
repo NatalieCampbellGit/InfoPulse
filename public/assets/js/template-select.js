@@ -22,26 +22,24 @@ function addEventHandlers() {
 
 function markTemplateAsSelected(event) {
   // get the template list item with the matching id
-  const clicked = event.target;
-  if (clicked.classList.contains("template-list-item")) {
-    // get the data-id attribute from the clicked element
-    templateId = clicked.getAttribute("data-id");
-    for (let i = 0; i < templateList.length; i++) {
-      const id = templateList[i].getAttribute("data-id");
-      if (id === templateId) {
-        clicked.classList.add("bg-pulse-lt-blue-500");
-        clicked.classList.add("text-white");
-        clicked.classList.remove("bg-pulse-lt-blue-100");
-        clicked.classList.remove("text-pulse-blue-700");
-        // set the module variable to the selected template's id
-        selectedTemplateId = templateId;
-        console.log(`clicked selectedTemplateId = ${selectedTemplateId}`);
-      } else {
-        templateList[i].classList.add("bg-pulse-lt-blue-100");
-        templateList[i].classList.add("text-pulse-blue-700");
-        templateList[i].classList.remove("bg-pulse-lt-blue-500");
-        templateList[i].classList.remove("text-white");
-      }
+  const clicked = event.currentTarget;
+  // get the data-id attribute from the clicked element
+  const templateId = clicked.dataset.id;
+  for (let i = 0; i < templateList.length; i++) {
+    const id = templateList[i].dataset.id;
+    if (id === templateId) {
+      templateList[i].classList.add("bg-pulse-lt-blue-400");
+      templateList[i].classList.add("text-white");
+      templateList[i].classList.remove("bg-pulse-lt-blue-100");
+      templateList[i].classList.remove("text-pulse-blue-700");
+      // set the module variable to the selected template's id
+      selectedTemplateId = templateId;
+      console.log(`clicked selectedTemplateId = ${selectedTemplateId}`);
+    } else {
+      templateList[i].classList.add("bg-pulse-lt-blue-100");
+      templateList[i].classList.add("text-pulse-blue-700");
+      templateList[i].classList.remove("bg-pulse-lt-blue-400");
+      templateList[i].classList.remove("text-white");
     }
   }
 }
@@ -54,17 +52,23 @@ searchButton.addEventListener("click", async (event) => {
   const returnFormat = "html"; // ask for html format
 
   if (categoryID >= 0 || searchText.length > 2 || searchMarkdown.length > 2) {
-    // if there is a category selected or a search term, send the request to the server
-    const response = await fetch("/api/rmtemplate/search", {
-      method: "POST",
-      body: JSON.stringify({
-        id: categoryID,
-        searchTerm: searchText,
-        searchMarkdown: searchMarkdown,
-        returnFormat: returnFormat,
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
+    searchResults.innerHTML = "";
+    try {
+      // if there is a category selected or a search term, send the request to the server
+      const response = await fetch("/api/rmtemplate/search", {
+        method: "POST",
+        body: JSON.stringify({
+          id: categoryID,
+          searchTerm: searchText,
+          searchMarkdown: searchMarkdown,
+          returnFormat: returnFormat,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (err) {
+      console.log(err);
+      return;
+    }
 
     if (response.ok) {
       const htmlFormat = await response.text();

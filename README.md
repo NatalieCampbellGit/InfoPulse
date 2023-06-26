@@ -2,21 +2,21 @@
 
  [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-InfoPulse is a web application that allows business users such as health professionals to create and share information with their clients. It is designed to be a simple and easy to use platform for sharing information, with a focus on privacy and security.
+InfoPulse is a web application that allows business users such as health professionals to create and share information with their users. It is designed to be a simple and easy to use platform for sharing information, with a focus on privacy and security.
 
 ## Description
 
 ### Problem it is solving
 
-Providing clients with information is an important part of many businesses. 40-80% of information and advice verbally given to clients is immediately forgotten. In some fields such as health, this information or advice can be very important.
+Providing users with information is an important part of many businesses. 40-80% of information and advice verbally given to users is immediately forgotten. In some fields such as health, this information or advice can be very important.
 
 ### How it solves the problem
 
-This application allows business to share information using pre-written factsheets chosen specifically for the client, with custom information being able to be appended, available in a browser through a secure login to the client's dashboard.
+This application allows business to share information using pre-written factsheets chosen specifically for the user, with custom information being able to be appended, available in a browser through a secure login to the user's dashboard.
 
-Factsheets are created by the business and can be shared with multiple clients. They are created, edited and deleted by a logged-in administrator through a business dashboard using markdown, and they can include images and other media via hyperlinks. The factsheets are converted to HTML and stored in a database, and are then retrieved and displayed to the client when they log in.
+Factsheets are created by the business and can be shared with multiple users. They are created, edited and deleted by a logged-in administrator through a business dashboard using markdown, and they can include images and other media via hyperlinks. The factsheets are converted to HTML and stored in a database, and are then retrieved and displayed to the user when they log in.
 
-Clients are enrolled in the system by the administrator, and are given a unique passphrase together with their registered email address which they use to log in and create their own username and password for future logging in. The passphrase is used to ensure that only the intended client can log in to the system.
+Users are enrolled in the system by the administrator, and are given a unique passphrase together with their registered email address which they use to log in and create their own username and password for future logging in. The passphrase is used to ensure that only the intended user can log in to the system.
 
 Administrators can also create and edit users, which are other administrators who can log in to the business dashboard and create, edit and delete factsheets.
 
@@ -48,7 +48,7 @@ This is a full-stack application using NodeJS for the server and Express for the
 - jsdom: Create a virtual DOM to aid in sanitising HTML with dompurify
 - marked: Convert markdown to HTML
 - marked-emoji: Convert emojis in markdown to HTML
-- multer: Handle file uploads from the client
+- multer: Handle file uploads from the user
 - sharp: Resize images and obtain metadata
 
 #### Packages used for formatting and linting

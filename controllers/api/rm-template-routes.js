@@ -144,7 +144,7 @@ router.post("/search", withAuth, async (req, res) => {
         case "html":
           res
             .status(200)
-            .send(`<p class="text-pulse-green-500">No results found</p>`);
+            .send(`<p class="text-pulse-green-500">No templates found</p>`);
           break;
         default:
           res.status(404).json({ message: "No template images were found" });
