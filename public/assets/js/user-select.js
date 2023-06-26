@@ -16,8 +16,11 @@ searchUser.addEventListener("click", async (event) => {
     userSearchText.focus();
     return;
   }
+  
   // clear the UI
   userSearchResults.innerHTML = "";
+  addUserIDToDataStore('')  
+
 
   // call the search API, expecting HTML back
   // using handlebars to format the database search results
@@ -76,6 +79,7 @@ function markUserAsSelected(event) {
       userList[i].classList.remove("bg-pulse-green-100");
       // set the module variable to the selected user's id
       selectedUserId = userId;
+      addUserIDToDataStore(userId);
       console.log(`clicked selectedUserId = ${selectedUserId}`);
     } else {
       console.log;
@@ -89,6 +93,15 @@ function markUserAsSelected(event) {
     populateFactsheets();
   }
 }
+
+function addUserIDToDataStore(id) {
+  const dataStore = document.getElementById("data-store");
+  if (!dataStore) {
+    return;
+  }
+  dataStore.dataset.userId = id;
+}
+
 
 // show the user's factsheets
 async function populateFactsheets() {

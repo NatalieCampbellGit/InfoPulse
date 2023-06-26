@@ -32,6 +32,7 @@ function markTemplateAsSelected(event) {
       templateList[i].classList.remove("text-pulse-blue-700");
       // set the module variable to the selected template's id
       selectedTemplateId = templateId;
+      addTemplateIDToDataStore(templateId);
       console.log(`clicked selectedTemplateId = ${selectedTemplateId}`);
     } else {
       templateList[i].classList.add("bg-pulse-lt-blue-100");
@@ -51,6 +52,8 @@ searchButton.addEventListener("click", async (event) => {
 
   if (categoryID >= 0 || searchText.length > 2 || searchMarkdown.length > 2) {
     searchResults.innerHTML = "";
+    addTemplateIDToDataStore('');
+    
     let response;
     try {
       // if there is a category selected or a search term, send the request to the server
@@ -123,6 +126,14 @@ deleteButton.addEventListener("click", (event) => {
     }
   }
 });
+
+function addTemplateIDToDataStore(id) {
+  const dataStore = document.getElementById("data-store");
+  if (!dataStore) {
+    return;
+  }
+  dataStore.dataset.templateId = id;
+}
 
 // add event handlers to the template list items
 addEventHandlersToTemplateList();
