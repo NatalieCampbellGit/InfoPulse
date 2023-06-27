@@ -21,48 +21,35 @@
       </div>
     </div>
     <div class="">
-      <h1 class="text-3xl font-bold text-pulse-blue-500 text-center mb-4 py-2">{{pagetitle}}</h1>
+      {{!-- <h1 class="text-3xl font-bold text-pulse-blue-500 text-center mb-4 py-2">{{pagetitle}}</h1> --}}
     </div>
-    {{#ifeq dashboardView 0}}
-    <div id="select-template">
-      <div class="mx-auto px-1 sm:px-2 bg-white">
-        <!-- Component to select a template -->
-        {{!-- display a component to select a template --}}
-        <section id="search-area" class="px-2">
-          <div class="space-y-1 w-full mx-auto sm:max-w-screen-sm">
-            {{> template-select }}
-          </div>
-        </section>
-      </div>
-    </div>
-    {{/ifeq}}
-    {{#ifeq dashboardView 1}}
+    
+  <!-- display the factsheets that user has been given -->
     <div id="view-posts">
       <div class="mx-auto px-1 sm:px-2 bg-white">
         <h2 class="text-xl font-bold mb-2">Posts</h2>
-        {{#each posts}}
+        {{#each factsheets as |factsheet| }}
         <div>
-          <h3>{{title}}</h3>
+          {{{template.html}}}
         </div>
         {{/each}}
       </div>
     </div>
-    {{/ifeq}}
-    {{#ifeq dashboardView 2}}
-    <div id="view-post">
+
+    <!-- display single factsheet and its comments -->>
+    {{!-- <div id="view-post">
       <div class="mx-auto px-1 sm:px-2 bg-white">
         <!-- Display a selected post -->
         <h2 class="text-xl font-bold mb-2">{{selectedPost.title}}</h2>
         <p>{{selectedPost.content}}</p>
       </div>
     </div>
-    {{/ifeq}}
+    --}}
 
     <!-- Buttons section -->
     <div class="button-group">
       <button class="btn btn-primary mr-2" id="add-comment">Add Comment</button>
       <button class="btn btn-success mr-2" id="save-comment">Save Comment</button>
-      <button class="btn btn-info mr-2" id="edit-profile">Edit Profile</button>
       <!-- <button class="btn btn-danger" id="log-out">Log Out</button> -->
     </div>
   </div>
