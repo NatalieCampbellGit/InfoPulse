@@ -1,8 +1,7 @@
-const { Model, DataTypes } = require('sequelize')
-const sequelize = require('../config/connection')
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
 
-class UserComment extends Model {
-}
+class UserComment extends Model {}
 
 UserComment.init(
   {
@@ -10,33 +9,33 @@ UserComment.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     factsheet_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'factsheet',
-        key: 'id'
-      }
+        model: "factsheet",
+        key: "id",
+      },
     },
     content: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
   {
     hooks: {
       beforeCreate: async (newData) => {
-        return newData
-      }
+        return newData;
+      },
     },
     sequelize,
     timestamps: true,
     freezeTableName: true,
     underscored: true,
-    modelName: 'usercomment'
+    modelName: "usercomment",
   }
-)
+);
 
-module.exports = UserComment
+module.exports = UserComment;

@@ -1,6 +1,8 @@
 # InfoPulse
 
- [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 InfoPulse is a web application that allows business users such as health professionals to create and share information with their users. It is designed to be a simple and easy to use platform for sharing information, with a focus on privacy and security.
 
@@ -50,6 +52,7 @@ This is a full-stack application using NodeJS for the server and Express for the
 - marked-emoji: Convert emojis in markdown to HTML
 - multer: Handle file uploads from the user
 - sharp: Resize images and obtain metadata
+-
 
 #### Packages used for formatting and linting
 

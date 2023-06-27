@@ -7,20 +7,10 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const routes = require("./controllers");
 const sequelize = require("./config/connection");
 
-
-const {
-  getAllCategories,
-  getAllTemplates,
-  getAllPublicTemplates,
-  getUserFactsheets,
-  getAdministratorById,
-  getUserById,
-} = require("./utils/models-utils");
-
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
 // ! TODO REMOVE THIS BEFORE PRODUCTION
 // THIS IS TO ALLOW THE BROWSER TO ACCESS THE SERVER DURING TESTING

@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize')
 const sequelize = require('../config/connection')
-const convertMarkdownToHTML = require('../utils/markdown-utils')
-const sanitiseHTML = require('../utils/html-utils')
+const { convertMarkdownToHTML } = require('../utils/markdown-utils')
+const { sanitizeHTML } = require('../utils/html-utils')
 class Factsheet extends Model {
 
 }
