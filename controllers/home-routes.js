@@ -1,7 +1,7 @@
 // The home routes handle the homepage, login, logout, and signup pages
 const router = require("express").Router();
 const { withAuth, withAdminAuth } = require("../utils/auth");
-const { getAdministratorDashboardData } = require("../utils/models-utils");
+const { getAdministratorDashboardData } = require("../utils/model-utils");
 
 // Display the homepage
 router.get("/", async (req, res) => {

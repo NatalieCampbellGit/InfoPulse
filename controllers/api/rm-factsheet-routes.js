@@ -4,7 +4,7 @@ const Factsheet = require("../../models/Factsheet");
 const UserComment = require("../../models/UserComment");
 const { withAuth, withAdminAuth } = require("../../utils/auth");
 const router = require("express").Router();
-const { getUserFactsheets } = require("../../utils/models-utils");
+const { getUserFactsheets } = require("../../utils/model-utils");
 const { formatFactsheetListItems } = require("../../utils/html-utils");
 
 router.get("/", withAuth, async (req, res) => {
