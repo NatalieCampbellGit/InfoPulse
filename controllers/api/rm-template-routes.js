@@ -7,7 +7,7 @@ const { formatTemplateListItems } = require("../../utils/html-utils");
 const {
   getAdministratorDashboardData,
   getTemplateById,
-} = require("../../utils/models-utils");
+} = require("../../utils/model-utils");
 
 // route to edit a template via handlebars
 router.get("/edit/:id", withAdminAuth, async (req, res) => {

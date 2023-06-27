@@ -1,12 +1,21 @@
 <!-- Error 404 Page -->
-<div class="max-w-6xl mx-auto px-1 sm:px-2 bg-white text-center">
-    <img src="/assets/images/404.jpg" alt="404 message with robot" class="w-full sm:w-96 h-auto mx-auto" />
-    <h1 class="text-pulse-lt-blue-600 mt-4 font-bold text-3xl">Error 404: Not Found!</h1>
-    <p class="text-pulse-green-700 my-2">Sorry, the page or information you were looking for could not be found.</p>
-    <p class="text-pulse-green-400 my-2">{{message}}</p>
-    <a href="" id="to-home" data-previousroute="{{previousRoute}}"
-        class="no-underline inline-block bg-pulse-lt-blue-600 hover:bg-pulse-lt-blue-700 text-white font-bold py-2 px-4 rounded my-5">Go
-        Back</a>
+<div class="mx-auto max-w-6xl bg-white px-1 text-center sm:px-2">
+  <img
+    src="/assets/images/404.jpg"
+    alt="404 message with robot"
+    class="mx-auto h-auto w-full sm:w-96"
+  />
+  <h1 class="mt-4 text-3xl font-bold text-pulse-lt-blue-600">Error 404: Not
+    Found!</h1>
+  <p class="my-2 text-pulse-green-700">Sorry, the page or information you were
+    looking for could not be found.</p>
+  <p class="my-2 text-pulse-green-400">{{message}}</p>
+  <a
+    href=""
+    id="to-home"
+    data-previousroute="{{previousRoute}}"
+    class="my-5 inline-block rounded bg-pulse-lt-blue-600 px-4 py-2 font-bold text-white no-underline hover:bg-pulse-lt-blue-700"
+  >Go Back</a>
 </div>
 
 <script src="./assets/js/error-404.js"></script>

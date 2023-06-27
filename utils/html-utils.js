@@ -38,13 +38,10 @@ function formatTemplateListItems(templates) {
   try {
     const source = fs.readFileSync(handlebarsTemplatePath, "utf8");
     const template = Handlebars.compile(source);
-    console.log(templates);
-    console.log(source);
     let htmlFormat = "";
     for (let i = 0; i < templates.length; i++) {
       htmlFormat += template(templates[i]);
     }
-    console.log(htmlFormat);
     return htmlFormat;
   } catch (error) {
     console.log(error);
@@ -63,13 +60,10 @@ function formatUserListItems(users) {
   try {
     const source = fs.readFileSync(handlebarsUserPath, "utf8");
     const template = Handlebars.compile(source);
-    console.log(users);
-    console.log(source);
     let htmlFormat = "";
     for (let i = 0; i < users.length; i++) {
       htmlFormat += template(users[i]);
     }
-    console.log(htmlFormat);
     return htmlFormat;
   } catch (error) {
     console.log(error);
@@ -88,8 +82,6 @@ function formatFactsheetListItems(factsheets) {
   try {
     const source = fs.readFileSync(handlebarsUserPath, "utf8");
     const template = Handlebars.compile(source);
-    console.log(factsheets);
-    console.log(source);
     let htmlFormat = "";
 
     for (let i = 0; i < factsheets.length; i++) {
