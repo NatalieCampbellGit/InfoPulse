@@ -1,8 +1,7 @@
-const { Model, DataTypes } = require('sequelize')
-const sequelize = require('../config/connection')
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
 
-class Category extends Model {
-}
+class Category extends Model {}
 
 Category.init(
   {
@@ -10,29 +9,29 @@ Category.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     title: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
   {
     hooks: {
       beforeCreate: async (newData) => {
-        return newData
-      }
+        return newData;
+      },
     },
     sequelize,
     timestamps: true,
     freezeTableName: true,
     underscored: true,
-    modelName: 'category'
+    modelName: "category",
   }
-)
+);
 
-module.exports = Category
+module.exports = Category;

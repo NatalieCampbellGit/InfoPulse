@@ -1,7 +1,14 @@
-<div class="user-list-item border-1 rounded-md bg-pulse-green-100 mx-2
-     border-pulse-green-300  text-pulse-green-700 cursor-pointer
-      py-1 px-4 mb-1" data-id="{{id}}">
-  <p class="text-pulse-blue-500 font-semibold">{{last_name}}, {{first_name}} <span
-      class="text-sm italic font-normal ">({{date_of_birth}})</span></p>
-  <p class="text-sm italic text-pulse-green-700"> {{email}} mobile: {{mobile_phone}} code: {{authentication_code}}</p>
+<div
+  class="user-list-item border-1 mx-2 mb-1 cursor-pointer rounded-md border-pulse-green-300 bg-pulse-green-100 px-4 py-1 text-pulse-green-700"
+  data-id="{{id}}"
+>
+  <p class="font-semibold text-pulse-blue-500">{{last_name}},
+    {{first_name}}
+    <span class="text-sm font-normal italic">({{date_of_birth}})</span></p>
+  <p class="text-sm italic text-pulse-green-700">
+    {{email}}
+    mobile:
+    {{mobile_phone}}
+    code:
+    {{authentication_code}}</p>
 </div>

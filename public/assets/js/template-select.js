@@ -10,13 +10,11 @@ let templateList = document.getElementsByClassName("template-list-item");
 let selectedTemplateId = 0;
 
 // add event handlers to template-list-item
-function addEventHandlers() {
+function addEventHandlersToTemplateList() {
   // add event handlers to the template list items
   templateList = document.getElementsByClassName("template-list-item");
   Array.from(templateList).forEach((item) => {
-    item.addEventListener("click", (event) => {
-      markTemplateAsSelected(event);
-    });
+    item.addEventListener("click", markTemplateAsSelected);
   });
 }
 
@@ -34,6 +32,7 @@ function markTemplateAsSelected(event) {
       templateList[i].classList.remove("text-pulse-blue-700");
       // set the module variable to the selected template's id
       selectedTemplateId = templateId;
+      addTemplateIDToDataStore(templateId);
       console.log(`clicked selectedTemplateId = ${selectedTemplateId}`);
     } else {
       templateList[i].classList.add("bg-pulse-lt-blue-100");
@@ -53,9 +52,12 @@ searchButton.addEventListener("click", async (event) => {
 
   if (categoryID >= 0 || searchText.length > 2 || searchMarkdown.length > 2) {
     searchResults.innerHTML = "";
+    addTemplateIDToDataStore("");
+
+    let response;
     try {
       // if there is a category selected or a search term, send the request to the server
-      const response = await fetch("/api/rmtemplate/search", {
+      response = await fetch("/api/rmtemplate/search", {
         method: "POST",
         body: JSON.stringify({
           id: categoryID,
@@ -67,6 +69,7 @@ searchButton.addEventListener("click", async (event) => {
       });
     } catch (err) {
       console.log(err);
+      addEventHandlersToTemplateList();
       return;
     }
 
@@ -79,7 +82,7 @@ searchButton.addEventListener("click", async (event) => {
       alert("Error searching for templates");
     }
     // add back the event handlers to the template list items
-    addEventHandlers();
+    addEventHandlersToTemplateList();
   }
 });
 
@@ -87,7 +90,7 @@ searchButton.addEventListener("click", async (event) => {
 viewButton.addEventListener("click", (event) => {
   event.preventDefault();
   if (selectedTemplateId > 0) {
-    window.location.href = `/api/template/view/${selectedTemplateId}`;
+    window.location.href = `/api/template/view?id=${selectedTemplateId}`;
   }
 });
 
@@ -97,13 +100,7 @@ editButton.addEventListener("click", async (event) => {
   if (selectedTemplateId > 0) {
     // send the user to the edit page for the selected template
     window.location.href = `/api/rmtemplate/edit/${selectedTemplateId}`;
-    if (response.ok) {
-      // if the response is ok, send the user will be sent to the edit page
-    } else {
-      alert("Error getting template");
-    }
-  }
-});
+}});
 
 // when the user clicks the New button, send them to the template's edit page
 newButton.addEventListener("click", (event) => {
@@ -124,5 +121,13 @@ deleteButton.addEventListener("click", (event) => {
   }
 });
 
+function addTemplateIDToDataStore(id) {
+  const dataStore = document.getElementById("data-store");
+  if (!dataStore) {
+    return;
+  }
+  dataStore.dataset.templateId = id;
+}
+
 // add event handlers to the template list items
-addEventHandlers();
+addEventHandlersToTemplateList();

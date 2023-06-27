@@ -116,8 +116,6 @@ router.get("/admin", withAdminAuth, async (req, res) => {
   }
 });
 
-
-
 // ! DELETE THIS ROUTE BEFORE DEPLOYING
 // Display the test page
 router.get("/rm-test", (req, res) => {

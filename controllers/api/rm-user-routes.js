@@ -76,7 +76,7 @@ router.post("/search", withAuth, async (req, res) => {
         case "html":
           res
             .status(200)
-            .send(`<p class="text-pulse-green-500">No factsheets found</p>`);
+            .send(`<p class="text-pulse-green-500">No users were found</p>`);
           break;
         default:
           res.status(404).json({ message: "No users were found" });

@@ -1,38 +1,66 @@
-<div class="hidden " id="register-user-section">
-    <label class="text-base text-pulse-lt-blue-500">
-        First Name:
-        <input type="text" class="w-full px-2 py-1 border-2 border-pulse-green-300 rounded">
-    </label>
-    <label class="text-base text-pulse-lt-blue-500">
-        Last Name:
-        <input type="text" class="w-full px-2 py-1 border-2 border-pulse-green-300 rounded">
-    </label>
-    <label class="text-base text-pulse-lt-blue-500">
-        Date of Birth:
-        <input type="date" class="w-full px-2 py-1 border-2 border-pulse-green-300 rounded">
-    </label>
-    <label class="text-base text-pulse-lt-blue-500">
-        Email:
-        <input type="email" class="w-full px-2 py-1 border-2 border-pulse-green-300 rounded">
-    </label>
-    <label class="text-base text-pulse-lt-blue-500">
-        Mobile Phone:
-        <input type="tel" class="w-full px-2 py-1 border-2 border-pulse-green-300 rounded">
-    </label>
-    <label class="text-base text-pulse-lt-blue-500">
-        CRM ID:
-        <input type="text" class="w-full px-2 py-1 border-2 border-pulse-green-300 rounded">
-    </label>
-    <div class="text-base text-pulse-lt-blue-500">
-        Auth Code:
-        <div id="authCode" class="w-full h-8 border-2 border-pulse-green-300 px-2 py-1 rounded"></div>
-    </div>
-    <div class="flex justify-between my-2 space-x-2">
-        <button class="w-1/4 bg-pulse-lt-blue-500 text-white rounded px-2 py-1" onclick="generateCode()">Generate
-            Code</button>
-        <button class="w-1/4 bg-pulse-green-400 text-white rounded px-2 py-1">Register</button>
-        <button class="w-1/4 bg-red-500 text-white rounded px-2 py-1" onclick="toggleRegister()">Cancel</button>
-    </div>
+<div class="hidden" id="register-user-section">
+  <label class="text-base text-pulse-lt-blue-500">
+    First Name:
+    <input
+      type="text"
+      class="w-full rounded border-2 border-pulse-green-300 px-2 py-1"
+    />
+  </label>
+  <label class="text-base text-pulse-lt-blue-500">
+    Last Name:
+    <input
+      type="text"
+      class="w-full rounded border-2 border-pulse-green-300 px-2 py-1"
+    />
+  </label>
+  <label class="text-base text-pulse-lt-blue-500">
+    Date of Birth:
+    <input
+      type="date"
+      class="w-full rounded border-2 border-pulse-green-300 px-2 py-1"
+    />
+  </label>
+  <label class="text-base text-pulse-lt-blue-500">
+    Email:
+    <input
+      type="email"
+      class="w-full rounded border-2 border-pulse-green-300 px-2 py-1"
+    />
+  </label>
+  <label class="text-base text-pulse-lt-blue-500">
+    Mobile Phone:
+    <input
+      type="tel"
+      class="w-full rounded border-2 border-pulse-green-300 px-2 py-1"
+    />
+  </label>
+  <label class="text-base text-pulse-lt-blue-500">
+    CRM ID:
+    <input
+      type="text"
+      class="w-full rounded border-2 border-pulse-green-300 px-2 py-1"
+    />
+  </label>
+  <div class="text-base text-pulse-lt-blue-500">
+    Auth Code:
+    <div
+      id="authCode"
+      class="h-8 w-full rounded border-2 border-pulse-green-300 px-2 py-1"
+    ></div>
+  </div>
+  <div class="my-2 flex justify-between space-x-2">
+    <button
+      class="w-1/4 rounded bg-pulse-lt-blue-500 px-2 py-1 text-white"
+      onclick="generateCode()"
+    >Generate Code</button>
+    <button
+      class="w-1/4 rounded bg-pulse-green-400 px-2 py-1 text-white"
+    >Register</button>
+    <button
+      class="w-1/4 rounded bg-red-500 px-2 py-1 text-white"
+      onclick="toggleRegister()"
+    >Cancel</button>
+  </div>
 </div>
 
 <script src="/assets/js/user-register.js"></script>
