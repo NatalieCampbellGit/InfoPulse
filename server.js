@@ -54,6 +54,18 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(routes);
 
+app.get("/", (req, res) => {
+  res.render("main", { currentPage: "home" });
+});
+
+app.get("/dashboard", (req, res) => {
+  res.render("main", { currentPage: "dashboard" });
+});
+
+app.get("/admin-dashboard", (req, res) => {
+  res.render("main", { currentPage: "adminDashboard" });
+});
+
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Now listening on port ${PORT}`));
 });

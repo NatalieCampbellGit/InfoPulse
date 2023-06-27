@@ -23,7 +23,9 @@
   <script src="/assets/js/script.js" defer></script>
 </head>
 
+
 <body class="bg-pulse-grey-light font-sans">
+  {{> header currentPage}}
   <header>
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light bg-dark-subtle pb-2 mb-0">
@@ -68,33 +70,7 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer mt-3 pt-3 bg-dark-subtle text-dark">
-    <div class="container text-center">
-      {{#if isDashboard}}
-      <div class="d-flex flex-column flex-md-row justify-content-between">
-        <div>
-          <p>InfoPulse</p>
-        </div>
-        <div mt-0>
-          <button type="button" class="btn btn-primary mt-0 mb-2" id="new-post-button">New Post</button>
-        </div>
-        <div>
-          <p>© 2023 Group 2</p>
-        </div>
-      </div>
-      {{else}}
-      <div class="d-flex flex-column flex-md-row justify-content-between">
-        <div>
-          <p>InfoPulse</p>
-        </div>
-        <div>
-          <p>© 2023 Group 2</p>
-        </div>
-      </div>
-      {{/if}}
-    </div>
-  </footer>
+  {{{footer}}}
 
   <!-- Feedback Modal -->
   <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">

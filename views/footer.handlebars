@@ -1,10 +1,31 @@
 <!-- Footer -->
-<footer class="footer mt-auto py-3 bg-light">
+<footer class="footer mt-3 pt-3 bg-dark-subtle text-dark">
   <div class="container text-center">
-    <a href="#" class="privacy-policy-link">Privacy Policy</a> <!-- TODO: PLACEHOLDER FOR LINK -->
+    {{#if isDashboard}}
+    <div class="d-flex flex-column flex-md-row justify-content-between">
+      <div>
+        <p>InfoPulse</p>
+      </div>
+      <div mt-0>
+        <button type="button" class="btn btn-primary mt-0 mb-2" id="new-post-button">New Post</button>
+      </div>
+      <div>
+        <p>© 2023 Group 2</p>
+      </div>
+    </div>
+    {{else}}
+    <div class="d-flex flex-column flex-md-row justify-content-between">
+      <div>
+        <p>InfoPulse</p>
+      </div>
+      <div>
+        <p>© 2023 Group 2</p>
+      </div>
+    </div>
+    {{/if}}
   </div>
 </footer>
 
 
-<!-- {{> partials/footer}} 
+<!-- {{{> footer}}}
 USE TO ADD FOOTER IN OTHER HANDLEBAR FILES -->
