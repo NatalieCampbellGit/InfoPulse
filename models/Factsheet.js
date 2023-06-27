@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const { Model, DataTypes } = require('sequelize')
 const sequelize = require('../config/connection')
 const { convertMarkdownToHTML } = require('../utils/markdown-utils')
@@ -6,13 +5,6 @@ const { sanitizeHTML } = require('../utils/html-utils')
 class Factsheet extends Model {
 
 }
-=======
-const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../config/connection");
-const {convertMarkdownToHTML} = require("../utils/markdown-utils");
-const {sanitizeHTML} = require("../utils/html-utils");
-class Factsheet extends Model {}
->>>>>>> 872eb59628a271da350511ba4c025d77b6d6059f
 
 Factsheet.init(
   {
