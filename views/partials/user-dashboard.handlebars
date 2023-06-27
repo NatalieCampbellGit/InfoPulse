@@ -1,0 +1,40 @@
+<!-- User Dashboard -->
+<div class="max-w-screen-xl mx-auto">
+  <div>
+    <h1 class="text-3xl font-bold text-pulse-blue-500 text-center mb-4 py-2">{{pagetitle}}</h1>
+  </div>
+
+  <!-- Header -->
+  {{> dashboard-header}}
+
+  <!-- Content -->
+  <div id="user-dashboard">
+    <div class="container mx-auto">
+    <div>
+        <!-- View Fact Sheet -->
+        <div class="mx-auto px-1 sm:px-2 bg-white">
+            <section id="view-fact-sheet" class="w-full mx-auto">
+                <div class="space-y-1 w-full mx-auto">
+                    {{> user-fact-sheet }}
+                </div>
+            </section>
+        </div>
+    </div>
+
+        <!-- Add Comment -->
+        <div class="mx-auto px-1 sm:px-2 bg-white">
+            <section id="add-comment" class="w-full mx-auto">
+                <div class="space-y-1 w-full mx-auto">
+                    {{> add-comment-form }}
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+  <!-- Footer -->
+  {{> footer}}
+</div>
+
+<!-- Script links -->
+<script src="/assets/js/user-dashboard.js"></script>

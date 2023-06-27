@@ -1,23 +1,56 @@
-<!-- Homepage {{body}} template -->
-<!-- Show the instructions if the user is logged in -->
-{{#if loggedIn}}
-<div class="container mt-2">
-    <div class="card text-center mb-3">
+<!-- Homepage -->
+{{!< ../layouts/main}} 
+
+<!-- Intentional different header, only using once so not a handlebar-->
+<header class="bg-gray-900 text-white py-4 px-6 flex justify-between items-center">
+  <div>
+    <!-- Logo image -->
+    <img src="assets/images/logo.PNG" alt="Logo" class="w-16 h-16">
+  </div>
+  <div>
+    <!-- Client login button -->
+    <a href="/login" class="text-white font-medium mr-4">Client Login</a>
+
+    <!-- Administrator login button -->
+    <a href="/admin-login" class="text-white font-medium">Administrator Login</a> 
+  </div>
+</header>
+
+<!-- Main -->
+<main>
+  <div class="container mx-auto">
+    <h1 class="text-4xl font-bold my-8">InfoPulse - Your Personalised Health Information</h1>
+    <img src="assets/images/landing-page-image.jpg" alt="Landing Page Image" class="my-8">
+
+    <div class="flex justify-center">
+      <a href="/signup" class="btn-primary">Sign Up with your Pass Code by clicking here</a>
+    </div>
+
+    <!-- Show the instructions if the user is logged in -->
+    {{#if loggedIn}}
+    <div class="container mt-2">
+      <div class="card text-center mb-3">
         <div class="card-header bg-light">
-            <h5 class="card-title text-muted">Instructions</h5>
+          <h5 class="card-title text-muted">Instructions</h5>
         </div>
         <div class="card-body">
-            <p class="card-text text-muted">
-                Click on the blog post to add a comment. Select Dashboard to show your posts, and to create, edit or
-                delete
-                your blog posts.
-            </p>
+          <p class="card-text text-muted">
+            Click on the blog post to add a comment. Select Dashboard to show your posts, and to create, edit or delete your blog posts.
+          </p>
         </div>
+      </div>
     </div>
-</div>
-{{/if}}
+    {{/if}}
+  </div>
+
+{{{< footer}}}
+
+</main>
+
+
+{{!-- {{/if}} --}}
 <!-- Show all blog posts -->
-<a href="/admin" class="btn btn-primary">Dashboard</a>
+{{!-- <a href="/admin" class="btn btn-primary">Dashboard</a>
 <div class="container mt-2">
     {{#if hasPosts}}
     {{#each blogPosts as |post|}}
@@ -35,6 +68,6 @@
         {{/if}}
     </div>
     {{/if}}
-</div>
+</div> --}}
 
 <!-- Homepage javascript is handled by script.js -->

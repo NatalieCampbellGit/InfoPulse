@@ -1,0 +1,14 @@
+<!-- user-fact-sheet.handlebars -->
+<div>
+    <h2 class="text-base text-pulse-lt-blue-500 font-bold mb-0">Fact Sheet</h2>
+    <div class="space-y-4">
+        <!-- Display fact sheet content -->
+        <div class="p-4 bg-white shadow-lg rounded border-2 border-pulse-green-300">
+            <!-- Display fact sheet details -->
+            <h3 class="text-lg text-pulse-blue-700 font-bold" data-id="{{factSheet.id}}">{{factSheet.title}}</h3>
+            <div class="pl-4 text-pulse-grey-dark text-sm">
+                {{factSheet.content}}
+            </div>
+        </div>
+    </div>
+</div>

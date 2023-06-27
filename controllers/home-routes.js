@@ -37,7 +37,7 @@ router.get("/login", (req, res) => {
     return;
   }
   // otherwise, render the login template
-  res.render("/admin-login", {
+  res.render("/admin-login", { //TODO: 
     // send data to the template
   });
 });
