@@ -10,7 +10,7 @@ const sequelize = require("./config/connection");
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
 // ! TODO REMOVE THIS BEFORE PRODUCTION
 // THIS IS TO ALLOW THE BROWSER TO ACCESS THE SERVER DURING TESTING

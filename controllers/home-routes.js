@@ -1,7 +1,7 @@
 // The home routes handle the homepage, login, logout, and signup pages
 const router = require("express").Router();
-const { withAuth, withAdminAuth } = require("../utils/auth");
-const { getAdministratorDashboardData } = require("../utils/model-utils");
+const { withAuth,withUserAuth, withAdminAuth } = require("../utils/auth");
+const { getAdministratorDashboardData, getUserById } = require("../utils/model-utils");
 
 // Display the homepage
 router.get("/", async (req, res) => {
@@ -30,7 +30,7 @@ router.get("/login", (req, res) => {
 });
 
 // Display the admin-login page
-router.get("/login", (req, res) => {
+router.get("/adminlogin", (req, res) => {
   // if the user is already logged in, redirect to the homepage
   if (req.session.loggedIn) {
     res.redirect("/");
@@ -113,6 +113,50 @@ router.get("/admin", withAdminAuth, async (req, res) => {
     res
       .status(500)
       .json({ err, message: "Error loading the Administrator Dashboard" });
+  }
+});
+
+// display the Administrator Dashboard
+router.get("/userdashboard", withUserAuth, async (req, res) => {
+  try {
+    // information that this route needs:
+    // all factsheets for the user
+    // logged in info
+    // user info
+    // administrator's info
+
+    // guaranteed to be an user because of the withUserAuth middleware
+    const user_id = req.session.user_id;
+    if (!user_id || user_id === "" || user_id < 1) {
+      // send to 404 route
+      res
+        .status(404)
+        .render("error-404", { message: "User not found" });
+      return;
+    }
+
+    // get the user dashboard's info using a util function
+    const userDashboardData = await getUserById(
+      user_id,
+    );
+    console.log(userDashboardData)
+    if (!userDashboardData) {
+      // send to 404 route
+      res.status(404).render("error-404", {
+        message: "Could not retrieve the User Dashboard data",
+        previousRoute: "home",
+      });
+      return;
+    }
+    // console.log(userDashboardData)
+
+    // configure the userDashboardData object to display the correct buttons
+    res.render("user-dashboard", userDashboardData);
+  } catch (err) {
+    console.log(err);
+    res
+      .status(500)
+      .json({ err, message: "Error loading the User Dashboard" });
   }
 });
 

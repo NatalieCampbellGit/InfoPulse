@@ -6,9 +6,8 @@ const {
     UserComment,
     Administrator,
   } = require("../models");
-  
-  const { withAuth, withAdminAuth, withUserAuth } = require("../utils/auth");
-  
+  const { withAuth, withAdminAuth, withUserAuth } = require("./auth");
+  ​
   // return all categories
   async function getAllCategories() {
     try {
