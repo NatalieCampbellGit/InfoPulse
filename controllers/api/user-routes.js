@@ -96,7 +96,7 @@ router.post('/login', async (req, res) => {
   }
 })
 
-// maybe add a firstlogin route to handle the first login with the authentication_code
+// maybe add a first login route to handle the first login with the authentication_code
 // the user will use the authentication_code to create their own username and password
 
 module.exports = router

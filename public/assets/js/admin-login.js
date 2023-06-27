@@ -5,7 +5,7 @@
 const loginFormHandler = async (event) => {
     event.preventDefault()
     // avoid double click
-    document.getElementById('login-button').disabled = true
+    document.getElementById('admin-login-button').disabled = true
   
     const username = document.querySelector('#username').value.trim()
     const password = document.querySelector('#password').value.trim()
