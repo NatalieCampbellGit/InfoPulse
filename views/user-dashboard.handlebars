@@ -1,59 +1,73 @@
-<div class="max-w-screen-xl mx-auto">
-  <div class="">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard</title>
+  <link href="../public/assets/css/styles.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+  <div class="max-w-screen-xl mx-auto">
     <div class="">
-      <div id="user-menu">
-        <!-- User menu buttons -->
-        <button type="button" class="btn btn-primary" id="view-templates">View Templates</button>
-        <button type="button" class="btn btn-primary" id="edit-profile">Edit Profile</button>
-        <!-- <button type="button" class="btn btn-primary" id="log-out">Log Out</button> -->
-      </div>
-    </div>
-  </div>
-  <div class="">
-    <h1 class="text-3xl font-bold text-pulse-blue-500 text-center mb-4 py-2">{{pagetitle}}</h1>
-  </div>
-  {{#ifeq dashboardView 0}}
-  <div id="select-template">
-    <div class="mx-auto px-1 sm:px-2 bg-white">
-      <!-- Component to select a template -->
-      {{!-- display a component to select a template --}}
-      <section id="search-area" class="px-2">
-        <div class="space-y-1 w-full mx-auto sm:max-w-screen-sm">
-          {{> template-select }}
+      <div class="">
+        <div id="user-menu">
+          <!-- User menu buttons -->
+          <button type="button" class="btn btn-primary" id="view-templates">View Templates</button>
+          <button type="button" class="btn btn-primary" id="edit-profile">Edit Profile</button>
+          <!-- <button type="button" class="btn btn-primary" id="log-out">Log Out</button> -->
         </div>
-      </section>
-    </div>
-  </div>
-  {{/ifeq}}
-  {{#ifeq dashboardView 1}}
-  <div id="view-posts">
-    <div class="mx-auto px-1 sm:px-2 bg-white">
-      <h2 class="text-xl font-bold mb-2">Posts</h2>
-      {{#each posts}}
-      <div>
-        <h3>{{title}}</h3>
       </div>
-      {{/each}}
+    </div>
+    <div class="">
+      <h1 class="text-3xl font-bold text-pulse-blue-500 text-center mb-4 py-2">{{pagetitle}}</h1>
+    </div>
+    {{#ifeq dashboardView 0}}
+    <div id="select-template">
+      <div class="mx-auto px-1 sm:px-2 bg-white">
+        <!-- Component to select a template -->
+        {{!-- display a component to select a template --}}
+        <section id="search-area" class="px-2">
+          <div class="space-y-1 w-full mx-auto sm:max-w-screen-sm">
+            {{> template-select }}
+          </div>
+        </section>
+      </div>
+    </div>
+    {{/ifeq}}
+    {{#ifeq dashboardView 1}}
+    <div id="view-posts">
+      <div class="mx-auto px-1 sm:px-2 bg-white">
+        <h2 class="text-xl font-bold mb-2">Posts</h2>
+        {{#each posts}}
+        <div>
+          <h3>{{title}}</h3>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/ifeq}}
+    {{#ifeq dashboardView 2}}
+    <div id="view-post">
+      <div class="mx-auto px-1 sm:px-2 bg-white">
+        <!-- Display a selected post -->
+        <h2 class="text-xl font-bold mb-2">{{selectedPost.title}}</h2>
+        <p>{{selectedPost.content}}</p>
+      </div>
+    </div>
+    {{/ifeq}}
+
+    <!-- Buttons section -->
+    <div class="button-group">
+      <button class="btn btn-primary mr-2" id="add-comment">Add Comment</button>
+      <button class="btn btn-success mr-2" id="save-comment">Save Comment</button>
+      <button class="btn btn-info mr-2" id="edit-profile">Edit Profile</button>
+      <!-- <button class="btn btn-danger" id="log-out">Log Out</button> -->
     </div>
   </div>
-  {{/ifeq}}
-  {{#ifeq dashboardView 2}}
-  <div id="view-post">
-    <div class="mx-auto px-1 sm:px-2 bg-white">
-      <!-- Display a selected post -->
-      <h2 class="text-xl font-bold mb-2">{{selectedPost.title}}</h2>
-      <p>{{selectedPost.content}}</p>
-    </div>
-  </div>
-  {{/ifeq}}
 
-  <!-- Buttons section -->
-  <div class="button-group">
-    <button class="btn btn-primary mr-2" id="add-comment">Add Comment</button>
-    <button class="btn btn-success mr-2" id="save-comment">Save Comment</button>
-    <button class="btn btn-info mr-2" id="edit-profile">Edit Profile</button>
-    <!-- <button class="btn btn-danger" id="log-out">Log Out</button> -->
-  </div>
-</div>
+  <script src="/assets/js/user-dashboard.js"></script>
+</body>
 
-<script src="/assets/js/user-dashboard.js"></script>
+</html>
