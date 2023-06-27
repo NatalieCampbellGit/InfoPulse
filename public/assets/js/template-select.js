@@ -52,8 +52,8 @@ searchButton.addEventListener("click", async (event) => {
 
   if (categoryID >= 0 || searchText.length > 2 || searchMarkdown.length > 2) {
     searchResults.innerHTML = "";
-    addTemplateIDToDataStore('');
-    
+    addTemplateIDToDataStore("");
+
     let response;
     try {
       // if there is a category selected or a search term, send the request to the server
@@ -90,7 +90,7 @@ searchButton.addEventListener("click", async (event) => {
 viewButton.addEventListener("click", (event) => {
   event.preventDefault();
   if (selectedTemplateId > 0) {
-    window.location.href = `/api/template/view/${selectedTemplateId}`;
+    window.location.href = `/api/template/view?id=${selectedTemplateId}`;
   }
 });
 
@@ -100,13 +100,7 @@ editButton.addEventListener("click", async (event) => {
   if (selectedTemplateId > 0) {
     // send the user to the edit page for the selected template
     window.location.href = `/api/rmtemplate/edit/${selectedTemplateId}`;
-    if (response.ok) {
-      // if the response is ok, send the user will be sent to the edit page
-    } else {
-      alert("Error getting template");
-    }
-  }
-});
+}});
 
 // when the user clicks the New button, send them to the template's edit page
 newButton.addEventListener("click", (event) => {
