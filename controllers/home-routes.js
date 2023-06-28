@@ -7,7 +7,7 @@ const { getAdministratorDashboardData, getUserById } = require("../utils/model-u
 // Display the homepage
 router.get("/", async (req, res) => {
   try {
-    res.render('../views/homepage', { title: "homepage" }, {
+    res.render('homepage', {
       // send the session variable (loggedIn) to the template
       loggedIn: req.session.loggedIn,
     });

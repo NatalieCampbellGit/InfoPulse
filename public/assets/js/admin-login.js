@@ -9,33 +9,20 @@ const loginFormHandler = async (event) => {
 
   const username = document.querySelector("#username").value.trim();
   const password = document.querySelector("#password").value.trim();
-  const passcode = document.querySelector("#passcode").value.trim();
-  const confirmPassword = document
-    .querySelector("#confirmPassword")
-    .value.trim();
-
-  if (!passcode) {
-    // using already registered user
-  } else {
-    // using first time user
-  }
 
   if (username && password) {
-    const response = await fetch("/api/users/", {
+    const response = await fetch("/api/admin/login", {
       method: "POST",
       body: JSON.stringify({
         username,
-        email,
         password,
-        passcode,
-        confirmPassword,
       }),
       headers: { "Content-Type": "application/json" },
     });
     const data = await response.json();
 
     if (response.ok) {
-      document.location.replace("/");
+      document.location.replace("/admin");
     } else {
       // eslint-disable-next-line no-undef
       alertModal("Login failed", data.message);
