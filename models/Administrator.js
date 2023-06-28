@@ -1,11 +1,11 @@
-const { Model, DataTypes } = require('sequelize')
-const bcrypt = require('bcrypt')
-const sequelize = require('../config/connection')
-const generatePassphrase = require('../utils/codes-utils')
+const { Model, DataTypes } = require("sequelize");
+const bcrypt = require("bcrypt");
+const sequelize = require("../config/connection");
+const generatePassphrase = require("../utils/codes-utils");
 
 class Administrator extends Model {
-  checkPassword (loginPassword) {
-    return bcrypt.compareSync(loginPassword, this.password)
+  checkPassword(loginPassword) {
+    return bcrypt.compareSync(loginPassword, this.password);
   }
 }
 
@@ -15,76 +15,75 @@ Administrator.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     first_name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1, 64]
-      }
+        len: [1, 64],
+      },
     },
     last_name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1, 64]
-      }
+        len: [1, 64],
+      },
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         isEmail: true,
-        len: [1, 64]
-      }
+        len: [1, 64],
+      },
     },
     authentication_code: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
     },
     username: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [12, 64]
-      }
+        len: [12, 64],
+      },
     },
     permissions: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
     },
     is_active: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: true
-    }
+      defaultValue: true,
+    },
   },
   {
     hooks: {
       beforeCreate: async (newData) => {
-        newData.password = await bcrypt.hash(newData.password, 10)
-        newData.authentication_code = generatePassphrase()
-        newData.email = newData.email.toLowerCase()
-        return newData
+        newData.password = await bcrypt.hash(newData.password, 10);
+        newData.authentication_code = generatePassphrase();
+        newData.email = newData.email.toLowerCase();
+        return newData;
       },
       beforeUpdate: async (newData) => {
-        newData.password = await bcrypt.hash(newData.password, 10)
-        newData.email = newData.email.toLowerCase()
-        return newData
-      }
-
+        newData.password = await bcrypt.hash(newData.password, 10);
+        newData.email = newData.email.toLowerCase();
+        return newData;
+      },
     },
     sequelize,
     timestamps: true,
     freezeTableName: true,
     underscored: true,
-    modelName: 'administrator'
+    modelName: "administrator",
   }
-)
+);
 
-module.exports = Administrator
+module.exports = Administrator;

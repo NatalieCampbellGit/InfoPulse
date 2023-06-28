@@ -41,7 +41,8 @@ const withAdminAuth = (req, res, next) => {
 // withUserAuth middleware only allows users with a role of 'user' to access the route
 const withUserAuth = (req, res, next) => {
   if (isDebug) {
-    req.session.loggedIn=true
+    req.session.user_id=1
+    req.session.loggedIn = true;
     next();
     return;
   }

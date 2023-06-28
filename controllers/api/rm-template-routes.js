@@ -7,7 +7,7 @@ const { formatTemplateListItems } = require("../../utils/html-utils");
 const {
   getAdministratorDashboardData,
   getTemplateById,
-} = require("../../utils/models-utils");
+} = require("../../utils/model-utils");
 const { Factsheet } = require("../../models");
 
 // route to edit a template via handlebars

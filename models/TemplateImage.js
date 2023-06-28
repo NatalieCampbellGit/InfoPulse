@@ -1,8 +1,7 @@
-const { Model, DataTypes } = require('sequelize')
-const sequelize = require('../config/connection')
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
 
-class TemplateImage extends Model {
-}
+class TemplateImage extends Model {}
 
 TemplateImage.init(
   {
@@ -10,45 +9,45 @@ TemplateImage.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     title: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     filename: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     width: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
     },
     height: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
     },
     image_data: {
-      type: DataTypes.BLOB('medium'),
-      allowNull: false
-    }
+      type: DataTypes.BLOB("medium"),
+      allowNull: false,
+    },
   },
   {
     hooks: {
       beforeCreate: async (newData) => {
-        return newData
-      }
+        return newData;
+      },
     },
     sequelize,
     timestamps: true,
     freezeTableName: true,
     underscored: true,
-    modelName: 'templateimage'
+    modelName: "templateimage",
   }
-)
+);
 
-module.exports = TemplateImage
+module.exports = TemplateImage;

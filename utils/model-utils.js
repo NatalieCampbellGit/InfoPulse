@@ -6,7 +6,7 @@ const {
   UserComment,
   Administrator,
 } = require("../models");
-const { withAuth, withAdminAuth, withUserAuth } = require("../utils/auth");
+const { withAuth, withAdminAuth, withUserAuth } = require("./auth");
 
 // return all categories
 async function getAllCategories() {
@@ -165,6 +165,8 @@ async function getUserById(id) {
   }
 }
 
+
+
 // pull together all the data needed for the Administrator Dashboard
 async function getAdministratorDashboardData(
   administrator_id,
@@ -246,93 +248,11 @@ async function getAdministratorDashboardData(
   }
 }
 
-//get user dashboard data
-async function getUserDashboardData(
-  user_id,
-  dashboardView = 0,
-  template_id = null
-) {
-  let pagetitle;
-  console.log("dashboard view " + dashboardView);
-
-  switch (dashboardView) {
-    case 0: // general data
-      pagetitle = "User Dashboard";
-      try {
-        const user = await getUserById(user_id);
-        if (!user) {
-          return null;
-        }
-        const categories = await getAllCategories();
-        if (!categories) {
-          return null;
-        }
-        const templates = await getAllTemplates();
-        if (!templates) {
-          return null;
-        }
-
-        // return the user data, categories, and templates
-        return {
-          dashboardView: dashboardView,
-          pagetitle: pagetitle,
-          partialname: "template-select",
-          user_id,
-          user,
-          categories,
-          templates,
-        };
-      } catch (error) {
-        console.error(error);
-        return null;
-      }
-    case 1: // edit template
-      pagetitle = "Edit Template";
-      categories = await getAllCategories();
-      if (!template_id || template_id === 0) {
-        // new template
-        return {
-          dashboardView,
-          pagetitle,
-          categories,
-          user_id,
-          partialname: "template-edit",
-          template_id,
-          template: null,
-        };
-      }
-      const template = await getTemplateById(template_id);
-      if (!template) {
-        return {
-          dashboardView,
-          pagetitle,
-          categories,
-          user_id,
-          partialname: "template-edit",
-          template_id,
-          template: null,
-        };
-      }
-      return {
-        dashboardView,
-        pagetitle,
-        categories,
-        user_id,
-        partialname: "template-edit",
-        template_id,
-        template,
-      };
-    default:
-      return null;
-  }
-} 
-
 module.exports = {
   getAllCategories,
   getAllTemplates,
   getAllPublicTemplates,
   getUserFactsheets,
-  getUserDashboardData,
   getAdministratorById,
   getUserById,
   getTemplateById,

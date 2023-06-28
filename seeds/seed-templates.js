@@ -1,10 +1,10 @@
-const { Template } = require('../models')
+const { Template } = require("../models");
 
-async function seedTemplates () {
+async function seedTemplates() {
   const templates = [
     {
-      title: 'Understanding Glaucoma',
-      description: 'Overview of Glaucoma',
+      title: "Understanding Glaucoma",
+      description: "Overview of Glaucoma",
       category_id: 1,
       markdown: `# Glaucoma: The Silent Thief of Vision
 
@@ -52,12 +52,13 @@ Early detection and treatment are crucial in managing glaucoma. While vision los
 Remember, even if you have good vision, it is essential to prioritize regular eye check-ups to ensure the health of your eyes and maintain optimal vision throughout your life.
 
 *Disclaimer: This guide provides general information and should not substitute professional medical advice. Please consult your eye care professional for personalized recommendations and guidance.*`,
-      html: '',
-      administrator_id: 1
+      html: "",
+      administrator_id: 1,
     },
     {
-      title: 'Understanding Myopia (Shortsightedness)',
-      description: 'An overview of myopia (shortsightedness) and its causes, symptoms, risks, and interventions.',
+      title: "Understanding Myopia (Shortsightedness)",
+      description:
+        "An overview of myopia (shortsightedness) and its causes, symptoms, risks, and interventions.",
       markdown: `# Overview of Myopia
 
 Myopia, commonly known as nearsightedness, is a refractive error that affects the eye's ability to focus on distant objects clearly. If you have myopia, you may experience clear vision when looking at objects up close, but distant objects appear blurred or fuzzy.
@@ -133,12 +134,13 @@ It is important to note that the correction methods mentioned above are intended
 
 *Disclaimer: This guide provides general information and should not substitute professional medical advice. Please consult your eye care professional for personalized recommendations and guidance.*`,
       category_id: 2,
-      html: '',
-      administrator_id: 1
+      html: "",
+      administrator_id: 1,
     },
     {
-      title: 'Understanding Hyperopia (Longsightedness)',
-      description: 'An overview of hyperopia (Longsightedness) and its causes, symptoms, and treatment options.',
+      title: "Understanding Hyperopia (Longsightedness)",
+      description:
+        "An overview of hyperopia (Longsightedness) and its causes, symptoms, and treatment options.",
       markdown: `# Overview of Hyperopia (Longsightedness)
 
 Hyperopia, commonly known as longsightedness or farsightedness, is a refractive error that affects the ability to see nearby objects clearly while distant objects appear relatively clearer. It is a common vision condition that can affect people of all ages. In hyperopia, the eyeball is shorter than normal or the cornea is less curved, causing light to focus behind the retina instead of directly on it. This results in blurred vision for close objects when you are young, and every distance when you are older.
@@ -205,12 +207,13 @@ Overall, managing hyperopia involves a combination of corrective measures, lifes
 
 *Disclaimer: This guide provides general information and should not substitute professional medical advice. Please consult your eye care professional for personalized recommendations and guidance.*`,
       category_id: 2,
-      html: '',
-      administrator_id: 1
+      html: "",
+      administrator_id: 1,
     },
     {
-      title: 'Understanding Astigmatism',
-      description: 'An overview of astigmatism and its causes, symptoms, and treatment options.',
+      title: "Understanding Astigmatism",
+      description:
+        "An overview of astigmatism and its causes, symptoms, and treatment options.",
       markdown: `# Astigmatism: A Comprehensive Guide
 
 Astigmatism is a common vision condition that can affect your ability to see clearly and to focus precisely. This guide aims to provide you with a comprehensive overview of astigmatism.
@@ -269,12 +272,13 @@ In addition to corrective measures, you can adopt certain practices to manage as
 
 Remember to consult with your optometrist for personalized recommendations and guidance based on your specific needs and circumstances.`,
       category_id: 2,
-      html: '',
-      administrator_id: 1
+      html: "",
+      administrator_id: 1,
     },
     {
-      title: 'Understanding Presbyopia',
-      description: 'An overview of presbyopia and its causes, symptoms, and treatment options.',
+      title: "Understanding Presbyopia",
+      description:
+        "An overview of presbyopia and its causes, symptoms, and treatment options.",
       category_id: 2,
       markdown: `# Presbyopia: A Comprehensive Guide
 
@@ -331,12 +335,13 @@ In addition to corrective measures, you can adopt certain practices to manage pr
 - Maintaining overall eye health: Follow a healthy lifestyle, including a balanced diet, staying hydrated, regular exercise, and avoiding smoking, to support good eye health.
 
 *Disclaimer: This guide provides general information and should not substitute professional medical advice. Please consult your eye care professional for personalized recommendations and guidance.*`,
-      html: '',
-      administrator_id: 1
+      html: "",
+      administrator_id: 1,
     },
     {
-      title: 'Understanding Dry Eye',
-      description: 'An overview of dry eye and its causes, symptoms, and treatment options.',
+      title: "Understanding Dry Eye",
+      description:
+        "An overview of dry eye and its causes, symptoms, and treatment options.",
       category_id: 1,
       markdown: `# Dry Eye: A Comprehensive Guide
 
@@ -398,13 +403,13 @@ In addition to professional care and treatments, you can adopt certain lifestyle
 
 *Disclaimer: This guide provides general information and should not substitute professional medical advice. Please consult your eye care professional for personalized recommendations and guidance.*`,
 
-      html: '',
-      administrator_id: 1
+      html: "",
+      administrator_id: 1,
     },
 
     {
-      title: 'Eye Injury Prevention',
-      description: 'Overview of Eye Injury Prevention',
+      title: "Eye Injury Prevention",
+      description: "Overview of Eye Injury Prevention",
       category_id: 3,
       markdown: `# Eye Injury Prevention: A Comprehensive Guide
 
@@ -458,13 +463,13 @@ Educating others about eye injury prevention is crucial for creating a safer env
 Remember, eye injury prevention is a proactive approach to safeguarding your vision. By following safety guidelines, using protective eyewear, and staying vigilant in various settings, you can significantly reduce the risk of eye injuries and promote good eye health.
 
 *Disclaimer: This guide provides general information and should not substitute professional medical advice. Please consult your eye care professional for personalized recommendations and guidance.*`,
-      html: '',
-      administrator_id: 1
+      html: "",
+      administrator_id: 1,
     },
 
     {
-      title: 'Common Vision Problems in Children',
-      description: 'Overview of Vision Problems in Children',
+      title: "Common Vision Problems in Children",
+      description: "Overview of Vision Problems in Children",
       category_id: 4,
       markdown: `# Common Vision Problems in Children: A Comprehensive Guide
 
@@ -532,12 +537,12 @@ In addition to professional care, parents and caregivers can take proactive step
 Remember, early detection and intervention are key to managing common vision problems in children effectively. Regular eye examinations and open communication with eye care professionals play a vital role in ensuring optimal visual health for your child.
 
 *Disclaimer: This guide provides general information and should not substitute professional medical advice. Please consult your eye care professional for personalized recommendations and guidance.*`,
-      html: '',
-      administrator_id: 1
+      html: "",
+      administrator_id: 1,
     },
     {
-      title: 'Understanding Age-Related Macular Degeneration',
-      description: 'Overview of AMD',
+      title: "Understanding Age-Related Macular Degeneration",
+      description: "Overview of AMD",
       category_id: 5,
       markdown: `# Age-Related Macular Degeneration (AMD): A Comprehensive Guide
 
@@ -613,12 +618,13 @@ Living with AMD can be challenging, but support and resources are available. Org
 Remember, early detection, regular eye examinations, and proactive management are crucial in optimizing visual health and managing age-related macular degeneration.
 
 *Disclaimer: This guide provides general information and should not substitute professional medical advice. Please consult your eye care professional for personalized recommendations and guidance.*`,
-      html: '',
-      administrator_id: 1
+      html: "",
+      administrator_id: 1,
     },
     {
-      title: 'Understanding Eye Care Practitioners',
-      description: 'An overview of the different types of eye care practitioners',
+      title: "Understanding Eye Care Practitioners",
+      description:
+        "An overview of the different types of eye care practitioners",
       category_id: 6,
       markdown: `# Overview of Different Types of Eye Care Practitioners
 
@@ -681,12 +687,12 @@ Optical dispensers/opticians can:
 Remember, regular eye examinations and appropriate care from qualified eye care practitioners are crucial for maintaining good eye health and optimal vision.
 
 Disclaimer: This guide provides general information and should not substitute professional medical advice. Please consult an eye care practitioner for personalized recommendations and guidance.`,
-      html: '',
-      administrator_id: 1
+      html: "",
+      administrator_id: 1,
     },
     {
-      title: 'Fun facts about the Eye and Vision',
-      description: 'Overview of the Eye and Vision',
+      title: "Fun facts about the Eye and Vision",
+      description: "Overview of the Eye and Vision",
       category_id: 7,
       markdown: `# Fun Facts about the Eye and Vision
 
@@ -731,12 +737,12 @@ The human eye is a fascinating organ, responsible for processing visual informat
 Remember, these fun facts about the eye and vision can be great conversation starters, but it's important to rely on accurate information from eye care professionals for any health-related concerns or questions.
 
 I hope you enjoy sharing these fun facts!`,
-      html: '',
-      administrator_id: 1
+      html: "",
+      administrator_id: 1,
     },
     {
-      title: 'Understanding Cataracts',
-      description: 'Overview of cataracts and what can be done about them',
+      title: "Understanding Cataracts",
+      description: "Overview of cataracts and what can be done about them",
       category_id: 1,
       markdown: `# Understanding Cataracts
 
@@ -823,12 +829,12 @@ Regular eye examinations can help detect cataracts and other eye problems at the
 
 Disclaimer: This guide provides general information and should not substitute professional medical advice. Please consult an eye care practitioner for personalized recommendations and guidance.`,
 
-      html: '',
-      administrator_id: 1
+      html: "",
+      administrator_id: 1,
     },
     {
-      title: 'Diabetes and Eye Care',
-      description: 'Overview of recommended eye care for people with diabetes',
+      title: "Diabetes and Eye Care",
+      description: "Overview of recommended eye care for people with diabetes",
       category_id: 1,
       markdown: `# The Importance of Eye Care for People with Diabetes
 
@@ -869,22 +875,22 @@ By having regular eye examinations, these conditions can be detected and managed
 Regular eye examinations are a crucial part of managing diabetes. By detecting and treating eye conditions early, optometrists can help to prevent vision loss in people with diabetes. 
 
 Please remember to schedule your regular eye examinations and to manage your diabetes as effectively as possible in consultation with your healthcare team. If you notice any changes to your vision, seek medical attention immediately.`,
-      html: '',
-      administrator_id: 1
-    }
-  ]
+      html: "",
+      administrator_id: 1,
+    },
+  ];
 
   for (let i = 0; i < templates.length; i++) {
     try {
-      await Template.create(templates[i])
-      console.log(`Template ${i + 1} created.`)
+      await Template.create(templates[i]);
+      console.log(`Template ${i + 1} created.`);
     } catch (err) {
-      console.error(`Template ${i + 1} could not be created.`)
-      console.error(err)
+      console.error(`Template ${i + 1} could not be created.`);
+      console.error(err);
     }
   }
 
-  console.log('Template seeding completed.')
+  console.log("Template seeding completed.");
 }
 
-module.exports = seedTemplates
+module.exports = seedTemplates;
