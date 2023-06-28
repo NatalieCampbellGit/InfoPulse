@@ -17,6 +17,7 @@
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.4.0",
     "node": "^20.2.0",
+    "nodemon": "^2.0.22",
     "postcss": "^8.4.24",
     "postcss-cli": "^10.1.0",
     "sequelize": "^6.32.1",
@@ -36,7 +37,7 @@
   },
   "scripts": {
     "buildcss": "tailwindcss -i ./src/styles/tailwind.css -o ./public/assets/css/styles.css",
-    "start": "npm run buildcss && node server.js",
+    "start": "npm node server.js",
     "dev": "npm run buildcss && nodemon server.js",
     "lint": "eslint . --fix",
     "prettier": "prettier --write .",
