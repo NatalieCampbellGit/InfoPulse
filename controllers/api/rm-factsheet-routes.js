@@ -6,6 +6,7 @@ const { withAuth, withAdminAuth } = require("../../utils/auth");
 const router = require("express").Router();
 const { getUserFactsheets } = require("../../utils/model-utils");
 const { formatFactsheetListItems } = require("../../utils/html-utils");
+const { error } = require("console");
 
 router.get("/", withAuth, async (req, res) => {
   // post to use body for info
@@ -98,6 +99,62 @@ router.post("/link/", withAdminAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+// delete a factsheet 
+router.delete('/admin/:id', withAdminAuth, (req, res) => {
+
+  const factsheet_id = req.body.id;
+
+
+try{
+      const deletedFactsheet = Factsheet.destroy({
+        where: { id: factsheet_id}
+       });
+
+       if(deletedFactsheet === 0){
+        return res.status(404).json({ error: "Factsheet not found"});
+       }
+
+       return res.json({ message: "Factsheet deleted"})
+
+  }catch (err){
+    console.log(error);
+    return res
+    .status(500)
+    .json({ error: "An error occured while deleting the factsheet"})
+
+  }
+
+});
+
+// delete a comment from a factsheet
+// ! TODO
+router.delete('/admin/:id', withAdminAuth, (req, res) => {
+
+  const factsheet_id = req.body.id;
+
+try{
+      const deletedFactsheet = Factsheet.destroy({
+        where: { id: factsheet_id}
+       });
+
+       if(deletedFactsheet === 0){
+        return res.status(404).json({ error: "User not found"});
+       }
+
+       return res.json({ message: "Factsheet deleted"})
+
+  }catch (err){
+    console.log(error);
+    return res
+    .status(500)
+    .json({ error: "An error occured while deleting the factsheet"})
+
+  }
+
+});
+
+
 
 // ! really important to export the router
 module.exports = router;
