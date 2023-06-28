@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 // get elements from the page
 const imageSelect = document.getElementById("modal-image-select");
 
@@ -177,7 +178,7 @@ async function saveTemplate() {
   const requestData = {
     markdown: templateText,
     title: templateTitle,
-    category_id: category_id,
+    category_id,
     administrator_id: CurrentTemplate.administrator_id,
   };
   // ! TODO remove this once routes are set up
@@ -437,8 +438,8 @@ document.getElementById("file-upload").addEventListener("change", function () {
 // update the file name when a file is selected
 function updateFileName() {
   console.log("updateFileName called");
-  var input = document.getElementById("file-upload");
-  var fileName = document.getElementById("upload-file-name");
+  const input = document.getElementById("file-upload");
+  const fileName = document.getElementById("upload-file-name");
   console.log(input.files);
   if (input.files && input.files.length > 0) {
     fileName.textContent = input.files[0].name;
@@ -688,7 +689,7 @@ function hideTemplateOptions(hide) {
   }
 }
 
-//hideMenu makes all the buttons in the edit menu hidden
+// hideMenu makes all the buttons in the edit menu hidden
 function hideMenu(element, hide) {
   // go through each child element that is a button
   for (let i = 0; i < element.children.length; i++) {

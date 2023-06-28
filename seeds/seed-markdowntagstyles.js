@@ -53,30 +53,30 @@ async function seedMarkdownTagStyles() {
     { tag: "<hr>", style: "border: 1px solid #4682B3;" },
     { tag: "<br>", style: "font-size: 1em; font-weight: normal;" },
     {
-      tag: `class="img-full-width"`,
+      tag: 'class="img-full-width"',
       style: "width: 100%; max-width: 1200px; min-width: 320px; height: auto;",
     },
     {
-      tag: `class="img-full-width-centred"`,
+      tag: 'class="img-full-width-centred"',
       style:
         "width: 100%; max-width: 1200px; min-width: 320px; height: auto; display: block; margin-left: auto; margin-right: auto;",
     },
     {
-      tag: `class="img-reduced-width"`,
+      tag: 'class="img-reduced-width"',
       style:
         "width: 60%; max-width: 720px; min-width: 300px; min-width: 300px; height: auto;",
     },
     {
-      tag: `class="img-reduced-width-centred"`,
+      tag: 'class="img-reduced-width-centred"',
       style:
         "width: 60%; max-width: 720px; min-width: 300px; height: auto; display: block; margin-left: auto; margin-right: auto;",
     },
     {
-      tag: `class="img-small-width"`,
+      tag: 'class="img-small-width"',
       style: "width: 35%; max-width: 420px; min-width: 200px; height: auto;",
     },
     {
-      tag: `class="img-small-width-centred"`,
+      tag: 'class="img-small-width-centred"',
       style:
         "width: 35%; max-width: 420px; min-width: 200px; height: auto; display: block; margin-left: auto; margin-right: auto;",
     },

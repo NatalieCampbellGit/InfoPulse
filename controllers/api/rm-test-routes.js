@@ -41,7 +41,6 @@ router.get("/templates/:id", withAuth, async (req, res) => {
     res.status(200).json(templateData);
   } catch (error) {
     res.status(500).send("An error occurred while retrieving template");
-    return;
   }
 });
 

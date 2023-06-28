@@ -1,8 +1,6 @@
-const { sequelize, Op } = require("sequelize");
+const { Op } = require("sequelize");
 const User = require("../../models/User");
-const Factsheet = require("../../models/Factsheet");
-const UserComment = require("../../models/UserComment");
-const { withAuth, withAdminAuth } = require("../../utils/auth");
+const { withAuth } = require("../../utils/auth");
 const router = require("express").Router();
 const { formatUserListItems } = require("../../utils/html-utils");
 
@@ -26,7 +24,7 @@ router.post("/search", withAuth, async (req, res) => {
 
   if (searchTerm) {
     if (typeof searchTerm === "string") {
-      //add a minimum length for the search text
+      // add a minimum length for the search text
       if (searchTerm.length > 2) {
         searchTermIsValid = true;
       }
@@ -40,7 +38,7 @@ router.post("/search", withAuth, async (req, res) => {
   } else if (idIsValid && searchTermIsValid) {
     query = {
       [Op.and]: [
-        { id: id },
+        { id },
         {
           [Op.or]: [
             { first_name: { [Op.like]: `%${searchTerm}%` } },
@@ -58,7 +56,7 @@ router.post("/search", withAuth, async (req, res) => {
     };
   } else if (idIsValid) {
     query = {
-      id: id,
+      id,
     };
   }
 
@@ -76,7 +74,7 @@ router.post("/search", withAuth, async (req, res) => {
         case "html":
           res
             .status(200)
-            .send(`<p class="text-pulse-green-500">No users were found</p>`);
+            .send('<p class="text-pulse-green-500">No users were found</p>');
           break;
         default:
           res.status(404).json({ message: "No users were found" });
@@ -86,11 +84,12 @@ router.post("/search", withAuth, async (req, res) => {
     // return the data
     const users = userData.map((image) => image.get({ plain: true }));
     switch (returnFormat) {
-      case "html":
+      case "html": {
         // use handlebars to render the data
         const htmlFormat = formatUserListItems(users);
         res.status(200).send(htmlFormat);
         break;
+      }
       default:
         res.status(200).json(users);
     }
@@ -99,6 +98,5 @@ router.post("/search", withAuth, async (req, res) => {
     res.status(500).send("Error retrieving user search results");
   }
 });
-
 
 module.exports = router;

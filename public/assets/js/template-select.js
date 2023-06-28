@@ -62,8 +62,8 @@ searchButton.addEventListener("click", async (event) => {
         body: JSON.stringify({
           id: categoryID,
           searchTerm: searchText,
-          searchMarkdown: searchMarkdown,
-          returnFormat: returnFormat,
+          searchMarkdown,
+          returnFormat,
         }),
         headers: { "Content-Type": "application/json" },
       });
@@ -106,7 +106,7 @@ editButton.addEventListener("click", async (event) => {
 // when the user clicks the New button, send them to the template's edit page
 newButton.addEventListener("click", (event) => {
   event.preventDefault();
-  window.location.href = `/api/template/new`;
+  window.location.href = "/api/template/new";
 });
 
 // when the user clicks the Delete button, confirm that they want to delete the template

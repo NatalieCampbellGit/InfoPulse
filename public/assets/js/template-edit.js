@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 // get elements from the page
 const imageSelect = document.getElementById("modal-image-select");
 
@@ -46,7 +47,7 @@ async function saveTemplate() {
   const requestData = {
     markdown: templateText,
     title: templateTitle,
-    category_id: category_id,
+    category_id,
     administrator_id: CurrentTemplate.administrator_id,
   };
   // ! TODO remove this once routes are set up
@@ -299,8 +300,8 @@ document.getElementById("file-upload").addEventListener("change", function () {
 // update the file name when a file is selected
 function updateFileName() {
   console.log("updateFileName called");
-  var input = document.getElementById("file-upload");
-  var fileName = document.getElementById("upload-file-name");
+  const input = document.getElementById("file-upload");
+  const fileName = document.getElementById("upload-file-name");
   console.log(input.files);
   if (input.files && input.files.length > 0) {
     fileName.textContent = input.files[0].name;
@@ -550,7 +551,7 @@ function hideTemplateOptions(hide) {
   }
 }
 
-//hideMenu makes all the buttons in the edit menu hidden
+// hideMenu makes all the buttons in the edit menu hidden
 function hideMenu(element, hide) {
   // go through each child element that is a button
   for (let i = 0; i < element.children.length; i++) {
@@ -593,7 +594,7 @@ function hideButton(element, tag, hide) {
 // ** INSERTING TEXT INTO MARKDOWN FUNCTIONS
 // add text to the text area where the cursor is
 function insertAtCursor(myField, myValue, ensureSpaces = false) {
-  if (myField.selectionStart || myField.selectionStart == "0") {
+  if (myField.selectionStart || myField.selectionStart === "0") {
     // check for spaces before and after the cursor
     const startPos = myField.selectionStart;
     if (ensureSpaces) {
@@ -768,7 +769,7 @@ async function loadImages() {
   });
 }
 
-//=======================================================================
+//= ======================================================================
 // grab the initial data from the page
 async function collateInitialInformation() {
   const optionsElement = document.getElementById("template-options");
@@ -815,7 +816,6 @@ async function collateInitialInformation() {
     document.getElementById("template-text").value = CurrentTemplate.markdown;
   } catch (error) {
     alert("error! " + error.message);
-    return;
   }
 }
 // =======================================================================

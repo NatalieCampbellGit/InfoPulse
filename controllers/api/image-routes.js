@@ -3,7 +3,7 @@ const router = express.Router();
 const TemplateImage = require("../../models/TemplateImage");
 const multer = require("multer");
 const upload = multer();
-const { withAuth, withAdminAuth } = require("../../utils/auth");
+const { withAuth } = require("../../utils/auth");
 const path = require("path");
 const sharp = require("sharp");
 

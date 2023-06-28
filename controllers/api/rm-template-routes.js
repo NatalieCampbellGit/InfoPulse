@@ -1,11 +1,14 @@
-const { sequelize, Op } = require("sequelize");
+/* eslint-disable camelcase */
+const { Op } = require("sequelize");
 const Template = require("../../models/Template");
 const Category = require("../../models/Category");
-const { withAuth, withAdminAuth, withUserAuth } = require("../../utils/auth");
+const { withAuth, withAdminAuth } = require("../../utils/auth");
 const router = require("express").Router();
 const { formatTemplateListItems } = require("../../utils/html-utils");
-const { getTemplateById, getTemplateEditData } = require("../../utils/model-utils");
-const { Factsheet } = require("../../models");
+const {
+  getTemplateById,
+  getTemplateEditData,
+} = require("../../utils/model-utils");
 
 // route to edit a template via handlebars
 router.get("/edit/:id", withAdminAuth, async (req, res) => {
@@ -25,7 +28,7 @@ router.get("/edit/:id", withAdminAuth, async (req, res) => {
       return;
     }
 
-    let templateData = await getTemplateEditData(template_id);
+    const templateData = await getTemplateEditData(template_id);
     if (!templateData) {
       res.status(404).render("error-404", { message: "Template not found" });
       return;
@@ -34,7 +37,6 @@ router.get("/edit/:id", withAdminAuth, async (req, res) => {
 
     console.log(templateData);
     res.render("template-edit", templateData);
-    return;
   } catch (err) {
     console.log(err);
     res.status(404).render("error-404", { message: err });
@@ -82,7 +84,7 @@ router.post("/search", withAuth, async (req, res) => {
 
   if (searchTerm) {
     if (typeof searchTerm === "string") {
-      //add a minimum length for the search text
+      // add a minimum length for the search text
       if (searchTerm.length > 2) {
         searchTermIsValid = true;
       }
@@ -91,7 +93,7 @@ router.post("/search", withAuth, async (req, res) => {
 
   if (searchMarkdown) {
     if (typeof searchMarkdown === "string") {
-      //add a minimum length for the search text
+      // add a minimum length for the search text
       if (searchMarkdown.length > 2) {
         searchMarkdownIsValid = true;
       }
@@ -169,7 +171,7 @@ router.post("/search", withAuth, async (req, res) => {
         case "html":
           res
             .status(200)
-            .send(`<p class="text-pulse-green-500">No templates found</p>`);
+            .send('<p class="text-pulse-green-500">No templates found</p>');
           break;
         default:
           res.status(404).json({ message: "No template images were found" });
@@ -181,9 +183,8 @@ router.post("/search", withAuth, async (req, res) => {
     switch (returnFormat) {
       case "html":
         // use handlebars to render the data
-        const htmlFormat = formatTemplateListItems(templates);
-        res.status(200).send(htmlFormat);
-        break;
+        res.status(200).send(formatTemplateListItems(templates));
+        return;
       default:
         res.status(200).json(templates);
     }
@@ -194,92 +195,66 @@ router.post("/search", withAuth, async (req, res) => {
 });
 
 // store a template in the DB
-router.post('/edit/:id/: title', withAdminAuth, async (req, res) => {
-
-  try{  
-   
-
+router.post("/edit/:id/: title", withAdminAuth, async (req, res) => {
+  try {
     const { title, category_id } = req.body;
 
     // validate
-    validCatID = parseInt(category_id);
-  
+    const validCatID = parseInt(category_id);
 
-    
-    
+    const savedTemplate = await Template.create({ title, validCatID });
 
-    const savedTemplate = await Template.create({title, validCatID})
-
-    return res.json(savedTemplate)
-
-  }catch(err){
+    return res.json(savedTemplate);
+  } catch (err) {
     console.log(err);
-     
-   return res
-          .status(500)
-          .json({ err: "An error occurred saving"})
 
+    return res.status(500).json({ err: "An error occurred saving" });
   }
-
-
 });
 
 // delete a template
-router.delete('/admin/:id', withAdminAuth, async (req, res) => {
-
+router.delete("/admin/:id", withAdminAuth, async (req, res) => {
   const template_id = req.body.id;
 
-try{
-      const deletedTemplate = await Template.destroy({
-        where: { id: template_id}
-       });
+  try {
+    const deletedTemplate = await Template.destroy({
+      where: { id: template_id },
+    });
 
-       if(deletedTemplate === 0){
-        return res.status(404).json({ error: "User not found"});
-       }
+    if (deletedTemplate === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
-       return res.json({ message: "Template deleted"})
-
-  }catch (err){
-    console.log(error);
+    return res.json({ message: "Template deleted" });
+  } catch (err) {
+    console.log(err);
     return res
-    .status(500)
-    .json({ error: "An error occured while deleting the template"})
-
+      .status(500)
+      .json({ err: "An error occured while deleting the template" });
   }
-
 });
-
 
 // delete a comment
-// ! TO DO 
-router.delete('/comment/', withAdminAuth, async (req, res) => {
-
+// ! TO DO
+router.delete("/comment/", withAdminAuth, async (req, res) => {
   const template_id = req.body.id;
 
-try{
-      const deletedTemplate = await Template.destroy({
-        where: { id: template_id}
-       });
+  try {
+    const deletedTemplate = await Template.destroy({
+      where: { id: template_id },
+    });
 
-       if(deletedTemplate === 0){
-        return res.status(404).json({ error: "User not found"});
-       }
+    if (deletedTemplate === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
-       return res.json({ message: "Template deleted"})
-
-  }catch (err){
-    console.log(error);
+    return res.json({ message: "Template deleted" });
+  } catch (err) {
+    console.log(err);
     return res
-    .status(500)
-    .json({ error: "An error occured while deleting the template"})
-
+      .status(500)
+      .json({ err: "An error occurred while deleting the template" });
   }
-
 });
 
-
-
-
-// ! really important to export the router
 module.exports = router;
