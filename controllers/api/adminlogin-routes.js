@@ -14,6 +14,6 @@ router.get('/admin-login', (req, res, async) => {
 
 // redirect to the home page
 router.get('/home', (req, res) => {
-    res.redirect('/');
+    res.redirect('../views/homepage', { title: "homepage"} );;
   });
 

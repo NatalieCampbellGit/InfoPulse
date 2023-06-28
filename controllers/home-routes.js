@@ -7,7 +7,7 @@ const { getUserDashboardData } = require("../utils/models-utils");
 // Display the homepage
 router.get("/", async (req, res) => {
   try {
-    res.render("homepage", {
+    res.render('../views/homepage', { title: "homepage" }, {
       // send the session variable (loggedIn) to the template
       loggedIn: req.session.loggedIn,
     });
@@ -21,10 +21,9 @@ router.get("/", async (req, res) => {
 router.get("/login", (req, res) => {
   // if the user is already logged in, redirect to the homepage
   if (req.session.loggedIn) {
-    res.redirect("/");
+    res.redirect('../views/homepage', { title: "homepage"} );
     return;
-  }
-  // otherwise, render the login template
+  }  // otherwise, render the login template
   res.render("login", {
     // send data to the template
   });
@@ -36,7 +35,7 @@ router.get("/logout", withAuth, (req, res) => {
   if (req.session.loggedIn) {
     try {
       req.session.destroy(() => {
-        res.redirect("/");
+        res.redirect('../views/homepage', { title: "homepage"} );
       });
     } catch (err) {
       console.log(err);
@@ -44,7 +43,7 @@ router.get("/logout", withAuth, (req, res) => {
     }
   } else {
     // otherwise, redirect to the homepage
-    res.redirect("/");
+    res.redirect('../views/homepage', { title: "homepage"} );
   }
 });
 
@@ -52,9 +51,9 @@ router.get("/logout", withAuth, (req, res) => {
 router.get("/admin-login", (req, res) =>{
 
   if(req.session.loggedIn){
-    res.redirect('/')
+    res.redirect('../views/homepage', { title: "homepage"} );
   } else {
-    res.render("admin-login")
+    res.render('../views/admin-login', {title : "admin-login"})
     
   }
 
@@ -64,7 +63,7 @@ router.get("/admin-login", (req, res) =>{
 router.get("/signup", (req, res) => {
   // if the user is already logged in, redirect to the homepage
   if (req.session.loggedIn) {
-    res.redirect("/");
+    res.redirect('../views/homepage', { title: "homepage"} );;
     return;
   }
   // otherwise, render the signup template
