@@ -73,7 +73,7 @@ router.get("/:id", withAuth, async (req, res) => {
 
 // catch others and send the 404 page
 router.get("*", (req, res) => {
-  res.render("404");
+  res.render("error-404");
 });
 
 module.exports = router;
