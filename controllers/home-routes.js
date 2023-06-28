@@ -1,10 +1,8 @@
-// The home routes handle the homepage, login, logout, and signup pages
+// The home routes handle the homepage, user-login, admin-login, logout, about and sign-up pages
+
 const router = require("express").Router();
 const { withAuth, withUserAuth, withAdminAuth } = require("../utils/auth");
-const {
-  getAdministratorDashboardData,
-  getUserById,
-} = require("../utils/model-utils");
+const { getAdministratorDashboardData, getUserById. getUserDashboardData } = require("../utils/model-utils");
 
 // Display the homepage
 router.get("/", async (req, res) => {
@@ -63,6 +61,18 @@ router.get("/logout", withAuth, (req, res) => {
   }
 });
 
+// display the admin login page
+router.get("/admin-login", (req, res) =>{
+
+  if(req.session.loggedIn){
+    res.redirect('/')
+  } else {
+    res.render("admin-login")
+    
+  }
+
+})
+
 // Display the signup page
 router.get("/signup", (req, res) => {
   // if the user is already logged in, redirect to the homepage
@@ -119,7 +129,58 @@ router.get("/admin", withAdminAuth, async (req, res) => {
   }
 });
 
-// display the Administrator Dashboard
+// Display the aboutpage
+// ! TO DO 
+router.get('/about', (req, res) => {
+  try{  
+
+    res
+    .render("about")
+    .status(200)
+
+
+
+  }catch(err){
+    res
+      .status(500)
+      .json({err, message: "Server Error displaying about page"})
+  }
+});
+
+
+// display user dashboard
+router.get("/user", withUserAuth, async (req, res) => {
+  try {
+    // information that this route needs:
+    // all categories
+    // all templates
+    // user's info
+
+    // guaranteed to be an user because of the withUserAuth middleware
+    const user_id = req.session.user_id;
+    if (!user_id || user_id === "" || user_id< 1) {
+      // send to 404 route
+      res
+        .status(404)
+        .render("error-404", { message: "User not found" });
+      return;
+    }
+
+    // get the user dashboard's info using a util function
+    const userDashboardData = await getUserDashboardData(
+      user_id,
+      0 // 0 means general view on dashboard
+    );
+    if (!userDashboardData) {
+      // send to 404 route
+      res.status(404).render("error-404", {
+        message: "Could not retrieve the User Dashboard data",
+        previousRoute: "home",
+      });
+      return;
+    }
+    console.log;
+    // display the Administrator Dashboard
 router.get("/userdashboard", withUserAuth, async (req, res) => {
   try {
     // information that this route needs:
@@ -157,6 +218,14 @@ router.get("/userdashboard", withUserAuth, async (req, res) => {
   }
 });
 
+    res.render("user-dashboard", userDashboardData);
+  } catch (err) {
+    console.log(err);
+    res
+      .status(500)
+      .json({ err, message: "Error loading the User Dashboard" });
+  }
+});
 // ! DELETE THIS ROUTE BEFORE DEPLOYING
 // Display the test page
 router.get("/rm-test", (req, res) => {

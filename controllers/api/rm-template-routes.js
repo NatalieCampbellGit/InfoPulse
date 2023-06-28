@@ -1,10 +1,11 @@
 const { sequelize, Op } = require("sequelize");
 const Template = require("../../models/Template");
 const Category = require("../../models/Category");
-const { withAuth, withAdminAuth } = require("../../utils/auth");
+const { withAuth, withAdminAuth, withUserAuth } = require("../../utils/auth");
 const router = require("express").Router();
 const { formatTemplateListItems } = require("../../utils/html-utils");
 const { getTemplateById, getTemplateEditData } = require("../../utils/model-utils");
+const { Factsheet } = require("../../models");
 
 // route to edit a template via handlebars
 router.get("/edit/:id", withAdminAuth, async (req, res) => {
@@ -191,6 +192,94 @@ router.post("/search", withAuth, async (req, res) => {
     res.status(500).send("Error retrieving template search results");
   }
 });
+
+// store a template in the DB
+router.post('/edit/:id/: title', withAdminAuth, async (req, res) => {
+
+  try{  
+   
+
+    const { title, category_id } = req.body;
+
+    // validate
+    validCatID = parseInt(category_id);
+  
+
+    
+    
+
+    const savedTemplate = await Template.create({title, validCatID})
+
+    return res.json(savedTemplate)
+
+  }catch(err){
+    console.log(err);
+     
+   return res
+          .status(500)
+          .json({ err: "An error occurred saving"})
+
+  }
+
+
+});
+
+// delete a template
+router.delete('/admin/:id', withAdminAuth, async (req, res) => {
+
+  const template_id = req.body.id;
+
+try{
+      const deletedTemplate = await Template.destroy({
+        where: { id: template_id}
+       });
+
+       if(deletedTemplate === 0){
+        return res.status(404).json({ error: "User not found"});
+       }
+
+       return res.json({ message: "Template deleted"})
+
+  }catch (err){
+    console.log(error);
+    return res
+    .status(500)
+    .json({ error: "An error occured while deleting the template"})
+
+  }
+
+});
+
+
+// delete a comment
+// ! TO DO 
+router.delete('/comment/', withAdminAuth, async (req, res) => {
+
+  const template_id = req.body.id;
+
+try{
+      const deletedTemplate = await Template.destroy({
+        where: { id: template_id}
+       });
+
+       if(deletedTemplate === 0){
+        return res.status(404).json({ error: "User not found"});
+       }
+
+       return res.json({ message: "Template deleted"})
+
+  }catch (err){
+    console.log(error);
+    return res
+    .status(500)
+    .json({ error: "An error occured while deleting the template"})
+
+  }
+
+});
+
+
+
 
 // ! really important to export the router
 module.exports = router;
