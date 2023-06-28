@@ -21,13 +21,13 @@ const withAuth = (req, res, next) => {
 // withAdminAuth middleware only allows users with a role of 'admin' to access the route
 const withAdminAuth = (req, res, next) => {
   // ! TODO remove all the debug stuff
-  if (isDebug) {
-    req.session.userRole = "admin";
-    req.session.loggedIn = true;
-    req.session.user_id = 1;
-    next();
-    return;
-  }
+  // if (isDebug) {
+  //   // req.session.userRole = "admin";
+  //   // req.session.loggedIn = true;
+  //   // req.session.user_id = 1;
+  //   next();
+  //   return;
+  // }
   if (!req.session.userRole === "admin") {
     res.redirect("/adminlogin");
   } else {
@@ -41,7 +41,7 @@ const withAdminAuth = (req, res, next) => {
 // withUserAuth middleware only allows users with a role of 'user' to access the route
 const withUserAuth = (req, res, next) => {
   if (isDebug) {
-    req.session.user_id=1
+    req.session.user_id = 1;
     req.session.loggedIn = true;
     next();
     return;

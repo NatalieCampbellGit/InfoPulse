@@ -8,7 +8,7 @@ const { formatTemplateListItems } = require("../../utils/html-utils");
 const {
   getAdministratorDashboardData,
   getTemplateById,
-} = require("../../utils/models-utils");
+} = require("../../utils/model-utils");
 
 // redirect to homepage
 router.get('/', withAdminAuth, (req, res) => {
