@@ -772,10 +772,22 @@ async function loadImages() {
 // grab the initial data from the page
 async function collateInitialInformation() {
   const optionsElement = document.getElementById("template-options");
-  const templateID = optionsElement.getAttribute("data-templateid");
-  const administratorId = optionsElement.getAttribute("data-administratorid");
+  let templateID = optionsElement.getAttribute("data-templateid");
+  let administratorId = optionsElement.getAttribute("data-administratorid");
   const publicCheckbox = document.getElementById("template-public");
   const publicValue = JSON.parse(publicCheckbox.getAttribute("data-public"));
+
+  if (Number.isNaN(templateID)) {
+    templateID = 0;
+  } else {
+    templateID = parseInt(templateID);
+  }
+  if (Number.isNaN(administratorId)) {
+    administratorId = 0;
+  } else {
+    administratorId = parseInt(administratorId);
+  }
+
   CurrentTemplate.currentTemplateId = templateID;
   CurrentTemplate.title = document.getElementById("template-title").value;
   CurrentTemplate.description = document.getElementById(

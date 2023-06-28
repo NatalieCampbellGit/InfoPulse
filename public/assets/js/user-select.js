@@ -111,7 +111,7 @@ async function markUserAsSelected(event) {
   }
   // if the user has changed, reload the factsheets
   if (reloadFactsheets) {
-    htmlFormat=await getFactsheets()
+    htmlFormat = await getFactsheets();
     populateFactsheets(htmlFormat);
   }
 }
@@ -236,13 +236,17 @@ async function linkFactsheetToUser() {
     });
   } catch (err) {
     console.log(err);
-    populateFactsheets( '<p class="bg-pulse-green-500 italic">Error searching for factsheets for the user</p>')
+    populateFactsheets(
+      '<p class="bg-pulse-green-500 italic">Error searching for factsheets for the user</p>'
+    );
   }
   // if the response is ok, reload the factsheets
   if (response.ok) {
     populateFactsheets(await response.text());
   } else {
-    populateFactsheets('<p class="bg-pulse-green-500 italic">Error searching for factsheets for the user</p>');
+    populateFactsheets(
+      '<p class="bg-pulse-green-500 italic">Error searching for factsheets for the user</p>'
+    );
   }
 }
 

@@ -1,9 +1,9 @@
 // The home routes handle the homepage, user-login, admin-login, logout, about and sign-up pages
 
 const router = require("express").Router();
-const { withAuth,withUserAuth, withAdminAuth, withUserAuth } = require("../utils/auth");
+const { withAuth, withUserAuth, withAdminAuth } = require("../utils/auth");
 const { getAdministratorDashboardData, getUserById } = require("../utils/model-utils");
-const { getUserDashboardData } = require("../utils/models-utils");
+
 // Display the homepage
 router.get("/", async (req, res) => {
   try {
@@ -30,15 +30,25 @@ router.get("/login", (req, res) => {
   });
 });
 
-// Display the admin-login page
-router.get("/adminlogin", (req, res) => {
-  // if the user is already logged in, redirect to the homepage
-  if (req.session.loggedIn) {
-    res.redirect("/");
+// Display the admin-login page, or go to the admin dashboard if the administrator is already logged in
+router.get("/adminlogin", async (req, res) => {
+  // if the user is already logged in, redirect to the admin dashboard
+  if (req.session.loggedIn && req.session.userRole==='admin') {
+    const administrator_id = req.session.user_id;
+    if (!administrator_id || administrator_id === "" || administrator_id < 1) {
+      res.render("admin-login");
+      return
+    }
+    const adminDashboardData = await getAdministratorDashboardData(administrator_id);
+    if (!adminDashboardData) {
+      res.render("admin-login");
+      return
+    }
+    res.redirect("/admin");
     return;
   }
   // otherwise, render the login template
-  res.render("/admin-login", {
+  res.render("admin-login", {
     // send data to the template
   });
 });
@@ -60,18 +70,6 @@ router.get("/logout", withAuth, (req, res) => {
     res.redirect("/");
   }
 });
-
-// display the admin login page
-router.get("/admin-login", (req, res) =>{
-
-  if(req.session.loggedIn){
-    res.redirect('/')
-  } else {
-    res.render("admin-login")
-    
-  }
-
-})
 
 // Display the signup page
 router.get("/signup", (req, res) => {
@@ -97,10 +95,8 @@ router.get("/admin", withAdminAuth, async (req, res) => {
     // guaranteed to be an administrator because of the withAdminAuth middleware
     const administrator_id = req.session.user_id;
     if (!administrator_id || administrator_id === "" || administrator_id < 1) {
-      // send to 404 route
-      res
-        .status(404)
-        .render("error-404", { message: "Administrator not found" });
+      // send to admin login page
+      res.redirect("/adminlogin");
       return;
     }
 
@@ -117,9 +113,7 @@ router.get("/admin", withAdminAuth, async (req, res) => {
       });
       return;
     }
-    console.log;
     // configure the adminDashboardData object to display the correct buttons
-    adminDashboardData.selectOnly = false;
     res.render("admin-dashboard", adminDashboardData);
   } catch (err) {
     console.log(err);
@@ -167,10 +161,7 @@ router.get("/user", withUserAuth, async (req, res) => {
     }
 
     // get the user dashboard's info using a util function
-    const userDashboardData = await getUserDashboardData(
-      user_id,
-      0 // 0 means general view on dashboard
-    );
+    const userDashboardData = await getUserById(user_id)
     if (!userDashboardData) {
       // send to 404 route
       res.status(404).render("error-404", {
@@ -180,7 +171,8 @@ router.get("/user", withUserAuth, async (req, res) => {
       return;
     }
     console.log;
-    // display the Administrator Dashboard
+
+// display user dashboard
 router.get("/userdashboard", withUserAuth, async (req, res) => {
   try {
     // information that this route needs:
@@ -193,17 +185,13 @@ router.get("/userdashboard", withUserAuth, async (req, res) => {
     const user_id = req.session.user_id;
     if (!user_id || user_id === "" || user_id < 1) {
       // send to 404 route
-      res
-        .status(404)
-        .render("error-404", { message: "User not found" });
+      res.status(404).render("error-404", { message: "User not found" });
       return;
     }
 
     // get the user dashboard's info using a util function
-    const userDashboardData = await getUserById(
-      user_id,
-    );
-    console.log(userDashboardData)
+    const userDashboardData = await getUserById(user_id);
+    console.log(userDashboardData);
     if (!userDashboardData) {
       // send to 404 route
       res.status(404).render("error-404", {
@@ -218,9 +206,7 @@ router.get("/userdashboard", withUserAuth, async (req, res) => {
     res.render("user-dashboard", userDashboardData);
   } catch (err) {
     console.log(err);
-    res
-      .status(500)
-      .json({ err, message: "Error loading the User Dashboard" });
+    res.status(500).json({ err, message: "Error loading the User Dashboard" });
   }
 });
 
