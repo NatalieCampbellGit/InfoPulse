@@ -20,7 +20,7 @@ router.get("/", withAuth, async (req, res) => {
     return;
   }
   try {
-    id=Number.parseInt(id);
+    id = Number.parseInt(id);
     const factsheets = await getUserFactsheets(id);
     if (!factsheets) {
       res.status(404).json({ error: "No factsheets found for user" });
@@ -58,12 +58,12 @@ router.post("/link/", withAdminAuth, async (req, res) => {
     res.status(400).json({ error: "Invalid user id" });
     return;
   }
-  templateId=Number.parseInt(templateId);
-  userId=Number.parseInt(userId);
+  templateId = Number.parseInt(templateId);
+  userId = Number.parseInt(userId);
 
   // now make sure it doesn't already exist
-  existingFactSheets =await getUserFactsheets(userId);
-  
+  existingFactSheets = await getUserFactsheets(userId);
+
   if (existingFactSheets) {
     for (let i = 0; i < existingFactSheets.length; i++) {
       if (existingFactSheets[i].template_id === templateId) {
@@ -77,7 +77,7 @@ router.post("/link/", withAdminAuth, async (req, res) => {
 
   // now create the link
   let administrator_id = req.session.user_id;
-  administrator_id=Number.parseInt(administrator_id);
+  administrator_id = Number.parseInt(administrator_id);
   try {
     const newLink = await Factsheet.create({
       user_id: userId,

@@ -100,7 +100,8 @@ editButton.addEventListener("click", async (event) => {
   if (selectedTemplateId > 0) {
     // send the user to the edit page for the selected template
     window.location.href = `/api/rmtemplate/edit/${selectedTemplateId}`;
-}});
+  }
+});
 
 // when the user clicks the New button, send them to the template's edit page
 newButton.addEventListener("click", (event) => {

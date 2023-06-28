@@ -4,22 +4,36 @@ const Category = require("../../models/Category");
 const { withAuth, withAdminAuth } = require("../../utils/auth");
 const router = require("express").Router();
 const { formatTemplateListItems } = require("../../utils/html-utils");
-const {
-  getAdministratorDashboardData,
-  getTemplateById,
-} = require("../../utils/model-utils");
+const { getTemplateById, getTemplateEditData } = require("../../utils/model-utils");
 
 // route to edit a template via handlebars
 router.get("/edit/:id", withAdminAuth, async (req, res) => {
   try {
-    const template_id = req.params.id;
-    const adminData = await getAdministratorDashboardData(
-      req.session.user_id,
-      1,
-      template_id
-    );
-    console.log(adminData);
-    res.render("admin-dashboard", adminData);
+    let template_id = req.params.id;
+    if (!template_id) {
+      res.status(404).render("error-404", { message: "Template not found" });
+      return;
+    }
+    if (isNaN(template_id)) {
+      res.status(404).render("error-404", { message: "Template not found" });
+      return;
+    }
+    template_id = parseInt(template_id);
+    if (template_id < 1) {
+      res.status(404).render("error-404", { message: "Template not found" });
+      return;
+    }
+
+    let templateData = await getTemplateEditData(template_id);
+    if (!templateData) {
+      res.status(404).render("error-404", { message: "Template not found" });
+      return;
+    }
+    templateData.administrator_id = req.session.user_id;
+
+    console.log(templateData);
+    res.render("template-edit", templateData);
+    return;
   } catch (err) {
     console.log(err);
     res.status(404).render("error-404", { message: err });
@@ -27,7 +41,17 @@ router.get("/edit/:id", withAdminAuth, async (req, res) => {
 });
 
 router.get("/:id", withAuth, async (req, res) => {
-  const template_id = req.params.id;
+  let template_id = req.params.id;
+  if (!template_id) {
+    res.status(404).render("error-404", { message: "Template not found" });
+    return;
+  }
+  if (isNaN(template_id)) {
+    res.status(404).render("error-404", { message: "Template not found" });
+    return;
+  }
+  template_id = parseInt(template_id);
+
   const templateData = await getTemplateById(template_id);
   if (!templateData) {
     res.status(404).render("error-404", { message: "Template not found" });

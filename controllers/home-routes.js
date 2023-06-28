@@ -1,7 +1,10 @@
 // The home routes handle the homepage, login, logout, and signup pages
 const router = require("express").Router();
-const { withAuth,withUserAuth, withAdminAuth } = require("../utils/auth");
-const { getAdministratorDashboardData, getUserById } = require("../utils/model-utils");
+const { withAuth, withUserAuth, withAdminAuth } = require("../utils/auth");
+const {
+  getAdministratorDashboardData,
+  getUserById,
+} = require("../utils/model-utils");
 
 // Display the homepage
 router.get("/", async (req, res) => {
@@ -129,17 +132,13 @@ router.get("/userdashboard", withUserAuth, async (req, res) => {
     const user_id = req.session.user_id;
     if (!user_id || user_id === "" || user_id < 1) {
       // send to 404 route
-      res
-        .status(404)
-        .render("error-404", { message: "User not found" });
+      res.status(404).render("error-404", { message: "User not found" });
       return;
     }
 
     // get the user dashboard's info using a util function
-    const userDashboardData = await getUserById(
-      user_id,
-    );
-    console.log(userDashboardData)
+    const userDashboardData = await getUserById(user_id);
+    console.log(userDashboardData);
     if (!userDashboardData) {
       // send to 404 route
       res.status(404).render("error-404", {
@@ -154,9 +153,7 @@ router.get("/userdashboard", withUserAuth, async (req, res) => {
     res.render("user-dashboard", userDashboardData);
   } catch (err) {
     console.log(err);
-    res
-      .status(500)
-      .json({ err, message: "Error loading the User Dashboard" });
+    res.status(500).json({ err, message: "Error loading the User Dashboard" });
   }
 });
 
