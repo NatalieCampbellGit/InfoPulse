@@ -127,7 +127,7 @@ document
     CurrentTemplate.title = returnedData.title;
     CurrentTemplate.description = returnedData.description;
     CurrentTemplate.category_id = returnedData.category_id;
-    CurrentTemplate.public = returnedData.public;
+    CurrentTemplate.publicTemplate = returnedData.public;
     CurrentTemplate.administrator_id = returnedData.administrator_id;
 
     // set the text in the textarea
@@ -137,7 +137,8 @@ document
     document.getElementById("template-title").value = CurrentTemplate.title;
     document.getElementById("template-description").value =
       CurrentTemplate.description;
-    document.getElementById("template-public").checked = CurrentTemplate.public;
+    document.getElementById("template-public").checked =
+      CurrentTemplate.publicTemplate;
 
     // update the UI
     // hide the search area
@@ -501,10 +502,13 @@ editMenu.addEventListener("click", async function (event) {
   event.preventDefault();
 
   // see if it is a button that was clicked
-  if (event.target.tagName === "BUTTON" || event.target.tagName === "I") {
+  if (
+    event.currentTarget.tagName === "BUTTON" ||
+    event.currentTarget.tagName === "I"
+  ) {
     const textEntryControl = document.getElementById("template-text");
     // get the value of data-tag
-    const tag = event.target.dataset.tag;
+    const tag = event.currentTarget.dataset.tag;
     switch (tag) {
       case "**":
         console.log("Bold button clicked");

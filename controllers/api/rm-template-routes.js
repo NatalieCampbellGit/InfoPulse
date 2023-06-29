@@ -10,10 +10,132 @@ const {
   getTemplateEditData,
 } = require("../../utils/model-utils");
 
-// route to edit a template via handlebars
-router.get("/edit/:id", withAdminAuth, async (req, res) => {
+// route to create a new Template
+router.post("/", withAdminAuth, async (req, res) => {
+  try {
+    const markdown = req.body.markdown;
+    const title = req.body.title;
+    let administrator_id = req.body.administrator_id;
+    let category_id = req.body.category_id;
+    const description = req.body.description;
+    let publicTemplate = req.body.publicTemplate;
+
+    if (publicTemplate === undefined) {
+      publicTemplate = true;
+    }
+
+    if (administrator_id === undefined) {
+      administrator_id = 1;
+    }
+    administrator_id = parseInt(administrator_id);
+    if (!category_id) {
+      res.status(400).json({ message: "Invalid category chosen" });
+      return;
+    }
+    category_id = parseInt(category_id);
+
+    // validation
+    if (
+      !markdown ||
+      !title ||
+      !administrator_id ||
+      !category_id ||
+      !description
+    ) {
+      res.status(400).json({ message: "Invalid Template data" });
+      return;
+    }
+
+    const newTemplate = await Template.create({
+      markdown,
+      title,
+      administrator_id,
+      category_id,
+      description,
+      public: publicTemplate,
+    });
+
+    res.status(200).json(newTemplate);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err, message: "Error creating template" });
+  }
+});
+
+// route to update a Template
+router.put("/:id", withAdminAuth, async (req, res) => {
   try {
     let template_id = req.params.id;
+    const markdown = req.body.markdown;
+    const title = req.body.title;
+    let administrator_id = req.body.administrator_id;
+    let category_id = req.body.category_id;
+    const description = req.body.description;
+    let publicTemplate = req.body.publicTemplate;
+
+    if (publicTemplate === undefined) {
+      publicTemplate = true;
+    }
+
+    if (Number.isNaN(template_id)) {
+      res.status(400).json({ message: "Invalid template id" });
+      return;
+    }
+    template_id = parseInt(template_id);
+    if (template_id < 1) {
+      res.status(400).json({ message: "Invalid template id" });
+      return;
+    }
+
+    // validation
+    if (
+      !template_id ||
+      !markdown ||
+      !title ||
+      !administrator_id ||
+      !category_id ||
+      !description
+    ) {
+      res.status(400).json({ message: "Invalid Template data" });
+      return;
+    }
+    administrator_id = parseInt(administrator_id);
+    category_id = parseInt(category_id);
+
+    try {
+      const updatedTemplate = await Template.update(
+        {
+          markdown,
+          title,
+          administrator_id,
+          category_id,
+          description,
+          public: publicTemplate,
+        },
+        {
+          where: {
+            id: template_id,
+          },
+        }
+      );
+      res.status(200).json(updatedTemplate);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ err, message: "Error updating template" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err, message: "Error updating template" });
+  }
+});
+
+// route to edit a template via handlebars
+router.get("/edit", withAdminAuth, async (req, res) => {
+  console.log(req.params);
+  try {
+    let template_id = req.query.id;
+    let returnPath = req.query.path;
+
     if (!template_id) {
       res.status(404).render("error-404", { message: "Template not found" });
       return;
@@ -27,13 +149,16 @@ router.get("/edit/:id", withAdminAuth, async (req, res) => {
       res.status(404).render("error-404", { message: "Template not found" });
       return;
     }
-
     const templateData = await getTemplateEditData(template_id);
     if (!templateData) {
       res.status(404).render("error-404", { message: "Template not found" });
       return;
     }
     templateData.administrator_id = req.session.user_id;
+    if (!returnPath || returnPath === "") {
+      returnPath = "/admin";
+    }
+    templateData.returnPath = returnPath;
 
     console.log(templateData);
     res.render("template-edit", templateData);
@@ -230,7 +355,7 @@ router.delete("/admin/:id", withAdminAuth, async (req, res) => {
     console.log(err);
     return res
       .status(500)
-      .json({ err: "An error occured while deleting the template" });
+      .json({ err: "An error occurred while deleting the template" });
   }
 });
 
