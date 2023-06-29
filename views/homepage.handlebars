@@ -1,5 +1,4 @@
 <!-- Homepage -->
-<!-- Intentional different header, only using once so not a handlebar-->
 <header class="bg-gray-900 text-white py-4 px-6 flex justify-between items-center">
   <div>
     <!-- Logo image -->
@@ -24,8 +23,6 @@
       <a href="/signup" class="btn-primary">Sign Up with your Pass Code by clicking here</a>
     </div>
 
-    <!-- Show the instructions if the user is logged in -->
-    {{#if loggedIn}}
     <div class="container mt-2">
       <div class="card text-center mb-3">
         <div class="card-header bg-light">
@@ -38,34 +35,8 @@
         </div>
       </div>
     </div>
-    {{/if}}
   </div>
 
 {{{< footer}}}
 
 </main>
-
-
-{{!-- {{/if}} --}}
-<!-- Show all blog posts -->
-{{!-- <a href="/admin" class="btn btn-primary">Dashboard</a>
-<div class="container mt-2">
-    {{#if hasPosts}}
-    {{#each blogPosts as |post|}}
-
-    {{> blog-post post}}
-
-    {{/each}}
-    {{else}}
-    <div class="alert alert-info">
-        <h2>No posts yet. Start the conversation!</h2>
-        {{#if loggedIn}}
-        <a href="/api/blogs/new" class="button">Create a post</a>
-        {{else}}
-        <a href="/login" class="button">Log in to create a post</a>
-        {{/if}}
-    </div>
-    {{/if}}
-</div> --}}
-
-<!-- Homepage javascript is handled by script.js -->
