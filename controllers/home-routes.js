@@ -11,7 +11,6 @@ const {
 router.get("/", async (req, res) => {
   try {
     res.render("homepage", {
-    res.render("homepage", {
       // send the session variable (loggedIn) to the template
       loggedIn: req.session.loggedIn,
     });

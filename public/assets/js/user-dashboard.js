@@ -1,71 +1,139 @@
-$(document).ready(function() {
-    // View button click event
-    $('#view-template').click(function() {
-      const selectedTemplateIndex = $('#template-list .selected').index();
-      $('.factsheet').hide();
-      $('.factsheet').eq(selectedTemplateIndex).show();
-    });
+const factsheets = [
+    {
+      id: 1,
+      template: {
+        id: 1,
+        title: "Understanding Glaucoma",
+        html: ""
+      }
+    },
+    {
+      id: 2,
+      template: {
+        id: 2,
+        title: "Understanding Myopia (Shortsightedness)",
+        html: ""
+      }
+    },
+    {
+      id: 3,
+      template: {
+        id: 3,
+        title: "Understanding Hyperopia (Longsightedness)",
+        html: ""
+      }
+    },
+    {
+      id: 4,
+      template: {
+        id: 4,
+        title: "Understanding Astigmatism",
+        html: ""
+      }
+    },
+    {
+      id: 5,
+      template: {
+        id: 5,
+        title: "Understanding Presbyopia",
+        html: ""
+      }
+    },
+    {
+      id: 6,
+      template: {
+        id: 6,
+        title: "Understanding Dry Eye",
+        html: ""
+      }
+    },
+    {
+      id: 7,
+      template: {
+        id: 7,
+        title: "Eye Injury Prevention",
+        html: ""
+      }
+    },
+    {
+      id: 8,
+      template: {
+        id: 8,
+        title: "Common Vision Problems in Children",
+        html: ""
+      }
+    },
+    {
+      id: 9,
+      template: {
+        id: 9,
+        title: "Understanding Age-Related Macular Degeneration",
+        html: ""
+      }
+    },
+    {
+      id: 10,
+      template: {
+        id: 10,
+        title: "Understanding Eye Care Practitioners",
+        html: ""
+      }
+    },
+    {
+      id: 11,
+      template: {
+        id: 11,
+        title: "Fun facts about the Eye and Vision",
+        html: ""
+      }
+    },
+    {
+      id: 12,
+      template: {
+        id: 12,
+        title: "Understanding Cataracts",
+        html: ""
+      }
+    },
+    {
+      id: 13,
+      template: {
+        id: 13,
+        title: "Diabetes and Eye Care",
+        html: ""
+      }
+    }
+  ];
   
-    // Add Comment button click event
-    $('#add-comment').click(function() {
-      $('.comment-input').addClass('hidden');
-      const selectedFactsheet = $('.factsheet:visible');
-      const commentInput = selectedFactsheet.find('.comment-input');
-      commentInput.removeClass('hidden');
-      commentInput.focus();
-    });
+  let currentIndex = 0;
   
-    // Save Comment button click event
-    $('#save-comment').click(function() {
-      const selectedFactsheet = $('.factsheet:visible');
-      const commentInput = selectedFactsheet.find('.comment-input');
-      const comment = commentInput.val();
-      // Do something with the comment, such as sending it to the server
-      // ...
-      commentInput.val('').addClass('hidden');
-    });
-  });
+  // Function to update the current factsheet
+  function updateCurrentFactsheet() {
+    const currentFactsheet = factsheets[currentIndex];
+  }
   
-  $(document).ready(function() {
-    // View Templates button click event
-    $('#view-templates').click(function() {
-      // Implement the functionality to show the templates section
-    });
+  // Function to handle the Next button click event
+  function handleNextButtonClick() {
+    if (currentIndex < factsheets.length - 1) {
+      currentIndex++;
+      updateCurrentFactsheet();
+    }
+  }
   
-    // Edit Profile button click event
-    $('#edit-profile').click(function() {
-      // Implement the functionality to edit the user profile
-    });
+  // Function to handle the Previous button click event
+  function handlePreviousButtonClick() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateCurrentFactsheet();
+    }
+  }
   
-    // Search button click event
-    $('#search-button').click(function() {
-      // Implement the functionality to perform a search based on the selected category, title, and content
-    });
+  // Add event listeners for Next and Previous buttons
+  const nextButton = document.getElementById("next-button");
+  nextButton.addEventListener("click", handleNextButtonClick);
   
-    // View button click event
-    $('#view-template').click(function() {
-      // Implement the functionality to view the selected template
-      // You can use the selected template index to show/hide the template content
-    });
+  const previousButton = document.getElementById("previous-button");
+  previousButton.addEventListener("click", handlePreviousButtonClick);
   
-    // New button click event
-    $('#new-template').click(function() {
-      // Implement the functionality to create a new template
-    });
-  
-    // Select button click event
-    $('#select-template').click(function() {
-      // Implement the functionality to select a template
-    });
-  
-    // Add Comment button click event
-    $('#add-comment').click(function() {
-      // Implement the functionality to show the comment input box for the currently visible factsheet
-    });
-  
-    // Save Comment button click event
-    $('#save-comment').click(function() {
-      // Implement the functionality to retrieve the comment from the input box and perform any necessary actions
-    });
-  });
+  updateCurrentFactsheet();
   

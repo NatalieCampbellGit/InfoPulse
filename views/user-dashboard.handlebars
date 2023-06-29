@@ -14,7 +14,7 @@
       <div class="">
         <div id="user-menu">
           <!-- User menu buttons -->
-          <button type="button" class="btn btn-primary" id="view-templates">View Templates</button>
+          <!-- <button type="button" class="btn btn-primary" id="view-templates">View Templates</button> -->
           <button type="button" class="btn btn-primary" id="edit-profile">Edit Profile</button>
           <!-- <button type="button" class="btn btn-primary" id="log-out">Log Out</button> -->
         </div>
@@ -54,7 +54,13 @@
 
     <div class="h-72 overflow-auto py-2 pl-2 pr-4 bg-white" id="template-search-results">
       <ul aria-label="Search results" id="template-list">
-        {{>template-list templates=templates }}
+        {{#each templates}}
+        <li data-id="{{id}}"
+          class="template-list-item border-1 mb-1 cursor-pointer rounded border-pulse-blue-300 bg-pulse-lt-blue-100 px-2 py-1 text-pulse-blue-700">
+          {{title}}
+          <span class="text-sm italic">({{category.title}})</span>
+        </li>
+        {{/each}}
       </ul>
     </div>
     <div class="flex flex-row justify-between align-bottom">
@@ -84,22 +90,29 @@
 
     <script src="/assets/js/template-select.js"></script>
 
-    <!-- display the factsheets that user has been given -->
-    <div id="view-posts">
-      <div class="mx-auto px-1 sm:px-2 bg-white">
-        <h2 class="text-xl font-bold mb-2">Posts</h2>
-        {{#each factsheets as |factsheet| }}
-        <div class="factsheet">
-          <div class="factsheet-content">
-            {{{template.html}}}
-          </div>
-          <div class="comment-section">
-            <textarea class="comment-input hidden"></textarea>
-          </div>
+<div id="view-posts">
+  <div class="mx-auto px-1 sm:px-2 bg-white">
+    <h2 class="text-xl font-bold mb-2">Posts</h2>
+    {{#if factsheets.length}}
+      <div class="factsheet">
+        <div class="factsheet-content">
+          <h3>Template ID: {{currentFactsheet.template.id}}</h3>
+          <h3>Template Title: {{currentFactsheet.template.title}}</h3>
+          {{{currentFactsheet.template.html}}}
         </div>
-        {{/each}}
+        <div class="comment-section">
+          <textarea class="comment-input hidden"></textarea>
+        </div>
       </div>
-    </div>
+      <div class="flex justify-between mt-4">
+        <button class="btn btn-primary" id="previous-button" {{#unless hasPrevious}}disabled{{/unless}}>Previous</button>
+        <button class="btn btn-primary" id="next-button" {{#unless hasNext}}disabled{{/unless}}>Next</button>
+      </div>
+    {{else}}
+      <p>No factsheets found.</p>
+    {{/if}}
+  </div>
+</div>
 
     <!-- Buttons section -->
     <div class="button-group">
