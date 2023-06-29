@@ -1,4 +1,4 @@
-// handles the admin login page
+// handles the log-in for admins
 const { sequelize, Op } = require("sequelize");
 const Template = require("../../models/Template");
 const Category = require("../../models/Category");
@@ -51,5 +51,14 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ err, message: 'Error logging in' })
   }
 })
+
+// direct the user to the user log-in from the admin login
+router.get('/login', (req,res) =>{
+
+    res.redirect('/user-login');
+
+})
+
+
 
 module.exports = router;
