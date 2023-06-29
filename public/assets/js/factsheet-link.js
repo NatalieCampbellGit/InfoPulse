@@ -1,4 +1,4 @@
-//This module is to link the factsheet template to the user
+// This module is to link the factsheet template to the user
 // it uses data stored by the handlebars components in the webpage
 // to link the factsheet template to the user
 // would use local storage, but can't trust it is up to date

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const {
   Template,
   Category,
@@ -6,7 +7,6 @@ const {
   UserComment,
   Administrator,
 } = require("../models");
-const { withAuth, withAdminAuth, withUserAuth } = require("./auth");
 
 // return all categories
 async function getAllCategories() {

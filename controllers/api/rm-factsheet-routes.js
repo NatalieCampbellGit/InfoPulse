@@ -1,7 +1,5 @@
-const { sequelize, Op } = require("sequelize");
-const User = require("../../models/User");
+/* eslint-disable camelcase */
 const Factsheet = require("../../models/Factsheet");
-const UserComment = require("../../models/UserComment");
 const { withAuth, withAdminAuth } = require("../../utils/auth");
 const router = require("express").Router();
 const { getUserFactsheets } = require("../../utils/model-utils");
@@ -34,13 +32,12 @@ router.get("/", withAuth, async (req, res) => {
     if (factsheets.length === 0) {
       res
         .status(200)
-        .send(`<p class="text-pulse-green-500">No factsheets found</p>`);
+        .send('<p class="text-pulse-green-500">No factsheets found</p>');
       return;
     }
     // html format
     const htmlFormat = formatFactsheetListItems(factsheets);
     res.status(200).send(htmlFormat);
-    return;
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -63,7 +60,7 @@ router.post("/link/", withAdminAuth, async (req, res) => {
   userId = Number.parseInt(userId);
 
   // now make sure it doesn't already exist
-  existingFactSheets = await getUserFactsheets(userId);
+  const existingFactSheets = await getUserFactsheets(userId);
 
   if (existingFactSheets) {
     for (let i = 0; i < existingFactSheets.length; i++) {
@@ -93,68 +90,56 @@ router.post("/link/", withAdminAuth, async (req, res) => {
     const factsheets = await getUserFactsheets(userId);
     const htmlFormat = formatFactsheetListItems(factsheets);
     res.status(200).send(htmlFormat);
-    return;
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 });
 
-// delete a factsheet 
-router.delete('/admin/:id', withAdminAuth, (req, res) => {
-
+// delete a factsheet
+router.delete("/admin/:id", withAdminAuth, (req, res) => {
   const factsheet_id = req.body.id;
 
+  try {
+    const deletedFactsheet = Factsheet.destroy({
+      where: { id: factsheet_id },
+    });
 
-try{
-      const deletedFactsheet = Factsheet.destroy({
-        where: { id: factsheet_id}
-       });
+    if (deletedFactsheet === 0) {
+      return res.status(404).json({ error: "Factsheet not found" });
+    }
 
-       if(deletedFactsheet === 0){
-        return res.status(404).json({ error: "Factsheet not found"});
-       }
-
-       return res.json({ message: "Factsheet deleted"})
-
-  }catch (err){
+    return res.json({ message: "Factsheet deleted" });
+  } catch (err) {
     console.log(error);
     return res
-    .status(500)
-    .json({ error: "An error occured while deleting the factsheet"})
-
+      .status(500)
+      .json({ error: "An error occured while deleting the factsheet" });
   }
-
 });
 
 // delete a comment from a factsheet
 // ! TODO
-router.delete('/admin/:id', withAdminAuth, (req, res) => {
-
+router.delete("/admin/:id", withAdminAuth, (req, res) => {
   const factsheet_id = req.body.id;
 
-try{
-      const deletedFactsheet = Factsheet.destroy({
-        where: { id: factsheet_id}
-       });
+  try {
+    const deletedFactsheet = Factsheet.destroy({
+      where: { id: factsheet_id },
+    });
 
-       if(deletedFactsheet === 0){
-        return res.status(404).json({ error: "User not found"});
-       }
+    if (deletedFactsheet === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
-       return res.json({ message: "Factsheet deleted"})
-
-  }catch (err){
+    return res.json({ message: "Factsheet deleted" });
+  } catch (err) {
     console.log(error);
     return res
-    .status(500)
-    .json({ error: "An error occured while deleting the factsheet"})
-
+      .status(500)
+      .json({ error: "An error occured while deleting the factsheet" });
   }
-
 });
-
-
 
 // ! really important to export the router
 module.exports = router;
