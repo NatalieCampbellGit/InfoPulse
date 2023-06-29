@@ -1,11 +1,16 @@
-// The home routes handle the homepage, login, logout, and signup pages
+/* eslint-disable camelcase */
+// The home routes handle the homepage, user-login, admin-login, logout, about and sign-up pages
 const router = require("express").Router();
-const { withAuth,withUserAuth, withAdminAuth } = require("../utils/auth");
-const { getAdministratorDashboardData, getUserById } = require("../utils/model-utils");
+const { withAuth, withUserAuth, withAdminAuth } = require("../utils/auth");
+const {
+  getAdministratorDashboardData,
+  getUserById,
+} = require("../utils/model-utils");
 
 // Display the homepage
 router.get("/", async (req, res) => {
   try {
+    res.render("homepage", {
     res.render("homepage", {
       // send the session variable (loggedIn) to the template
       loggedIn: req.session.loggedIn,
@@ -20,35 +25,46 @@ router.get("/", async (req, res) => {
 router.get("/login", (req, res) => {
   // if the user is already logged in, redirect to the homepage
   if (req.session.loggedIn) {
-    res.redirect("/");
+    res.redirect("homepage");
     return;
-  }
-  // otherwise, render the login template
+  } // otherwise, render the login template
   res.render("login", {
     // send data to the template
   });
 });
 
-// Display the admin-login page
-router.get("/adminlogin", (req, res) => {
-  // if the user is already logged in, redirect to the homepage
-  if (req.session.loggedIn) {
-    res.redirect("/");
+// Display the admin-login page, or go to the admin dashboard if the administrator is already logged in
+router.get("/adminlogin", async (req, res) => {
+  // if the user is already logged in, redirect to the admin dashboard
+  if (req.session.loggedIn && req.session.userRole === "admin") {
+    const administrator_id = req.session.user_id;
+    if (!administrator_id || administrator_id === "" || administrator_id < 1) {
+      res.render("admin-login");
+      return;
+    }
+    const adminDashboardData = await getAdministratorDashboardData(
+      administrator_id
+    );
+    if (!adminDashboardData) {
+      res.render("admin-login");
+      return;
+    }
+    res.redirect("/admin");
     return;
   }
   // otherwise, render the login template
-  res.render("/admin-login", {
+  res.render("admin-login", {
     // send data to the template
   });
 });
 
-// Log the user out
+// Log the user out (works for user and admin)
 router.get("/logout", withAuth, (req, res) => {
   // if the user is logged in, destroy the session and redirect to the homepage
   if (req.session.loggedIn) {
     try {
       req.session.destroy(() => {
-        res.redirect("/");
+        res.redirect("homepage");
       });
     } catch (err) {
       console.log(err);
@@ -56,7 +72,7 @@ router.get("/logout", withAuth, (req, res) => {
     }
   } else {
     // otherwise, redirect to the homepage
-    res.redirect("/");
+    res.redirect("homepage");
   }
 });
 
@@ -64,7 +80,7 @@ router.get("/logout", withAuth, (req, res) => {
 router.get("/signup", (req, res) => {
   // if the user is already logged in, redirect to the homepage
   if (req.session.loggedIn) {
-    res.redirect("/");
+    res.redirect("homepage");;
     return;
   }
   // otherwise, render the signup template
@@ -84,10 +100,8 @@ router.get("/admin", withAdminAuth, async (req, res) => {
     // guaranteed to be an administrator because of the withAdminAuth middleware
     const administrator_id = req.session.user_id;
     if (!administrator_id || administrator_id === "" || administrator_id < 1) {
-      // send to 404 route
-      res
-        .status(404)
-        .render("error-404", { message: "Administrator not found" });
+      // send to admin login page
+      res.redirect("/adminlogin");
       return;
     }
 
@@ -104,9 +118,7 @@ router.get("/admin", withAdminAuth, async (req, res) => {
       });
       return;
     }
-    console.log;
     // configure the adminDashboardData object to display the correct buttons
-    adminDashboardData.selectOnly = false;
     res.render("admin-dashboard", adminDashboardData);
   } catch (err) {
     console.log(err);
@@ -116,30 +128,36 @@ router.get("/admin", withAdminAuth, async (req, res) => {
   }
 });
 
-// display the Administrator Dashboard
-router.get("/userdashboard", withUserAuth, async (req, res) => {
+// Display the aboutpage
+// ! TO DO
+router.get("/about", (req, res) => {
+  try {
+    res.render("about").status(200);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ err, message: "Server Error displaying about page" });
+  }
+});
+
+// display user dashboard
+router.get("/user", withUserAuth, async (req, res) => {
   try {
     // information that this route needs:
-    // all factsheets for the user
-    // logged in info
-    // user info
-    // administrator's info
+    // all categories
+    // all templates
+    // user's info
 
     // guaranteed to be an user because of the withUserAuth middleware
     const user_id = req.session.user_id;
     if (!user_id || user_id === "" || user_id < 1) {
       // send to 404 route
-      res
-        .status(404)
-        .render("error-404", { message: "User not found" });
+      res.status(404).render("error-404", { message: "User not found" });
       return;
     }
 
     // get the user dashboard's info using a util function
-    const userDashboardData = await getUserById(
-      user_id,
-    );
-    console.log(userDashboardData)
+    const userDashboardData = await getUserById(user_id);
     if (!userDashboardData) {
       // send to 404 route
       res.status(404).render("error-404", {
@@ -148,18 +166,53 @@ router.get("/userdashboard", withUserAuth, async (req, res) => {
       });
       return;
     }
-    // console.log(userDashboardData)
 
-    // configure the userDashboardData object to display the correct buttons
+    // display user dashboard
+    router.get("/userdashboard", withUserAuth, async (req, res) => {
+      try {
+        // information that this route needs:
+        // all factsheets for the user
+        // logged in info
+        // user info
+        // administrator's info
+
+        // guaranteed to be an user because of the withUserAuth middleware
+        const user_id = req.session.user_id;
+        if (!user_id || user_id === "" || user_id < 1) {
+          // send to 404 route
+          res.status(404).render("error-404", { message: "User not found" });
+          return;
+        }
+
+        // get the user dashboard's info using a util function
+        const userDashboardData = await getUserById(user_id);
+        console.log(userDashboardData);
+        if (!userDashboardData) {
+          // send to 404 route
+          res.status(404).render("error-404", {
+            message: "Could not retrieve the User Dashboard data",
+            previousRoute: "home",
+          });
+          return;
+        }
+        // console.log(userDashboardData)
+
+        // configure the userDashboardData object to display the correct buttons
+        res.render("user-dashboard", userDashboardData);
+      } catch (err) {
+        console.log(err);
+        res
+          .status(500)
+          .json({ err, message: "Error loading the User Dashboard" });
+      }
+    });
+
     res.render("user-dashboard", userDashboardData);
   } catch (err) {
     console.log(err);
-    res
-      .status(500)
-      .json({ err, message: "Error loading the User Dashboard" });
+    res.status(500).json({ err, message: "Error loading the User Dashboard" });
   }
 });
-
 // ! DELETE THIS ROUTE BEFORE DEPLOYING
 // Display the test page
 router.get("/rm-test", (req, res) => {

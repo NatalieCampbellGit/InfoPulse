@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 // get elements from the page
 const imageSelect = document.getElementById("modal-image-select");
 
@@ -126,7 +127,7 @@ document
     CurrentTemplate.title = returnedData.title;
     CurrentTemplate.description = returnedData.description;
     CurrentTemplate.category_id = returnedData.category_id;
-    CurrentTemplate.public = returnedData.public;
+    CurrentTemplate.publicTemplate = returnedData.public;
     CurrentTemplate.administrator_id = returnedData.administrator_id;
 
     // set the text in the textarea
@@ -136,7 +137,8 @@ document
     document.getElementById("template-title").value = CurrentTemplate.title;
     document.getElementById("template-description").value =
       CurrentTemplate.description;
-    document.getElementById("template-public").checked = CurrentTemplate.public;
+    document.getElementById("template-public").checked =
+      CurrentTemplate.publicTemplate;
 
     // update the UI
     // hide the search area
@@ -177,7 +179,7 @@ async function saveTemplate() {
   const requestData = {
     markdown: templateText,
     title: templateTitle,
-    category_id: category_id,
+    category_id,
     administrator_id: CurrentTemplate.administrator_id,
   };
   // ! TODO remove this once routes are set up
@@ -437,8 +439,8 @@ document.getElementById("file-upload").addEventListener("change", function () {
 // update the file name when a file is selected
 function updateFileName() {
   console.log("updateFileName called");
-  var input = document.getElementById("file-upload");
-  var fileName = document.getElementById("upload-file-name");
+  const input = document.getElementById("file-upload");
+  const fileName = document.getElementById("upload-file-name");
   console.log(input.files);
   if (input.files && input.files.length > 0) {
     fileName.textContent = input.files[0].name;
@@ -500,10 +502,13 @@ editMenu.addEventListener("click", async function (event) {
   event.preventDefault();
 
   // see if it is a button that was clicked
-  if (event.target.tagName === "BUTTON" || event.target.tagName === "I") {
+  if (
+    event.currentTarget.tagName === "BUTTON" ||
+    event.currentTarget.tagName === "I"
+  ) {
     const textEntryControl = document.getElementById("template-text");
     // get the value of data-tag
-    const tag = event.target.dataset.tag;
+    const tag = event.currentTarget.dataset.tag;
     switch (tag) {
       case "**":
         console.log("Bold button clicked");
@@ -688,7 +693,7 @@ function hideTemplateOptions(hide) {
   }
 }
 
-//hideMenu makes all the buttons in the edit menu hidden
+// hideMenu makes all the buttons in the edit menu hidden
 function hideMenu(element, hide) {
   // go through each child element that is a button
   for (let i = 0; i < element.children.length; i++) {

@@ -1,48 +1,42 @@
+
 <!-- Login Form -->
-<div class="container mt-2">
-  <div class="row d-flex justify-content-center">
-    <div class="col-lg-6">
-      <div class="card">
-        <div class="card-header bg-primary-subtle">
-          <h3 class="card-title text-dark">Login</h3>
-        </div>
-        <div class="card-body">
-          <form id="login-form">
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input
-                type="text"
-                class="form-control"
-                id="username"
-                name="username"
-                autocomplete="username"
-              />
+<section class="flex justify-center bg-pulse-grey-light mt-6 ">
+    <div class="max-w-screen-md mx-auto">
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="mb-4">
+                <label class="block text-pulse-grey-dark text-sm font-bold mb-2" for="username">
+                    Username or Email:
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-pulse-grey-dark leading-tight focus:outline-none focus:shadow-outline"
+                    id="username" type="text" placeholder="Username or email" autocomplete="email">
             </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                autocomplete="current-password"
-              />
+            <div class="mb-6">
+                <label class="block text-pulse-grey-dark text-sm font-bold mb-2" for="password">
+                    Password:
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-pulse-grey-dark mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    id="password" type="password" autocomplete="current-password" placeholder="******************">
             </div>
-            <button
-              type="submit"
-              id="login-button"
-              class="btn btn-primary mt-1"
-            >Login</button>
-          </form>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Don't have an account?
-            <a href="/signup">Sign up instead</a></small>
-        </div>
-      </div>
+            <div class="flex items-center justify-between">
+                <button id="admin-login-button"
+                    class="bg-pulse-blue-500 hover:bg-pulse-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="button">
+                    Login
+                </button>
+                <a class="inline-block align-baseline font-bold text-sm text-pulse-blue-500 hover:text-pulse-blue-800"
+                    href="/">
+                    Home
+                </a>
+                <button type="button" id="user-login-button" class="inline-block align-baseline font-bold text-sm text-pulse-blue-500 hover:text-pulse-blue-800"
+                    href="/user-login">
+                    User Login
+                </button>
+            </div>
+        </form>
     </div>
-  </div>
-</div>
+</section>
 
 <!-- login script -->
-<script src="/public/assets/js/admin-dashboard.js"></script>
+<script src="/assets/js/admin-login.js"></script>

@@ -62,8 +62,8 @@ searchButton.addEventListener("click", async (event) => {
         body: JSON.stringify({
           id: categoryID,
           searchTerm: searchText,
-          searchMarkdown: searchMarkdown,
-          returnFormat: returnFormat,
+          searchMarkdown,
+          returnFormat,
         }),
         headers: { "Content-Type": "application/json" },
       });
@@ -90,7 +90,7 @@ searchButton.addEventListener("click", async (event) => {
 viewButton.addEventListener("click", (event) => {
   event.preventDefault();
   if (selectedTemplateId > 0) {
-    window.location.href = `/api/template/view?id=${selectedTemplateId}`;
+    window.location.href = `/api/rmtemplate/view?id=${selectedTemplateId}`;
   }
 });
 
@@ -99,13 +99,14 @@ editButton.addEventListener("click", async (event) => {
   event.preventDefault();
   if (selectedTemplateId > 0) {
     // send the user to the edit page for the selected template
-    window.location.href = `/api/rmtemplate/edit/${selectedTemplateId}`;
-}});
+    window.location.href = `/api/rmtemplate/edit?id=${selectedTemplateId}&path=admin`;
+  }
+});
 
 // when the user clicks the New button, send them to the template's edit page
 newButton.addEventListener("click", (event) => {
   event.preventDefault();
-  window.location.href = `/api/template/new`;
+  window.location.href = "/api/rmtemplate/new";
 });
 
 // when the user clicks the Delete button, confirm that they want to delete the template
