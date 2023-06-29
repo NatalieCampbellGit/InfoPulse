@@ -772,6 +772,10 @@ video {
   max-width: 1536px;
 }
 
+.max-w-screen-lg {
+  max-width: 1024px;
+}
+
 .max-w-screen-md {
   max-width: 768px;
 }

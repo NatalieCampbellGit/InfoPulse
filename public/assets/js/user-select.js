@@ -11,7 +11,7 @@ const factsheetPersonaliseButton = document.getElementById(
 let factsheetList = document.getElementsByClassName("user-factsheet-listitem");
 let userList = document.getElementsByClassName("user-list-item");
 
-//get the add button event
+// get the add button event
 factsheetAddButton.addEventListener("click", linkFactsheetToUser);
 
 let selectedUserId = 0;
@@ -44,7 +44,7 @@ searchUser.addEventListener("click", async (event) => {
   // use post to use the body to send the search text
   let response;
   try {
-    response = await fetch(`/api/rmusers/search`, {
+    response = await fetch("/api/rmusers/search", {
       method: "POST",
       body: JSON.stringify({
         id: 0,
@@ -104,14 +104,13 @@ async function markUserAsSelected(event) {
       // show the add factsheet button
       factsheetAddButton.classList.remove("hidden");
     } else {
-      console.log;
       userList[i].classList.remove("bg-pulse-green-300");
       userList[i].classList.add("bg-pulse-green-100");
     }
   }
   // if the user has changed, reload the factsheets
   if (reloadFactsheets) {
-    htmlFormat = await getFactsheets();
+    const htmlFormat = await getFactsheets();
     populateFactsheets(htmlFormat);
   }
 }
@@ -138,7 +137,6 @@ function markFactsheetAsSelected(event) {
       factsheetRemoveButton.classList.remove("hidden");
       factsheetPersonaliseButton.classList.remove("hidden");
     } else {
-      console.log;
       factsheetList[i].classList.remove("bg-pulse-green-300");
       factsheetList[i].classList.add("bg-white");
     }
@@ -201,7 +199,7 @@ async function getFactsheets() {
 }
 
 // ======================================================================
-//This section is to link the factsheet template to the user
+// This section is to link the factsheet template to the user
 // it uses data stored by the handlebars components in the webpage
 // to link the factsheet template to the user
 // would use local storage, but can't trust it is up to date
@@ -226,11 +224,11 @@ async function linkFactsheetToUser() {
   // call the API to link the factsheet to the user
   let response;
   try {
-    response = await fetch(`/api/rmfactsheets/link`, {
+    response = await fetch("/api/rmfactsheets/link", {
       method: "POST",
       body: JSON.stringify({
-        templateId: templateId,
-        userId: userId,
+        templateId,
+        userId,
       }),
       headers: { "Content-Type": "application/json" },
     });

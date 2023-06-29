@@ -37,7 +37,7 @@
   },
   "scripts": {
     "buildcss": "tailwindcss -i ./src/styles/tailwind.css -o ./public/assets/css/styles.css",
-    "start": "npm node server.js",
+    "start": "node server.js",
     "dev": "npm run buildcss && nodemon server.js",
     "lint": "eslint . --fix",
     "prettier": "prettier --write .",
