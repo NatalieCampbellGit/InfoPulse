@@ -46,4 +46,22 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// Log the admin user out
+router.get("/logout", (req, res) => {
+  // if the user is logged in, destroy the session and redirect to the homepage
+  if (req.session.loggedIn) {
+    try {
+      req.session.destroy(() => {
+        res.redirect("/", { title: "homepage" });
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ err, message: "Error logging out" });
+    }
+  } else {
+    // otherwise, redirect to the homepage
+    res.redirect("/", { title: "homepage" });
+  }
+});
+
 module.exports = router;
