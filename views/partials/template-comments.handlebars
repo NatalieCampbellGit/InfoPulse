@@ -1,0 +1,15 @@
+{{!-- Comment form --}}
+<form id="comment-form">
+  <textarea id="comment-text" class="border-pulse-green-300 border-2 rounded px-2 py-1 w-full mt-0 mb-0" rows="4" placeholder="Enter your comment"></textarea>
+  <button type="submit" class="btn btn-primary mt-2">Add Comment</button>
+</form>
+
+{{!-- Display comments --}}
+<div id="comments">
+  {{#each comments as |comment|}}
+    <div class="comment">
+      <p>{{comment.content}}</p>
+      <p class="comment-meta">By {{comment.author}} | {{comment.timestamp}}</p>
+    </div>
+  {{/each}}
+</div>
