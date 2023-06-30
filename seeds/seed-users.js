@@ -128,9 +128,9 @@ async function seedUsers() {
     try {
       await User.create(users[i]);
       console.log(`User ${i + 1} created.`);
-    } catch (err) {
+    } catch (error) {
       console.error(`User ${i + 1} could not be created.`);
-      console.error(err);
+      console.error(error);
     }
   }
 

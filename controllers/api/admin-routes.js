@@ -1,9 +1,5 @@
 // handles the log-in for admins
-const { sequelize, Op } = require("sequelize");
-const Template = require("../../models/Template");
-const Category = require("../../models/Category");
-const { withAuth, withAdminAuth } = require("../../utils/auth");
-const { use } = require("../home-routes");
+const { Op } = require("sequelize");
 const router = require("express").Router();
 const Administrator = require("../../models/Administrator");
 
@@ -40,9 +36,9 @@ router.post("/login", async (req, res) => {
       req.session.userRole = "admin";
       res.status(200).json({ message: "Successfully logged in" });
     });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err, message: "Error logging in" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error, message: "Error logging in" });
   }
 });
 
@@ -54,9 +50,9 @@ router.get("/logout", (req, res) => {
       req.session.destroy(() => {
         res.redirect("/");
       });
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({ err, message: "Error logging out" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error, message: "Error logging out" });
     }
   } else {
     // otherwise, redirect to the homepage

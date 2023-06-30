@@ -32,9 +32,11 @@ router.post("/", async (req, res) => {
       res.status(400).json({ message: "This username is already taken." });
       return;
     }
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err, message: "Error checking for existing user" });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error, message: "Error checking for existing user" });
   }
   try {
     const dbUserData = await User.create({
@@ -45,14 +47,15 @@ router.post("/", async (req, res) => {
     // save session
     req.session.save(() => {
       req.session.loggedIn = true;
+      req.session.userRole = "user";
       req.session.user_id = dbUserData.id;
       req.session.username = dbUserData.username;
       // ! etcetera
       res.status(200).json(dbUserData);
     });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err, message: "Error creating new user" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error, message: "Error creating new user" });
   }
 });
 
@@ -86,6 +89,7 @@ router.post("/login", async (req, res) => {
     // save session
     req.session.save(() => {
       req.session.loggedIn = true;
+      req.session.userRole = "user";
       req.session.user_id = userData.id;
       req.session.username = userData.username;
       req.session.userRole = "user";
@@ -94,9 +98,9 @@ router.post("/login", async (req, res) => {
         .status(200)
         .json({ user: userData, message: "You are now logged in!" });
     });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err, message: "Error logging in" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error, message: "Error logging in" });
   }
 });
 

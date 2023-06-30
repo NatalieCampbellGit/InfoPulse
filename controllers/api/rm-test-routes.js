@@ -1,5 +1,4 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const Template = require("../../models/Template");
 const FactSheet = require("../../models/Factsheet");
 const UserComment = require("../../models/UserComment");

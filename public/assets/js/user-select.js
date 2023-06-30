@@ -7,12 +7,13 @@ const factsheetRemoveButton = document.getElementById("factsheet-remove");
 const factsheetPersonaliseButton = document.getElementById(
   "factsheet-personalise"
 );
-
 let factsheetList = document.getElementsByClassName("user-factsheet-listitem");
 let userList = document.getElementsByClassName("user-list-item");
 
 // get the add button event
 factsheetAddButton.addEventListener("click", linkFactsheetToUser);
+// get the personalise button event
+factsheetPersonaliseButton.addEventListener("click", personaliseFactsheet);
 
 let selectedUserId = 0;
 let selectedFactsheetId = 0;
@@ -53,8 +54,8 @@ searchUser.addEventListener("click", async (event) => {
       }),
       headers: { "Content-Type": "application/json" },
     });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     return;
   }
 
@@ -143,6 +144,16 @@ function markFactsheetAsSelected(event) {
   }
 }
 
+// edit the factsheet's custom_markdown
+async function personaliseFactsheet(event) {
+  event.preventDefault();
+  if (!selectedFactsheetId || selectedFactsheetId === 0) {
+    console.log("No factsheet id found");
+    return;
+  }
+  window.location.href = `/api/factsheets/personalise/${selectedFactsheetId}`;
+}
+
 // add the user id to the data-store div
 function addUserIDToDataStore(id) {
   const dataStore = document.getElementById("data-store");
@@ -181,7 +192,7 @@ async function getFactsheets() {
   try {
     userFactsheets.innerHTML = "";
     response = await fetch(
-      `/api/rmfactsheets?id=${selectedUserId}&format=html`,
+      `/api/factsheets/user?id=${selectedUserId}&format=html`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -192,8 +203,8 @@ async function getFactsheets() {
     } else {
       return '<p class="bg-pulse-green-500 italic">Error searching for factsheets for the user</p>';
     }
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     return '<p class="bg-pulse-green-500 italic">Error searching for factsheets for the user</p>';
   }
 }
@@ -224,7 +235,7 @@ async function linkFactsheetToUser() {
   // call the API to link the factsheet to the user
   let response;
   try {
-    response = await fetch("/api/rmfactsheets/link", {
+    response = await fetch("/api/factsheets/link", {
       method: "POST",
       body: JSON.stringify({
         templateId,
@@ -232,8 +243,8 @@ async function linkFactsheetToUser() {
       }),
       headers: { "Content-Type": "application/json" },
     });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     populateFactsheets(
       '<p class="bg-pulse-green-500 italic">Error searching for factsheets for the user</p>'
     );
