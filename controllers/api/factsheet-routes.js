@@ -40,7 +40,6 @@ router.get("/user", withAuth, async (req, res) => {
 
     // add a boolean for handlebars use if the factsheet has custom_markdown
     for (let i = 0; i < factsheets.length; i++) {
-      console.log(factsheets[i]);
       if (factsheets[i].custom_markdown) {
         factsheets[i].has_custom_markdown = true;
       } else {
@@ -85,14 +84,14 @@ router.get("/personalise/:id", withAdminAuth, async (req, res) => {
     return;
   }
   factsheet = factsheet.get({ plain: true });
+  const returnPath = `/admin-dashboard/${factsheet.user_id}`;
 
-  console.log(factsheet);
   // display the personalise page
   res.render("factsheet-personalise", {
     factsheet,
     pageTitle: "Personalise Factsheet",
     administrator_id: req.session.user_id,
-    returnPath: "/admin",
+    returnPath,
   });
 });
 
@@ -183,29 +182,6 @@ router.put("/custom_markdown/:id", withAuth, async (req, res) => {
   }
 });
 
-// delete a factsheet
-router.delete("/delete/:id", withAdminAuth, (req, res) => {
-  const factsheet_id = req.params.id;
-
-  try {
-    const deletedFactsheet = Factsheet.destroy({
-      where: { id: factsheet_id },
-    });
-
-    if (deletedFactsheet === 0) {
-      return res.status(404).json({ message: "Factsheet not found" });
-    }
-
-    return res.json({ message: "Factsheet deleted" });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      error,
-      message: "An error occurred while deleting the factsheet",
-    });
-  }
-});
-
 // delete a comment from a factsheet
 router.delete("/comment/:id", withAuth, (req, res) => {
   const usercomment_id = req.params.id;
@@ -225,6 +201,29 @@ router.delete("/comment/:id", withAuth, (req, res) => {
     return res.status(500).json({
       error,
       message: "An error occurred while deleting the user comment",
+    });
+  }
+});
+
+// delete a factsheet
+router.delete("/:id", withAdminAuth, (req, res) => {
+  const factsheet_id = req.params.id;
+
+  try {
+    const deletedFactsheet = Factsheet.destroy({
+      where: { id: factsheet_id },
+    });
+
+    if (deletedFactsheet === 0) {
+      return res.status(404).json({ message: "Factsheet not found" });
+    }
+
+    return res.json({ message: "Factsheet deleted" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error,
+      message: "An error occurred while deleting the factsheet",
     });
   }
 });

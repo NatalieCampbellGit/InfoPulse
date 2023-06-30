@@ -54,14 +54,16 @@ Template.init(
     hooks: {
       beforeCreate: async (newData) => {
         // convert markdown to html and sanitise the html
-        newData.html = await convertMarkdownToHTML(newData.markdown);
-        newData.html = sanitizeHTML(newData.html);
+        let html = await convertMarkdownToHTML(newData.markdown);
+        html = sanitizeHTML(html);
+        newData.html = html;
         return newData;
       },
       beforeUpdate: async (updatedData) => {
         // convert markdown to html and sanitise the html
-        updatedData.html = await convertMarkdownToHTML(updatedData.markdown);
-        updatedData.html = sanitizeHTML(updatedData.html);
+        let html = await convertMarkdownToHTML(updatedData.markdown);
+        html = sanitizeHTML(html);
+        updatedData.html = html;
         return updatedData;
       },
     },

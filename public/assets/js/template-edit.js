@@ -40,6 +40,10 @@ async function saveTemplate() {
     return;
   }
   category_id = parseInt(category_id);
+  if (category_id < 1) {
+    alert("Please select a template category.");
+    return;
+  }
 
   if (!templateDescription) {
     alert("Please enter a template description.");
@@ -198,12 +202,10 @@ window.addEventListener("load", async function () {
 
 // Add an event listener for the custom events triggered by the editor
 window.addEventListener("customEventSave", async function (e) {
-  console.log("customEventSave was fired!");
   await saveTemplate();
 });
 
 window.addEventListener("customEventCancel", function (e) {
-  console.log("customEventCancel was fired!");
   cancelEditingTemplate();
 });
 

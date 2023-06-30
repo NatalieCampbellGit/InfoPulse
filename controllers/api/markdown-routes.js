@@ -11,7 +11,7 @@ router.post("/html", withAuth, async (req, res) => {
   try {
     const markdown = req.body.markdown;
     const addCustomHTMLTags = req.body.addHTMLTags;
-    console.log("markdown-routes.js: markdown = ", markdown);
+
     let html = await convertMarkdownToHTML(markdown);
     html = sanitizeHTML(html);
     if (addCustomHTMLTags) {

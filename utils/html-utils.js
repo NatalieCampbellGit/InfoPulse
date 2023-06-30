@@ -22,7 +22,7 @@ function sanitizeHTML(html) {
     // return the sanitized html
     return DOMPurify.sanitize(html);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return html;
   }
 }
@@ -44,7 +44,7 @@ function formatTemplateListItems(templates) {
     }
     return htmlFormat;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return "";
   }
 }

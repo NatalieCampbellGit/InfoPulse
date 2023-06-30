@@ -19,7 +19,7 @@ async function getEmojis() {
     global.emojis = {};
     try {
       const octokit = new Octokit();
-      console.log("Getting emojis from github...");
+      // console.log("Getting emojis from github...");
       const emojiData = await octokit.rest.emojis.get();
       global.emojis = emojiData.data;
     } catch (error) {

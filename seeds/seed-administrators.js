@@ -12,9 +12,7 @@ async function seedAdministrators() {
   };
 
   try {
-    console.log("Creating administrator... " + JSON.stringify(admin));
     await Administrator.create(admin);
-    console.log("Administrator created.");
   } catch (error) {
     console.error("Administrator could not be created.");
     console.error(error);

@@ -32,7 +32,7 @@ If a user selects a template, the template will be displayed in the editor by ca
         id="search-button">Search</button>
 </div>
 
-<div class="h-72 overflow-auto py-2 pl-2 pr-4 bg-white" id="template-search-results">
+<div class="h-96 overflow-auto py-2 pl-2 pr-4 bg-white" id="template-search-results">
     <ul aria-label="Search results" id="template-list">
         {{>template-list templates=templates }}
     </ul>
@@ -61,5 +61,5 @@ If a user selects a template, the template will be displayed in the editor by ca
     </div>
     {{/unless}}
 </div>
-
+{{>modal-view-html}}
 <script src="/assets/js/template-select.js"></script>

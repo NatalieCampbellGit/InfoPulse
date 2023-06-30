@@ -6,7 +6,6 @@ const imageRoutes = require("./image-routes");
 const rmtestRoutes = require("./rm-test-routes");
 const markdownRoutes = require("./markdown-routes");
 const rmTemplateRoutes = require("./rm-template-routes");
-const rmUserRoutes = require("./rm-user-routes");
 const factsheetRoutes = require("./factsheet-routes");
 const adminloginRoutes = require("./admin-routes");
 
@@ -15,7 +14,6 @@ router.use("/images", imageRoutes);
 router.use("/markdown", markdownRoutes);
 router.use("/rmtest", rmtestRoutes);
 router.use("/rmtemplate", rmTemplateRoutes);
-router.use("/rmusers", rmUserRoutes);
 router.use("/factsheets", factsheetRoutes);
 router.use("/admin", adminloginRoutes);
 

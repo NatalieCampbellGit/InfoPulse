@@ -7,19 +7,6 @@ const {
   getUserById,
 } = require("../utils/model-utils");
 
-// Display the homepage
-router.get("/", async (req, res) => {
-  try {
-    res.render("homepage", {
-      // send the session variable (loggedIn) to the template
-      loggedIn: req.session.loggedIn,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error, message: "Error getting blog posts" });
-  }
-});
-
 // Display the login page
 router.get("/login", (req, res) => {
   // if the user is already logged in, redirect to the homepage
@@ -88,6 +75,60 @@ router.get("/signup", (req, res) => {
   });
 });
 
+// display the Administrator Dashboard with particular user
+router.get("/admin-dashboard/:id", withAdminAuth, async (req, res) => {
+  // get the user id from the request
+  let userId = req.params.id;
+  if (!userId || userId === "" || userId < 1) {
+    userId = 0;
+  }
+  userId = parseInt(userId);
+
+  try {
+    // information that this route needs:
+    // all categories
+    // all templates
+    // administrator's info
+
+    // guaranteed to be an administrator because of the withAdminAuth middleware
+    const administrator_id = req.session.user_id;
+    if (!administrator_id || administrator_id === "" || administrator_id < 1) {
+      // send to admin login page
+      res.redirect("/adminlogin");
+      return;
+    }
+
+    // get the administrator dashboard's info using a util function
+    const adminDashboardData = await getAdministratorDashboardData(
+      administrator_id,
+      0 // 0 means general view on dashboard
+    );
+    if (!adminDashboardData) {
+      // send to 404 route
+      res.status(404).json(, {
+        message: "Could not retrieve the Administrator Dashboard data",
+        previousRoute: "home",
+      });
+      return;
+    }
+    adminDashboardData.userId = userId;
+    if (userId > 0) {
+      adminDashboardData.hasUser = true;
+    } else {
+      adminDashboardData.hasUser = false;
+    }
+    adminDashboardData.pageTitle = "Administrator Dashboard";
+
+    // configure the adminDashboardData object to display the correct buttons
+    res.render("admin-dashboard", adminDashboardData);
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error, message: "Error loading the Administrator Dashboard" });
+  }
+});
+
 // display the Administrator Dashboard
 router.get("/admin", withAdminAuth, async (req, res) => {
   try {
@@ -111,12 +152,16 @@ router.get("/admin", withAdminAuth, async (req, res) => {
     );
     if (!adminDashboardData) {
       // send to 404 route
-      res.status(404).render("error-404", {
+      res.status(404).json(, {
         message: "Could not retrieve the Administrator Dashboard data",
         previousRoute: "home",
       });
       return;
     }
+    adminDashboardData.userId = 0;
+    adminDashboardData.hasUser = false;
+    adminDashboardData.pageTitle = "Administrator Dashboard";
+
     // configure the adminDashboardData object to display the correct buttons
     res.render("admin-dashboard", adminDashboardData);
   } catch (error) {
@@ -151,7 +196,7 @@ router.get("/user", withUserAuth, async (req, res) => {
     const user_id = req.session.user_id;
     if (!user_id || user_id === "" || user_id < 1) {
       // send to 404 route
-      res.status(404).render("error-404", { message: "User not found" });
+      res.status(404).json({ message: "User dashboard data not found" });
       return;
     }
 
@@ -159,7 +204,7 @@ router.get("/user", withUserAuth, async (req, res) => {
     const userDashboardData = await getUserById(user_id);
     if (!userDashboardData) {
       // send to 404 route
-      res.status(404).render("error-404", {
+      res.status(404).json(, {
         message: "Could not retrieve the User Dashboard data",
         previousRoute: "home",
       });
@@ -179,22 +224,21 @@ router.get("/user", withUserAuth, async (req, res) => {
         const user_id = req.session.user_id;
         if (!user_id || user_id === "" || user_id < 1) {
           // send to 404 route
-          res.status(404).render("error-404", { message: "User not found" });
+          res.status(404).json({ message: "User not found" });
           return;
         }
 
         // get the user dashboard's info using a util function
         const userDashboardData = await getUserById(user_id);
-        console.log(userDashboardData);
+
         if (!userDashboardData) {
           // send to 404 route
-          res.status(404).render("error-404", {
+          res.status(404).json(, {
             message: "Could not retrieve the User Dashboard data",
             previousRoute: "home",
           });
           return;
         }
-        // console.log(userDashboardData)
 
         // configure the userDashboardData object to display the correct buttons
         res.render("user-dashboard", userDashboardData);
@@ -212,6 +256,19 @@ router.get("/user", withUserAuth, async (req, res) => {
     res
       .status(500)
       .json({ error, message: "Error loading the User Dashboard" });
+  }
+});
+
+// Display the homepage
+router.get("/", async (req, res) => {
+  try {
+    res.render("homepage", {
+      // send the session variable (loggedIn) to the template
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error, message: "Error getting blog posts" });
   }
 });
 
