@@ -33,9 +33,9 @@ async function seedUserComments() {
     try {
       await UserComment.create(comments[i]);
       console.log(`UserComment ${i + 1} created.`);
-    } catch (err) {
+    } catch (error) {
       console.error(`UserComment ${i + 1} could not be created.`);
-      console.error(err);
+      console.error(error);
     }
   }
 

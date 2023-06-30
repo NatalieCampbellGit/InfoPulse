@@ -1,5 +1,4 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const TemplateImage = require("../../models/TemplateImage");
 const multer = require("multer");
 const upload = multer();
@@ -22,9 +21,9 @@ router.get("/", withAuth, async (req, res) => {
       image.get({ plain: true })
     );
     res.status(200).json(templateImagesData);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err, message: "Error getting template images" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error, message: "Error getting template images" });
   }
 });
 

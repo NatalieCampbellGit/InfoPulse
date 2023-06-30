@@ -38,9 +38,9 @@ async function seedCategories() {
     try {
       await Category.create(categories[i]);
       console.log(`Category ${i + 1} created.`);
-    } catch (err) {
+    } catch (error) {
       console.error(`Category ${i + 1} could not be created.`);
-      console.error(err);
+      console.error(error);
     }
   }
 

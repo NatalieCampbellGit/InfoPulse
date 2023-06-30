@@ -117,9 +117,9 @@ async function seedFactsheets() {
     try {
       await Factsheet.create(factsheets[i]);
       console.log(`Factsheet ${i + 1} created.`);
-    } catch (err) {
+    } catch (error) {
       console.error(`Factsheet ${i + 1} could not be created.`);
-      console.error(err);
+      console.error(error);
     }
   }
   console.log("Factsheet seeding completed.");

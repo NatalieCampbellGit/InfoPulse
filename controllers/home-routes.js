@@ -11,13 +11,12 @@ const {
 router.get("/", async (req, res) => {
   try {
     res.render("homepage", {
-    res.render("homepage", {
       // send the session variable (loggedIn) to the template
       loggedIn: req.session.loggedIn,
     });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err, message: "Error getting blog posts" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error, message: "Error getting blog posts" });
   }
 });
 
@@ -66,9 +65,9 @@ router.get("/logout", withAuth, (req, res) => {
       req.session.destroy(() => {
         res.redirect("homepage");
       });
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({ err, message: "Error logging out" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error, message: "Error logging out" });
     }
   } else {
     // otherwise, redirect to the homepage
@@ -80,7 +79,7 @@ router.get("/logout", withAuth, (req, res) => {
 router.get("/signup", (req, res) => {
   // if the user is already logged in, redirect to the homepage
   if (req.session.loggedIn) {
-    res.redirect("homepage");;
+    res.redirect("homepage");
     return;
   }
   // otherwise, render the signup template
@@ -120,11 +119,11 @@ router.get("/admin", withAdminAuth, async (req, res) => {
     }
     // configure the adminDashboardData object to display the correct buttons
     res.render("admin-dashboard", adminDashboardData);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     res
       .status(500)
-      .json({ err, message: "Error loading the Administrator Dashboard" });
+      .json({ error, message: "Error loading the Administrator Dashboard" });
   }
 });
 
@@ -133,10 +132,10 @@ router.get("/admin", withAdminAuth, async (req, res) => {
 router.get("/about", (req, res) => {
   try {
     res.render("about").status(200);
-  } catch (err) {
+  } catch (error) {
     res
       .status(500)
-      .json({ err, message: "Server Error displaying about page" });
+      .json({ error, message: "Server Error displaying about page" });
   }
 });
 
@@ -199,26 +198,21 @@ router.get("/user", withUserAuth, async (req, res) => {
 
         // configure the userDashboardData object to display the correct buttons
         res.render("user-dashboard", userDashboardData);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
         res
           .status(500)
-          .json({ err, message: "Error loading the User Dashboard" });
+          .json({ error, message: "Error loading the User Dashboard" });
       }
     });
 
     res.render("user-dashboard", userDashboardData);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err, message: "Error loading the User Dashboard" });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error, message: "Error loading the User Dashboard" });
   }
-});
-// ! DELETE THIS ROUTE BEFORE DEPLOYING
-// Display the test page
-router.get("/rm-test", (req, res) => {
-  res.render("rm-test", {
-    // send data to the template
-  });
 });
 
 module.exports = router;

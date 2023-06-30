@@ -128,8 +128,8 @@ async function seedImages() {
 
         // Save to the database
         await seedWithImage(images[i], dirPath);
-      } catch (err) {
-        console.error("Could not read the image file.", err);
+      } catch (error) {
+        console.error("Could not read the image file.", error);
       }
     } else {
       console.error(`File ${file} does not exist.`);
@@ -168,11 +168,11 @@ async function seedWithImage(fileDetails, dirPath) {
       console.log(
         `Image ${fileDetails.filename} has been saved to the database.`
       );
-    } catch (err) {
-      console.error("Could not save the image to the database.", err);
+    } catch (error) {
+      console.error("Could not save the image to the database.", error);
     }
-  } catch (err) {
-    console.error("Could not read the image file.", err);
+  } catch (error) {
+    console.error("Could not read the image file.", error);
   }
 }
 
