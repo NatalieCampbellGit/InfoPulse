@@ -32,11 +32,10 @@ const loginFormHandler = async (event) => {
 
 document
   .getElementById("user-login-button")
-  .addEventListener("click",function(){ 
-      window.location.href = '/login';
-  } )
+  .addEventListener("click", function () {
+    window.location.href = "/login";
+  });
 
 document
   .getElementById("admin-login-button")
   .addEventListener("click", loginFormHandler);
- 

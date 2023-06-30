@@ -22,8 +22,8 @@ async function getEmojis() {
       console.log("Getting emojis from github...");
       const emojiData = await octokit.rest.emojis.get();
       global.emojis = emojiData.data;
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
       global.emojis = {};
     }
   }
@@ -66,8 +66,8 @@ async function addHTMLTags(html) {
   let htmlTags;
   try {
     htmlTags = await MarkdownTagStyle.findAll();
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     return html;
   }
   // if there are no html tags, return the html
@@ -99,8 +99,8 @@ async function addHTMLTags(html) {
     });
     console.log(html);
     return html;
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     return originalHTML;
   }
 }

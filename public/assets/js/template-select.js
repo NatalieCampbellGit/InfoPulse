@@ -67,8 +67,8 @@ searchButton.addEventListener("click", async (event) => {
         }),
         headers: { "Content-Type": "application/json" },
       });
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
       addEventHandlersToTemplateList();
       return;
     }

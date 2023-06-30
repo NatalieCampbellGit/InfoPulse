@@ -8,6 +8,7 @@ const { formatTemplateListItems } = require("../../utils/html-utils");
 const {
   getTemplateById,
   getTemplateEditData,
+  getAllCategories,
 } = require("../../utils/model-utils");
 
 // route to create a new Template
@@ -56,9 +57,9 @@ router.post("/", withAdminAuth, async (req, res) => {
     });
 
     res.status(200).json(newTemplate);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err, message: "Error creating template" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error, message: "Error creating template" });
   }
 });
 
@@ -119,13 +120,33 @@ router.put("/:id", withAdminAuth, async (req, res) => {
         }
       );
       res.status(200).json(updatedTemplate);
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({ err, message: "Error updating template" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error, message: "Error updating template" });
     }
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err, message: "Error updating template" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error, message: "Error updating template" });
+  }
+});
+
+// route to go to the UI to create a new template
+router.get("/new", withAdminAuth, async (req, res) => {
+  try {
+    const templateData = {
+      administrator_id: Number.parseInt(req.session.user_id),
+      categories: await getAllCategories(),
+      returnPath: "/admin",
+      template_id: 0,
+      title: "",
+      markdown: "",
+      description: "",
+      category_id: 0,
+    };
+    res.render("template-edit", templateData);
+  } catch (error) {
+    console.log(error);
+    res.status(404).render("error-404", { message: error });
   }
 });
 
@@ -162,9 +183,9 @@ router.get("/edit", withAdminAuth, async (req, res) => {
 
     console.log(templateData);
     res.render("template-edit", templateData);
-  } catch (err) {
-    console.log(err);
-    res.status(404).render("error-404", { message: err });
+  } catch (error) {
+    console.log(error);
+    res.status(404).render("error-404", { message: error });
   }
 });
 
@@ -319,27 +340,9 @@ router.post("/search", withAuth, async (req, res) => {
   }
 });
 
-// store a template in the DB
-router.post("/edit/:id/: title", withAdminAuth, async (req, res) => {
-  try {
-    const { title, category_id } = req.body;
-
-    // validate
-    const validCatID = parseInt(category_id);
-
-    const savedTemplate = await Template.create({ title, validCatID });
-
-    return res.json(savedTemplate);
-  } catch (err) {
-    console.log(err);
-
-    return res.status(500).json({ err: "An error occurred saving" });
-  }
-});
-
 // delete a template
 router.delete("/admin/:id", withAdminAuth, async (req, res) => {
-  const template_id = req.body.id;
+  const template_id = req.params.id;
 
   try {
     const deletedTemplate = await Template.destroy({
@@ -347,15 +350,16 @@ router.delete("/admin/:id", withAdminAuth, async (req, res) => {
     });
 
     if (deletedTemplate === 0) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
 
     return res.json({ message: "Template deleted" });
-  } catch (err) {
-    console.log(err);
-    return res
-      .status(500)
-      .json({ err: "An error occurred while deleting the template" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error,
+      message: "An error occurred while deleting the template",
+    });
   }
 });
 
@@ -370,15 +374,16 @@ router.delete("/comment/", withAdminAuth, async (req, res) => {
     });
 
     if (deletedTemplate === 0) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
 
     return res.json({ message: "Template deleted" });
-  } catch (err) {
-    console.log(err);
-    return res
-      .status(500)
-      .json({ err: "An error occurred while deleting the template" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error,
+      message: "An error occurred while deleting the template",
+    });
   }
 });
 

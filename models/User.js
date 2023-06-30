@@ -1,7 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 const bcrypt = require("bcrypt");
 const sequelize = require("../config/connection");
-const generatePassphrase = require("../utils/codes-utils");
 
 class User extends Model {
   checkPassword(loginPassword) {
@@ -84,21 +83,17 @@ User.init(
     },
     username: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true, // have to have allowNull true as this is not entered until the user has logged in for the first time
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [12, 64],
-      },
+      allowNull: true, // have to have allowNull true as this is not entered until the user has logged in for the first time
     },
   },
   {
     hooks: {
       beforeCreate: async (newUserData) => {
         newUserData.password = await bcrypt.hash(newUserData.password, 10);
-        newUserData.authentication_code = generatePassphrase();
         newUserData.email = newUserData.email.toLowerCase();
         return newUserData;
       },
