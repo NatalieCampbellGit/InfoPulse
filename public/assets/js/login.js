@@ -19,12 +19,11 @@ const loginFormHandler = async (event) => {
   }
 
   if (username && password) {
-    const response = await fetch("/api/users/", {
+    const response = await fetch("/api/users/login", {
       method: "POST",
       body: JSON.stringify({
         username,
         password,
-        passcode,
         confirmPassword,
       }),
       headers: { "Content-Type": "application/json" },
@@ -32,7 +31,7 @@ const loginFormHandler = async (event) => {
     const data = await response.json();
 
     if (response.ok) {
-      document.location.replace("/");
+      document.location.replace("/user");
     } else {
       // eslint-disable-next-line no-undef
       alertModal("Login failed", data.message);
@@ -41,5 +40,5 @@ const loginFormHandler = async (event) => {
 };
 
 document
-  .querySelector("#login-form")
+  .querySelector("#login-button")
   .addEventListener("submit", loginFormHandler);

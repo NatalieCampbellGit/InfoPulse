@@ -52,7 +52,7 @@ router.get("/logout", (req, res) => {
   if (req.session.loggedIn) {
     try {
       req.session.destroy(() => {
-        res.redirect("/", { title: "homepage" });
+        res.redirect("/");
       });
     } catch (err) {
       console.log(err);
@@ -60,7 +60,7 @@ router.get("/logout", (req, res) => {
     }
   } else {
     // otherwise, redirect to the homepage
-    res.redirect("/", { title: "homepage" });
+    res.redirect("/");
   }
 });
 
