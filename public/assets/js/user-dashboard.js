@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // user-dashboard.js
 
 // Wait for the DOM to be fully loaded
@@ -31,3 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 });
+=======
+// Functions for the user dashboard user-dashboard.handlebars
+>>>>>>> origin/main

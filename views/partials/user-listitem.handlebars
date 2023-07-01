@@ -1,10 +1,10 @@
 <div
-  class="user-list-item border-1 mx-2 mb-1 cursor-pointer rounded-md border-pulse-green-300 bg-pulse-green-100 px-4 py-1 text-pulse-green-700"
-  data-id="{{id}}"
->
+  class="user-list-item border-1 mb-1 cursor-pointer rounded-md border-pulse-green-300 bg-pulse-green-100 px-2 py-1 text-pulse-green-700"
+  data-id="{{id}}">
   <p class="font-semibold text-pulse-blue-500">{{last_name}},
     {{first_name}}
-    <span class="text-sm font-normal italic">({{date_of_birth}})</span></p>
+    <span class="text-sm font-normal italic">({{format_date date_of_birth}})</span>
+  </p>
   <p class="text-sm italic text-pulse-green-700">
     {{email}}
     mobile:

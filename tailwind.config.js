@@ -54,8 +54,10 @@ module.exports = {
           950: "#06240c",
         },
         "pulse-grey": {
+          slightlyblue:"#f6f8fb",
           light: "#f2f2f2",
-          DEFAULT: "#e5e5e5",
+          mid: "#e5e5e5",
+          middark: "#888888",
           dark: "#333333",
         },
       },

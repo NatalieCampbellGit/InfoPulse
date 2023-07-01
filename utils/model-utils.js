@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const {
   Template,
   Category,
@@ -6,7 +7,7 @@ const {
   UserComment,
   Administrator,
 } = require("../models");
-const { withAuth, withAdminAuth, withUserAuth } = require("./auth");
+const { addInlineCSSTags } = require("./markdown-utils");
 
 // return all categories
 async function getAllCategories() {
@@ -74,9 +75,32 @@ async function getAllPublicTemplates() {
   }
 }
 
+// get all templates with a particular category
+async function getTemplatesByCategoryId(categoryId) {
+  try {
+    categoryId = parseInt(categoryId);
+    const templates = await Template.findAll({
+      include: [{ model: Category }],
+      order: [["title", "ASC"]],
+      where: { category_id: categoryId },
+    });
+    if (!templates) {
+      return [];
+    }
+    const templatesData = templates.map((template) =>
+      template.get({ plain: true })
+    );
+    return templatesData;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
 // get a user's factsheets, including template and category data and user comments
 async function getUserFactsheets(userId) {
   try {
+    userId = parseInt(userId);
     const factsheets = await Factsheet.findAll({
       where: { user_id: userId },
       include: [
@@ -105,6 +129,7 @@ async function getUserFactsheets(userId) {
 // get an administrator by id
 async function getAdministratorById(id) {
   try {
+    id = parseInt(id);
     const administrator = await Administrator.findByPk(id);
     if (!administrator) {
       return null;
@@ -119,6 +144,7 @@ async function getAdministratorById(id) {
 
 async function getTemplateById(id) {
   try {
+    id = parseInt(id);
     const template = await Template.findByPk(id, {
       include: [{ model: Category }],
     });
@@ -135,7 +161,19 @@ async function getTemplateById(id) {
 
 // get a user by id, include their factsheets (and the template), comments, and administrators
 async function getUserById(id) {
+  if (!id) {
+    return null;
+  }
+  if (Number.isNaN(id)) {
+    return null;
+  }
+  id = parseInt(id);
+  if (id < 1) {
+    return null;
+  }
+
   try {
+    id = parseInt(id);
     const user = await User.findByPk(id, {
       include: [
         {
@@ -165,94 +203,94 @@ async function getUserById(id) {
   }
 }
 
-// pull together all the data needed for the Administrator Dashboard
-async function getAdministratorDashboardData(
-  administrator_id,
-  dashboardView = 0,
-  template_id = null
-) {
-  let pagetitle;
-  console.log("dashboard view " + dashboardView);
+async function getUserDashboardData(user_id) {
+  const userData = await getUserById(user_id);
 
-  switch (dashboardView) {
-    case 0: // general data
-      pagetitle = "Administrator Dashboard";
-      try {
-        const administrator = await getAdministratorById(administrator_id);
-        if (!administrator) {
-          return null;
-        }
-        const categories = await getAllCategories();
-        if (!categories) {
-          return null;
-        }
-        const templates = await getAllTemplates();
-        if (!templates) {
-          return null;
-        }
-
-        // return the administrator data, categories, and templates
-        return {
-          dashboardView: dashboardView,
-          pagetitle: pagetitle,
-          partialname: "template-select",
-          administrator_id,
-          administrator,
-          categories,
-          templates,
-        };
-      } catch (error) {
-        console.error(error);
-        return null;
-      }
-    case 1: // edit template
-      pagetitle = "Edit Template";
-      categories = await getAllCategories();
-      if (!template_id || template_id === 0) {
-        // new template
-        return {
-          dashboardView,
-          pagetitle,
-          categories,
-          administrator_id,
-          partialname: "template-edit",
-          template_id,
-          template: null,
-        };
-      }
-      const template = await getTemplateById(template_id);
-      if (!template) {
-        return {
-          dashboardView,
-          pagetitle,
-          categories,
-          administrator_id,
-          partialname: "template-edit",
-          template_id,
-          template: null,
-        };
-      }
-      return {
-        dashboardView,
-        pagetitle,
-        categories,
-        administrator_id,
-        partialname: "template-edit",
-        template_id,
-        template,
-      };
-    default:
-      return null;
+  if (!userData) {
+    return null;
   }
+
+  // convert the user's factsheet html to use inline styles
+  userData.factsheets.forEach(async (factsheet) => {
+    factsheet.custom_html = await addInlineCSSTags(factsheet.custom_html);
+    factsheet.custom_html = `<div class="markdown text-pulse-grey-dark">${factsheet.custom_html}</div>`;
+    factsheet.template.html = await addInlineCSSTags(factsheet.template.html);
+    factsheet.template.html = `<div class="markdown text-pulse-grey-dark">${factsheet.template.html}</div>`;
+  });
+  return userData;
+}
+
+// pull together all the data needed for the Administrator Dashboard
+async function getAdministratorDashboardData(administrator_id) {
+  try {
+    const administrator = await getAdministratorById(administrator_id);
+    if (!administrator) {
+      return null;
+    }
+    const categories = await getAllCategories();
+    if (!categories) {
+      return null;
+    }
+    const templates = await getAllTemplates();
+    if (!templates) {
+      return null;
+    }
+
+    // return the administrator data, categories, and templates
+    return {
+      administrator_id,
+      administrator,
+      categories,
+      templates,
+    };
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+// get the data needed to display the edit template page
+async function getTemplateEditData(template_id) {
+  template_id = parseInt(template_id);
+  // get the categories to for the dropdown
+  const categories = await getAllCategories();
+
+  // is it a new template or an existing one?
+  if (!template_id || template_id === 0) {
+    // new template
+    return {
+      categories,
+      template_id,
+      template: null,
+    };
+  }
+  const template = await getTemplateById(template_id);
+  // doesn't exist: create a new one
+  if (!template) {
+    return {
+      categories,
+      template_id,
+      template: null,
+    };
+  }
+  // return the template data
+  return {
+    categories,
+    template_id,
+    template,
+  };
 }
 
 module.exports = {
   getAllCategories,
   getAllTemplates,
+  getTemplatesByCategoryId,
   getAllPublicTemplates,
   getUserFactsheets,
   getAdministratorById,
   getUserById,
   getTemplateById,
   getAdministratorDashboardData,
+  getUserDashboardData,
+  getTemplateEditData,
 };

@@ -23,7 +23,6 @@ const loginFormHandler = async (event) => {
       method: "POST",
       body: JSON.stringify({
         username,
-        email,
         password,
         passcode,
         confirmPassword,

@@ -2,16 +2,18 @@
 <html lang="en-au">
 
 <head>
-  {{!-- <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InfoPulse</title> --}}
+  <title>InfoPulse</title>
   <!-- default CSS -->
   <link rel="stylesheet" href="/assets/css/jass.css">
   <!-- font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-  {{!-- <script src="https://kit.fontawesome.com/59c3993d07.js" crossorigin="anonymous"></script> --}}
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <script src="https://kit.fontawesome.com/59c3993d07.js" crossorigin="anonymous"></script>
   <!-- tailwind css -->
   <link rel="stylesheet" href="/assets/css/styles.css">
   <!-- Custom CSS -->
@@ -21,9 +23,7 @@
   <script src="/assets/js/script.js" defer></script>
 </head>
 
-
 <body class="bg-pulse-grey-light font-sans">
-  {{> header currentPage}}
   <header>
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light bg-dark-subtle pb-2 mb-0">
@@ -44,11 +44,11 @@
               <a class="nav-link" id="logout-link" href="">Logout</a>
             </li>
             {{else}}
-            <li class="nav-item">
-              <a class="nav-link fw-semibold" id="login-link" href="">Login</a>
+            <li class="nav-item"></li>
+            <a class="nav-link fw-semibold" id="login-link" href="">Login</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" id="signup-link" href="">Sign up</a>
+            <li class="nav-item"></li>
+            <a class="nav-link" id="signup-link" href="">Sign up</a>
             </li>
             {{/if}}
           </ul>
@@ -68,45 +68,71 @@
     </div>
   </main>
 
-  {{> footer}}
-
-  <!-- Feedback Modal -->
-  <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="feedbackModalLabel">Modal Title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <!-- Footer -->
+  <footer class="footer mt-3 pt-3 bg-dark-subtle text-dark">
+    <div class="container text-center">
+      {{#if isDashboard}}
+      <div class="d-flex flex-column flex-md-row justify-content-between">
+        <div>
+          <p>InfoPulse</p>
         </div>
-        <div class="modal-body bg-info-subtle" id="feedbackModalBody">
-          Modal Body
+        <div mt-0>
+          <button type="button" class="btn btn-primary mt-0 mb-2" id="new-post-button">New Post</button>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <div>
+          <p>© 2023 Group 2</p>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Confirmation Modal -->
-  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="confirmationModalLabel">Modal Title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      {{else}}
+      <div class="d-flex flex-column flex-md-row justify-content-between">
+        <div>
+          <p>InfoPulse</p>
         </div>
-        <div class="modal-body  bg-warning-subtle" id="confirmationModalBody">
-          Modal Body
-        </div>
-        <div class="modal-footer">
-          <button type="button" id="confirm-no" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-          <button type="button" id="confirm-yes" class="btn btn-primary">Yes</button>
+        <div>
+          <p>© 2023 Group 2</p>
         </div>
       </div>
+      {{/if}}
     </div>
-  </div>
+  </footer>
+
+    <!-- Feedback Modal -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="feedbackModalLabel">Modal Title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-info-subtle" id="feedbackModalBody">
+                    Modal Body
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Modal Title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body  bg-warning-subtle" id="confirmationModalBody">
+                    Modal Body
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="confirm-no" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" id="confirm-yes" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

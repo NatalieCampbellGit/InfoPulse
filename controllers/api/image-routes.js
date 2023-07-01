@@ -1,9 +1,8 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const TemplateImage = require("../../models/TemplateImage");
 const multer = require("multer");
 const upload = multer();
-const { withAuth, withAdminAuth } = require("../../utils/auth");
+const { withAuth } = require("../../utils/auth");
 const path = require("path");
 const sharp = require("sharp");
 
@@ -22,9 +21,9 @@ router.get("/", withAuth, async (req, res) => {
       image.get({ plain: true })
     );
     res.status(200).json(templateImagesData);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err, message: "Error getting template images" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error, message: "Error getting template images" });
   }
 });
 
@@ -99,7 +98,7 @@ router.post("/", withAuth, upload.single("image"), async function (req, res) {
         width = metaData.width;
         height = metaData.height;
       } catch (error) {
-        console.log("Couldn't rescale the image" + error.message);
+        // console.log("Couldn't rescale the image" + error.message);
       }
     }
 
@@ -123,7 +122,7 @@ router.post("/", withAuth, upload.single("image"), async function (req, res) {
         id: savedImage.id,
       });
     } else {
-      console.log("An error occurred while uploading image");
+      // console.log("An error occurred while uploading image");
       res
         .status(500)
         .json({ message: "An error occurred while saving the image" });

@@ -1,0 +1,38 @@
+<div id="editing-section" class="max-w-screen-xl mx-auto py-1">
+    <div class="flex flex-col sm:flex-row items-baseline space-x-4 space-y-2 my-2 mx-0 px-2 pb-2 sm:py-0 rounded bg-pulse-lt-blue-200 text-sm overflow-auto"
+        id="markdown-edit-options" data-template-id="{{template.id}}" data-administrator-id="{{administrator_id}}"
+        data-return-path="{{returnPath}}">
+        <div class="flex flex-col items-baseline w-full">
+            <label for="template-category" class="w-auto text-left mr-2 text-pulse-blue-500">Category:</label>
+            <select id="template-category"
+                class="border-gray-300 border rounded text-pulse-grey-dark px-2 py-0 w-72 mb-2"
+                data-initial="{{template.category_id}}">
+                <option class="py-1 my-0" value="0">All categories</option>
+                {{#each categories as |category|}}
+                <option class="py-1 my-0" value="{{category.id}}">{{category.title}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="flex flex-col items-baseline w-full">
+            <label for="template-title" class="w-auto text-left mr-2 text-pulse-blue-500">Title:</label>
+            <input type="text" value="{{template.title}}" id="template-title"
+                class="border-gray-300 border rounded px-2 py-0 w-72  mb-2" />
+        </div>
+        <div class="flex flex-col items-baseline w-full">
+            <label for="template-description" class="w-auto text-left mr-2 text-pulse-blue-500">Description:</label>
+            <input type="text" value="{{template.description}}" id="template-description"
+                class="border-gray-300 border rounded px-2 py-0 w-72  mb-2" />
+        </div>
+        <div class="flex items-baseline w-full">
+            <label for="template-public" class="w-auto text-left mr-2 text-pulse-blue-500">Show publicly:</label>
+            <input type="checkbox" value="Selected" {{#if template.public}}checked data-public="true"
+                {{else}}data-public="false" {{/if}} id="template-public"
+                class="border-gray-300 border rounded px-2 py-0 w-auto  mb-2" />
+        </div>
+    </div>
+    {{>markdown-edit}}
+</div>
+
+{{>markdown-edit-modals}}
+<script src="/assets/js/markdown-edit.js"></script>
+<script src="/assets/js/template-edit.js"></script>

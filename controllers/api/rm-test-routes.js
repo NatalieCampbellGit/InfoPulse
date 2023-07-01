@@ -1,5 +1,4 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const Template = require("../../models/Template");
 const FactSheet = require("../../models/Factsheet");
 const UserComment = require("../../models/UserComment");
@@ -41,7 +40,6 @@ router.get("/templates/:id", withAuth, async (req, res) => {
     res.status(200).json(templateData);
   } catch (error) {
     res.status(500).send("An error occurred while retrieving template");
-    return;
   }
 });
 
@@ -73,7 +71,7 @@ router.get("/:id", withAuth, async (req, res) => {
 
 // catch others and send the 404 page
 router.get("*", (req, res) => {
-  res.render("404");
+  res.render("error-404");
 });
 
 module.exports = router;

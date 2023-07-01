@@ -19,11 +19,11 @@ async function getEmojis() {
     global.emojis = {};
     try {
       const octokit = new Octokit();
-      console.log("Getting emojis from github...");
+      // console.log("Getting emojis from github...");
       const emojiData = await octokit.rest.emojis.get();
       global.emojis = emojiData.data;
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
       global.emojis = {};
     }
   }
@@ -33,7 +33,7 @@ async function getEmojis() {
 async function convertMarkdownToHTML(markdown) {
   if (!markdown) return "";
   // get the list of emojis from github
-  await getEmojis();
+  const emojis = await getEmojis();
   // set the options for marked
   marked.use({
     async: false,
@@ -54,20 +54,20 @@ async function convertMarkdownToHTML(markdown) {
   return marked.parse(markdown);
 }
 
-// add html tags to the html using styles stored in the DB
-async function addHTMLTags(html) {
+// add css tags to the html using styles stored in the DB
+async function addInlineCSSTags(html) {
   // get the list of html tags from the DB
   const originalHTML = html;
   // use global variable to store the html tags to avoid repeated calls to the DB
   // these are not likely to change often, so this is a good candidate for caching
-  if (!global.markdownTags || markdownTags.length === 0) {
+  if (!global.markdownTags || global.markdownTags.length === 0) {
     global.markdownTags = [];
   }
   let htmlTags;
   try {
     htmlTags = await MarkdownTagStyle.findAll();
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     return html;
   }
   // if there are no html tags, return the html
@@ -82,7 +82,7 @@ async function addHTMLTags(html) {
 
       // special rule for <a> tags to account for the href attribute
       if (tag === "<a>") {
-        const search = new RegExp(`<A href="`, "gi");
+        const search = /<A href="/gi;
         const replace = `<a style="${style}" href="`;
         html = html.replaceAll(search, replace);
       } else if (tag.startsWith("class=")) {
@@ -92,17 +92,17 @@ async function addHTMLTags(html) {
       } else {
         // everything else
         const tagWithoutPointyBrackets = tag.replace("<", "").replace(">", "");
-        newTag = `<${tagWithoutPointyBrackets} style="${style}">`;
+        const newTag = `<${tagWithoutPointyBrackets} style="${style}">`;
         html = html.replaceAll(tag, newTag);
         html = html.replaceAll(tag.toUpperCase(), newTag);
       }
     });
     console.log(html);
     return html;
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     return originalHTML;
   }
 }
 
-module.exports = { convertMarkdownToHTML, addHTMLTags };
+module.exports = { convertMarkdownToHTML, addInlineCSSTags };

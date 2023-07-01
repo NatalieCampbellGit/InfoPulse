@@ -7,12 +7,16 @@ const factsheetRemoveButton = document.getElementById("factsheet-remove");
 const factsheetPersonaliseButton = document.getElementById(
   "factsheet-personalise"
 );
-
 let factsheetList = document.getElementsByClassName("user-factsheet-listitem");
 let userList = document.getElementsByClassName("user-list-item");
 
-//get the add button event
+// get the add button event
 factsheetAddButton.addEventListener("click", linkFactsheetToUser);
+// get the personalise button event
+factsheetPersonaliseButton.addEventListener("click", personaliseFactsheet);
+
+// get the remove button event
+factsheetRemoveButton.addEventListener("click", unlinkFactsheetFromUser);
 
 let selectedUserId = 0;
 let selectedFactsheetId = 0;
@@ -27,11 +31,14 @@ searchUser.addEventListener("click", async (event) => {
     userSearchText.focus();
     return;
   }
+  await searchUsers(searchText);
+});
 
+async function searchUsers(searchText = "", userId = 0) {
   // clear the UI
   userFactsheets.innerHTML = "";
   userSearchResults.innerHTML = "";
-  selectedUserId = 0;
+  selectedUserId = userId;
   selectedFactsheetId = 0;
   addUserIDToDataStore("");
   addFactsheetIDToDataStore("");
@@ -44,17 +51,17 @@ searchUser.addEventListener("click", async (event) => {
   // use post to use the body to send the search text
   let response;
   try {
-    response = await fetch(`/api/rmusers/search`, {
+    response = await fetch("/api/users/search", {
       method: "POST",
       body: JSON.stringify({
-        id: 0,
+        id: selectedUserId,
         searchTerm: searchText,
         returnFormat: "html",
       }),
       headers: { "Content-Type": "application/json" },
     });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     return;
   }
 
@@ -67,7 +74,7 @@ searchUser.addEventListener("click", async (event) => {
   }
   // add back the event handlers to the user list items
   addEventHandlers();
-});
+}
 
 // add event handlers to user-list-item
 function addEventHandlers() {
@@ -88,15 +95,13 @@ async function markUserAsSelected(event) {
   const clicked = event.currentTarget;
   const userId = clicked.dataset.id;
   if (!userId || userId === 0) {
-    console.log("No user id found");
     return;
   }
   const reloadFactsheets = userId !== selectedUserId;
   for (let i = 0; i < userList.length; i++) {
     const id = userList[i].dataset.id;
-    console.log(`id = ${id}`);
     if (id == userId) {
-      userList[i].classList.add("bg-pulse-green-300");
+      userList[i].classList.add("bg-pulse-green-200");
       userList[i].classList.remove("bg-pulse-green-100");
       // set the module variable to the selected user's id
       selectedUserId = userId;
@@ -104,14 +109,13 @@ async function markUserAsSelected(event) {
       // show the add factsheet button
       factsheetAddButton.classList.remove("hidden");
     } else {
-      console.log;
-      userList[i].classList.remove("bg-pulse-green-300");
+      userList[i].classList.remove("bg-pulse-green-200");
       userList[i].classList.add("bg-pulse-green-100");
     }
   }
   // if the user has changed, reload the factsheets
   if (reloadFactsheets) {
-    htmlFormat=await getFactsheets()
+    const htmlFormat = await getFactsheets();
     populateFactsheets(htmlFormat);
   }
 }
@@ -122,14 +126,12 @@ function markFactsheetAsSelected(event) {
   const clicked = event.currentTarget;
   const factsheetId = clicked.dataset.id;
   if (!factsheetId || factsheetId === 0) {
-    console.log("No factsheet id found");
     return;
   }
   for (let i = 0; i < factsheetList.length; i++) {
     const id = factsheetList[i].dataset.id;
-    console.log(`id = ${id}`);
     if (id == factsheetId) {
-      factsheetList[i].classList.add("bg-pulse-green-300");
+      factsheetList[i].classList.add("bg-pulse-green-200");
       factsheetList[i].classList.remove("bg-white");
       // set the module variable to the selected user's id
       selectedFactsheetId = factsheetId;
@@ -138,11 +140,19 @@ function markFactsheetAsSelected(event) {
       factsheetRemoveButton.classList.remove("hidden");
       factsheetPersonaliseButton.classList.remove("hidden");
     } else {
-      console.log;
-      factsheetList[i].classList.remove("bg-pulse-green-300");
+      factsheetList[i].classList.remove("bg-pulse-green-200");
       factsheetList[i].classList.add("bg-white");
     }
   }
+}
+
+// edit the factsheet's custom_markdown
+async function personaliseFactsheet(event) {
+  event.preventDefault();
+  if (!selectedFactsheetId || selectedFactsheetId === 0) {
+    return;
+  }
+  window.location.href = `/api/factsheets/personalise/${selectedFactsheetId}`;
 }
 
 // add the user id to the data-store div
@@ -183,7 +193,7 @@ async function getFactsheets() {
   try {
     userFactsheets.innerHTML = "";
     response = await fetch(
-      `/api/rmfactsheets?id=${selectedUserId}&format=html`,
+      `/api/factsheets/user?id=${selectedUserId}&format=html`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -194,14 +204,14 @@ async function getFactsheets() {
     } else {
       return '<p class="bg-pulse-green-500 italic">Error searching for factsheets for the user</p>';
     }
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     return '<p class="bg-pulse-green-500 italic">Error searching for factsheets for the user</p>';
   }
 }
 
 // ======================================================================
-//This section is to link the factsheet template to the user
+// This section is to link the factsheet template to the user
 // it uses data stored by the handlebars components in the webpage
 // to link the factsheet template to the user
 // would use local storage, but can't trust it is up to date
@@ -213,40 +223,99 @@ async function linkFactsheetToUser() {
     return;
   }
   // get the factsheet id from the data-store div
-  const templateId = dataStore.dataset.templateId;
+  let templateId = dataStore.dataset.templateId;
   if (!templateId) {
     return;
   }
   // get the user id from the data-store div
-  const userId = dataStore.dataset.userId;
+  let userId = dataStore.dataset.userId;
   if (!userId) {
+    return;
+  }
+
+  templateId = parseInt(templateId);
+  userId = parseInt(userId);
+
+  if (templateId === 0 || userId === 0) {
     return;
   }
 
   // call the API to link the factsheet to the user
   let response;
   try {
-    response = await fetch(`/api/rmfactsheets/link`, {
+    response = await fetch("/api/factsheets/link", {
       method: "POST",
       body: JSON.stringify({
-        templateId: templateId,
-        userId: userId,
+        templateId,
+        userId,
       }),
       headers: { "Content-Type": "application/json" },
     });
-  } catch (err) {
-    console.log(err);
-    populateFactsheets( '<p class="bg-pulse-green-500 italic">Error searching for factsheets for the user</p>')
+  } catch (error) {
+    console.log(error);
+    populateFactsheets(
+      '<p class="bg-pulse-green-500 italic">Error searching for factsheets for the user</p>'
+    );
   }
   // if the response is ok, reload the factsheets
   if (response.ok) {
-    populateFactsheets(await response.text());
+    const htmlFormat = await getFactsheets();
+    populateFactsheets(htmlFormat);
   } else {
-    populateFactsheets('<p class="bg-pulse-green-500 italic">Error searching for factsheets for the user</p>');
+    populateFactsheets(
+      '<p class="bg-pulse-green-500 italic">Error searching for factsheets for the user</p>'
+    );
   }
 }
 
+// unlink the factsheet from the user
+async function unlinkFactsheetFromUser(event) {
+  event.preventDefault();
+  if (!selectedFactsheetId || selectedFactsheetId === 0) {
+    return;
+  }
+
+  // call the API to unlink the factsheet from the user
+  let response;
+  try {
+    response = await fetch(`/api/factsheets/${selectedFactsheetId}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (response.ok) {
+      const htmlFormat = await getFactsheets();
+      populateFactsheets(htmlFormat);
+    }
+  } catch (error) {
+    console.log(error);
+    populateFactsheets(
+      '<p class="bg-pulse-green-500 italic">Error unlinking the factsheet for the user</p>'
+    );
+  }
+}
 // ======================================================================
 
 // add event handlers to the user list items
 addEventHandlers();
+
+// ======================================================================
+// get the event broadcast from the admin-dashboard.js file to search for a particular user
+
+// get the event broadcast from the admin-dashboard.js file to search for a particular user
+window.addEventListener("searchForUser", async (event) => {
+  // get userId from search detail
+  let userId = event.detail.search;
+  if (!userId) {
+    return;
+  }
+  if (Number.isNaN(userId)) {
+    return;
+  }
+  userId = parseInt(userId);
+  addUserIDToDataStore(userId);
+
+  if (userId !== 0) {
+    // search for the user
+    await searchUsers("", userId);
+  }
+});
