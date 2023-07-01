@@ -33,7 +33,7 @@ const loginFormHandler = async (event) => {
 document
   .getElementById("user-login-button")
   .addEventListener("click", function () {
-    window.location.href = "/login";
+    window.location.href = "/login-main";
   });
 
 document

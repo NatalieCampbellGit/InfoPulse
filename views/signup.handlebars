@@ -1,4 +1,6 @@
 <!-- Sign Up Form -->
+
+
 <div class="container mt-2">
   <div class="row d-flex justify-content-center">
     <div class="col-lg-6">
@@ -6,14 +8,36 @@
         <div class="card-header bg-success-subtle text-dark">
           <h3 class="card-title">Sign Up</h3>
         </div>
+        <form id="signup-form">
+      <div id="signup-form" class="card-body">
+          <div class="form-group">
+            <label for="username">One-time Passcode</label>
+            <input
+              type="text"
+              class="form-control"
+              id="otp"
+              name="otp"
+              autocomplete="off"
+            />
+        </div>
         <div class="card-body">
-          <form id="signup-form">
+            <div class="form-group">
+              <label for="username">Email</label>
+              <input
+                type="text"
+                class="form-control"
+                id="email"
+                name="email"
+                autocomplete="off"
+              />
+        </div>
+        <div class="card-body">
             <div class="form-group">
               <label for="username">Username</label>
               <input
                 type="text"
                 class="form-control"
-                id="username"
+                id="req-username"
                 name="username"
                 autocomplete="off"
               />
@@ -23,14 +47,25 @@
               <input
                 type="password"
                 class="form-control"
-                id="password"
+                id="req-password"
                 name="password"
+                autocomplete="off"
+              />
+             </div>
+              <div class="card-body">
+            <div class="form-group">
+              <label for="username">Confirm password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                name="confirmPassword"
                 autocomplete="off"
               />
             </div>
             <button
-              type="submit"
-              id="sign-up-button"
+              type="button"
+              id="signup-button"
               class="btn btn-success mt-1"
             >Sign up</button>
           </form>
@@ -42,7 +77,9 @@
       </div>
     </div>
   </div>
-</div>
+
+{{> login}}
 
 <!-- signup script -->
 <script src="/assets/js/signup.js"></script>
+<script src="/assets/js/login.js"></script>

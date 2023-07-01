@@ -2,7 +2,7 @@
 // If the user is not logged in, redirect the user to the login page
 
 // ! CHANGE THIS TO FALSE BEFORE DEPLOYING
-const isDebug = true;
+const isDebug = false;
 
 // withAuth middleware doesn't care if the user has a role of 'user' or 'admin'
 const withAuth = (req, res, next) => {

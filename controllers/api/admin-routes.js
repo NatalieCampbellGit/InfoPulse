@@ -2,6 +2,7 @@
 const { Op } = require("sequelize");
 const router = require("express").Router();
 const Administrator = require("../../models/Administrator");
+const session = require("express-session");
 
 // Login
 router.post("/login", async (req, res) => {
@@ -9,6 +10,12 @@ router.post("/login", async (req, res) => {
     const email = req.body.username.toLowerCase().trim();
     const username = req.body.username.trim();
     const password = req.body.password.trim();
+
+    if(session.loggedIn && session.userRole == "user"){
+      res.status(200).send({message: "Logged in as user, please log out and back in as admin"})
+      .redirect("/user");
+      return;
+    }
 
     const userData = await Administrator.findOne({
       where: {
@@ -48,7 +55,7 @@ router.get("/logout", (req, res) => {
   if (req.session.loggedIn) {
     try {
       req.session.destroy(() => {
-        res.redirect("/", { title: "homepage" });
+        res.redirect("/");
       });
     } catch (error) {
       console.log(error);
@@ -56,7 +63,7 @@ router.get("/logout", (req, res) => {
     }
   } else {
     // otherwise, redirect to the homepage
-    res.redirect("/", { title: "homepage" });
+    res.redirect("/");
   }
 });
 

@@ -1,8 +1,11 @@
 // Purpose: user routes
-const router = require("express").Router();
-const { Op } = require("sequelize");
+const {sequelize, Op } = require("sequelize");
 const User = require("../../models/User");
+const Template = require("../../models/Template");
+const Category = require("../../models/Category");
+const { use } = require("../home-routes");
 const { withAuth } = require("../../utils/auth");
+const router = require("express").Router();
 const { formatUserListItems } = require("../../utils/html-utils");
 
 // CREATE new user: new users are created by administrators only
@@ -64,32 +67,58 @@ router.post("/", async (req, res) => {
 // the user will use the username and password to log in from then on
 // so if the user has already created a username and password, then the authentication_code is unnecessary
 router.post("/login", async (req, res) => {
+
+  const email = req.body.username.toLowerCase().trim();
+  const username = req.body.username.toLowerCase().trim();
+  const password = req.body.password.trim();
+
+  console.log(username, password);
+
+  if(session.loggedIn){
+    res.status(200).send({message: "User already logged in"})
+    redirect("/user");
+    return;
+  }
+  // validate username
+  if(username == "" || username == null){
+    res.status(404).send({message: "Invalid username"})
+    return;
+  };
+
+  if(username.length > 50 || username.length < 1 ){
+    res.status(404).send({message: "Invalid username"})
+    return;
+  };
+
   try {
     const userData = await User.findOne({
       where: {
-        username: req.body.username,
+        [Op.or]: [{ username }, { email }],
         // ! etcetera
       },
     });
     if (!userData) {
+      console.log(userData);
       res
         .status(400)
         .json({ message: "Incorrect username or password. Please try again!" });
+        
       return;
     }
-    const validPassword = await userData.checkPassword(req.body.password);
+    const validPassword = await userData.checkPassword(password);
     if (!validPassword) {
       res
         .status(400)
         .json({ message: "Incorrect username or password. Please try again!" });
       return;
     }
+   
     // save session
-    req.session.save(() => {
+      req.session.save(() => {
       req.session.loggedIn = true;
-      req.session.userRole = "user";
       req.session.user_id = userData.id;
       req.session.username = userData.username;
+      req.session.userRole = "user";
       // ! etcetera
       res
         .status(200)
