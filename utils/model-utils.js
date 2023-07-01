@@ -7,6 +7,7 @@ const {
   UserComment,
   Administrator,
 } = require("../models");
+const { addHTMLTags } = require("./markdown-utils");
 
 // return all categories
 async function getAllCategories() {
