@@ -101,6 +101,11 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// Admin Login
+router.get("/admin-login", (req, res) => {
+  res.sendFile(path.join(__dirname, "../views/admin-login.handlebars"));
+});
+
 // route a for a search on the users model using either an id or text search
 router.post("/search", withAuth, async (req, res) => {
   console.log(req.body);

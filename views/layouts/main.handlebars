@@ -2,9 +2,7 @@
 <html lang="en-au">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InfoPulse</title>
+  {{> header}}
   <!-- default CSS -->
   <link rel="stylesheet" href="/assets/css/jass.css">
   <!-- font -->
@@ -55,7 +53,6 @@
         </div>
       </nav>
       <div class="bg-body-secondary mt-0 d-flex flex-column flex-md-row justify-content-between align-items-baseline">
-        <h1 class="text-start ms-3 pt-2 pb-2">InfoPulse</h1>
         {{#if loggedIn}}
         <h6 class="text-end ms-3 me-3 pb-2 m ">{{username}}</h6>
         {{/if}}
@@ -69,32 +66,7 @@
   </main>
 
   <!-- Footer -->
-  <footer class="footer mt-3 pt-3 bg-dark-subtle text-dark">
-    <div class="container text-center">
-      {{#if isDashboard}}
-      <div class="d-flex flex-column flex-md-row justify-content-between">
-        <div>
-          <p>InfoPulse</p>
-        </div>
-        <div mt-0>
-          <button type="button" class="btn btn-primary mt-0 mb-2" id="new-post-button">New Post</button>
-        </div>
-        <div>
-          <p>© 2023 Group 2</p>
-        </div>
-      </div>
-      {{else}}
-      <div class="d-flex flex-column flex-md-row justify-content-between">
-        <div>
-          <p>InfoPulse</p>
-        </div>
-        <div>
-          <p>© 2023 Group 2</p>
-        </div>
-      </div>
-      {{/if}}
-    </div>
-  </footer>
+  {{> footer}}
 
     <!-- Feedback Modal -->
     <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">

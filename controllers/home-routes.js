@@ -40,11 +40,7 @@ router.get("/adminlogin", async (req, res) => {
     return;
   }
   // otherwise, render the login template
-<<<<<<< HEAD
-  res.render("/admin-login", { //TODO: 
-=======
   res.render("admin-login", {
->>>>>>> origin/main
     // send data to the template
   });
 });

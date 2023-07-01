@@ -1,0 +1,22 @@
+<footer class="bg-gray-900 text-white py-4 px-6">
+  <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+    {{#if isDashboard}}
+    <div class="md:text-left">
+      <a href="/privacy-policy" class="text-sm">Privacy Policy</a>
+    </div>
+    <div>
+      <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded mt-2 md:mt-0">New Post</button>
+    </div>
+    <div class="md:text-right">
+      <p class="text-sm">&copy; 2023 Group 2</p>
+    </div>
+    {{else}}
+    <div class="md:text-left">
+      <a href="/privacy-policy" class="text-sm">Privacy Policy</a>
+    </div>
+    <div class="md:text-right">
+      <p class="text-sm">&copy; 2023 Group 2</p>
+    </div>
+    {{/if}}
+  </div>
+</footer>

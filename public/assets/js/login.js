@@ -1,3 +1,4 @@
+// login.js
 // Purpose: login.js is used to handle the login form submission
 // Initiated by: login.handlebars
 const loginFormHandler = async (event) => {

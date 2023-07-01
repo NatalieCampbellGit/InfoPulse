@@ -1,0 +1,31 @@
+<header class="bg-gray-900 text-white py-2 px-6 flex justify-between items-center">
+  <div>
+    {{!-- Logo image --}}
+    <a href="/">
+      <img src="/assets/images/logo.png" alt="Logo" class="w-16 h-16">
+    </a>
+  </div>
+   <div class="ml-auto">
+    <a href="/login" class="text-white font-medium mr-4">Client Login</a> 
+    <a href="/admin-login" class="text-white font-medium">Administrator Login</a> 
+  </div>
+  <div>
+    {{#ifeq currentPage "home"}}
+      {{!-- Home page navigation buttons --}}
+      <a href="/login" class="text-white font-medium mr-4">Client Login</a> 
+      <a href="/admin-routes/login" class="text-white font-medium">Administrator Login</a> {{!-- TODO NAT--}}
+    {{/ifeq}}
+
+    {{#ifeq currentPage "userDashboard"}}
+      {{!-- User dashboard navigation buttons --}}
+      <a href="/logout" class="text-white font-medium mr-4">Logout</a> {{!-- TODO NAT--}}
+      <a href="/edit" class="text-white font-medium">Edit</a> {{!-- TODO NAT--}}
+    {{/ifeq}}
+
+    {{#ifeq currentPage "adminDashboard"}}
+      {{!-- Admin dashboard navigation buttons --}}
+      <a href="/edit-user" class="text-white font-medium mr-4">Edit User</a> {{!-- TODO NAT--}}
+      <a href="/logout" class="text-white font-medium">Logout</a> {{!-- TODO NAT--}}
+    {{/ifeq}}
+  </div>
+</header>

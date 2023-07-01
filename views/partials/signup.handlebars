@@ -1,43 +1,36 @@
-<!-- Sign up Form-->
+{{!-- Sign up Form --}}
 <div class="col-lg-6">
-      <div class="card">
-        <div class="card-header bg-success-subtle text-dark">
-          <h3 class="card-title">Sign Up</h3>
-        </div>
-        <div class="card-body">
-          <p>If you have been given an authentication code, enter your passcode and email below, then choose a username and password and enter it below.</p>
-          <form id="signup-form">
-            <div class="form-group form-check">
-              <input type="checkbox" class="form-check-input" id="generate-passcode" name="generate-passcode">
-              <label class="form-check-label" for="generate-passcode">One-Time Passcode</label>
-            </div>
-            <div class="form-group">
-              <label for="email">email</label>
-              <input type="email" class="form-control" id="email" name="email" autocomplete="off">
-            </div>
-            <div class="form-group">
-              <label for="signup-username">username</label>
-              <input type="text" class="form-control" id="signup-username" name="signup-username" autocomplete="off">
-            </div>
-            <div class="form-group">
-              <label for="signup-password">Password</label>
-              <input type="password" class="form-control" id="signup-password" name="signup-password" autocomplete="off">
-            </div>
-            <div class="form-group">
-              <label for="confirm-password">Confirm password</label>
-              <input type="password" class="form-control" id="confirm-password" name="confirm-password" autocomplete="off">
-            </div>
-            <button type="submit" id="sign-up-button" class="btn btn-success mt-1">Sign up</button>
-          </form>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Already have an account? <a href="/login">Login here</a></small>
-        </div>
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <h3 class="text-2xl font-semibold text-gray-800">Sign Up</h3>
+    <p class="text-gray-600">If you have been given an authentication code, enter your passcode and email below, then choose a username and password and enter it below.</p>
+    <form id="signup-form">
+      <div class="mb-4">
+        <input type="checkbox" class="form-checkbox" id="generate-passcode" name="generate-passcode">
+        <label class="ml-2 text-gray-700" for="generate-passcode">One-Time Passcode</label>
       </div>
+      <div class="mb-4">
+        <label for="email" class="text-gray-700">Email</label>
+        <input type="email" class="form-input w-full" id="email" name="email" autocomplete="off">
+      </div>
+      <div class="mb-4">
+        <label for="signup-username" class="text-gray-700">Username</label>
+        <input type="text" class="form-input w-full" id="signup-username" name="signup-username" autocomplete="off">
+      </div>
+      <div class="mb-4">
+        <label for="signup-password" class="text-gray-700">Password</label>
+        <input type="password" class="form-input w-full" id="signup-password" name="signup-password" autocomplete="off">
+      </div>
+      <div class="mb-4">
+        <label for="confirm-password" class="text-gray-700">Confirm Password</label>
+        <input type="password" class="form-input w-full" id="confirm-password" name="confirm-password" autocomplete="off">
+      </div>
+      <button type="submit" id="sign-up-button" class="btn btn-success mt-1">Sign up</button>
+    </form>
+    <div class="mt-2">
+      <p class="text-gray-600">Already have an account? <a href="/login" class="text-pulse-lt-blue-500">Login here</a></p>
     </div>
+  </div>
+</div>
 
-<!-- signup script -->
-<script src="/assets/js/signup.js"></script>
-
-<!-- {{> signup}}
-  Login Forms -->
+{{!-- signup script --}}
+<script src="/assets/js/signup.js"></script> {{!-- TODO NAT --}}
