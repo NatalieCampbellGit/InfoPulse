@@ -4,7 +4,7 @@ const router = require("express").Router();
 const { withAuth, withUserAuth, withAdminAuth } = require("../utils/auth");
 const {
   getAdministratorDashboardData,
-  getUserById,
+  getUserDashboardData,
 } = require("../utils/model-utils");
 
 // Display the homepage
@@ -156,7 +156,7 @@ router.get("/user", withUserAuth, async (req, res) => {
     }
 
     // get the user dashboard's info using a util function
-    const userDashboardData = await getUserById(user_id);
+    const userDashboardData = await getUserDashboardData(user_id);
     if (!userDashboardData) {
       // send to 404 route
       res.status(404).render("error-404", {
@@ -184,7 +184,7 @@ router.get("/user", withUserAuth, async (req, res) => {
         }
 
         // get the user dashboard's info using a util function
-        const userDashboardData = await getUserById(user_id);
+        const userDashboardData = await getUserDashboardData(user_id);
         console.log(userDashboardData);
         if (!userDashboardData) {
           // send to 404 route
