@@ -1,60 +1,182 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Dashboard</title>
-  <link href="../public/assets/css/styles.css" rel="stylesheet">
-</head>
-
-<body class="bg-gray-100">
-  <div class="max-w-screen-xl mx-auto">
-    <div class="">
-      <div class="">
-        <div id="user-menu">
-          <!-- User menu buttons -->
-          <button type="button" class="btn btn-primary" id="view-templates">View Templates</button>
-          <button type="button" class="btn btn-primary" id="edit-profile">Edit Profile</button>
-          <!-- <button type="button" class="btn btn-primary" id="log-out">Log Out</button> -->
-        </div>
-      </div>
-    </div>
-    <div class="">
-      {{!-- <h1 class="text-3xl font-bold text-pulse-blue-500 text-center mb-4 py-2">{{pagetitle}}</h1> --}}
-    </div>
-    
-  <!-- display the factsheets that user has been given -->
-    <div id="view-posts">
+<section class="bg-gray-100">
+  <div class="max-w-screen-xl mx-auto border-t-4 border-pulse-green-500">
+    <!-- display the factsheets that user has been given -->
+    <div id="view-factsheets" class="border-t-4 border-pulse-green-500">
       <div class="mx-auto px-1 sm:px-2 bg-white">
-        <h2 class="text-xl font-bold mb-2">Posts</h2>
-        {{#each factsheets as |factsheet| }}
-        <div>
-          {{{template.html}}}
+        <h2 class="text-xl font-bold mb-2">Your Factsheets</h2>
+        {{#each factsheets as |factsheet|}}
+        <div class="border-2 border-gray-300 p-4 mb-4">
+          {{> user-dashboard-factsheet-listitem}}
         </div>
         {{/each}}
       </div>
     </div>
-
-    <!-- display single factsheet and its comments -->>
-    {{!-- <div id="view-post">
-      <div class="mx-auto px-1 sm:px-2 bg-white">
-        <!-- Display a selected post -->
-        <h2 class="text-xl font-bold mb-2">{{selectedPost.title}}</h2>
-        <p>{{selectedPost.content}}</p>
-      </div>
-    </div>
-    --}}
-
-    <!-- Buttons section -->
-    <div class="button-group">
-      <button class="btn btn-primary mr-2" id="add-comment">Add Comment</button>
-      <button class="btn btn-success mr-2" id="save-comment">Save Comment</button>
-      <!-- <button class="btn btn-danger" id="log-out">Log Out</button> -->
-    </div>
   </div>
 
-  <script src="/assets/js/user-dashboard.js"></script>
-</body>
+  <!-- display the selected factsheet and comments -->
+  <div id="view-posts" class="max-w-screen-xl mx-auto border-t-4 border-pulse-green-500">
+    <div class="mx-auto px-1 sm:px-2 bg-white">
+      <h2 class="text-xl font-bold mb-2">Factsheet</h2>
+      {{#each factsheets as |factsheet|}}
+      <div class="border-2 border-gray-300 p-4 mb-4">
+        {{#if (eq factsheet.id selectedFactsheetId)}}
+          <div class="user-factsheet" data-id="1">
+  <h1>Understanding Glaucoma</h1>
+  <p>Overview of Glaucoma</p>
+  <p>Category ID: 1</p>
+  <div>
+    <h1>Glaucoma: The Silent Thief of Vision</h1>
+    <p>
+      Glaucoma is a progressive eye disease that affects the optic nerve, which is responsible for transmitting visual information from the eye to the brain. It is often referred to as the "silent thief of vision" because it can gradually damage your eyesight without any noticeable symptoms until it reaches an advanced stage.
+    </p>
+    <img class="img-reduced-width-centred" src="../seeds/images/glaucoma.png" alt="Normal eye and eye with glaucoma" width="1000" height="371">
+    <h2>What Causes Glaucoma?</h2>
+    <p>
+      The primary cause of glaucoma is an increase in intraocular pressure (IOP) within the eye. This pressure builds up when the fluid inside the eye, called aqueous humor, cannot drain properly. The increased pressure puts strain on the optic nerve, leading to its gradual deterioration and potential vision loss.
+    </p>
+    <h2>Types of Glaucoma</h2>
+    <p>
+      There are different types of glaucoma, but the two most common ones are:
+    </p>
+    <ol>
+      <li>
+        <strong>Primary Open-Angle Glaucoma:</strong> This is the most prevalent form of glaucoma. It develops gradually and painlessly, usually without any noticeable symptoms until vision loss occurs. The drainage angle in the eye becomes less efficient over time, leading to increased IOP.
+      </li>
+      <li>
+        <strong>Angle-Closure Glaucoma:</strong> This type of glaucoma is less common but can cause sudden and severe symptoms. It occurs when the drainage angle in the eye becomes blocked or completely closed, leading to a rapid increase in IOP. Angle-closure glaucoma requires immediate medical attention.
+      </li>
+    </ol>
+    <h2>Risk Factors</h2>
+    <p>
+      Several factors can increase the risk of developing glaucoma, including:
+    </p>
+    <ul>
+      <li>Age: The risk of glaucoma increases with age, especially after the age of 60.</li>
+      <li>Family History: If you have a family history of glaucoma, your risk is higher.</li>
+      <li>Race: People of African, Hispanic, and Asian descent are more susceptible to certain types of glaucoma.</li>
+      <li>Medical Conditions: Certain medical conditions like diabetes, high blood pressure, and heart disease can increase the risk of glaucoma.</li>
+      <li>Eye Injury or Surgery: Previous eye injuries or surgeries can contribute to the development of glaucoma.</li>
+      <li>Myopia: Being myopic (shortsighted) increases the risk of glaucoma, and the more shortsighted you are, the bigger the risk.</li>
+    </ul>
+    <h2>Detecting and Treating Glaucoma</h2>
+    <p>
+      Regular eye examinations are crucial for early detection and management of glaucoma. During an eye exam, your optometrist will measure your IOP, inspect the optic nerve, and assess your visual field. Additionally, they may use advanced imaging tests to get a detailed view of the optic nerve and monitor any changes.
+    </p>
+    <p>
+      Treatment for glaucoma aims to lower the IOP and prevent further damage to the optic nerve. Common treatment options include:
+    </p>
+    <ul>
+      <li>Medication: Eye drops and rarely oral medications can be prescribed to reduce the production of aqueous humor or improve its drainage.</li>
+      <li>Laser Therapy: Laser procedures can help improve the drainage of fluid or reduce fluid production in the eye.</li>
+      <li>Surgery: In some cases, surgical interventions may be necessary to create a new drainage channel or relieve pressure on the optic nerve.</li>
+    </ul>
+    <h2>Importance of Early Intervention</h2>
+    <p>
+      Early detection and treatment are crucial in managing glaucoma. While vision loss due to glaucoma cannot be reversed, appropriate intervention can slow down or halt its progression, preserving your remaining eyesight. Regular eye exams, especially if you have risk factors, can help catch glaucoma at its early stages when treatment options are most effective.
+    </p>
+    <p>
+      Remember, even if you have good vision, it is essential to prioritize regular eye check-ups to ensure the health of your eyes and maintain optimal vision throughout your life.
+    </p>
+    <p>
+      <em>Disclaimer: This guide provides general information and should not substitute professional medical advice. Please consult your eye care professional for personalized recommendations and guidance.</em>
+    </p>
+  </div>
+</div>
 
-</html>
+  <!-- display the selected factsheet and comments -->
+  <div id="view-posts" class="max-w-screen-xl mx-auto border-t-4 border-pulse-green-500">
+    <div class="mx-auto px-1 sm:px-2 bg-white">
+      <h2 class="text-xl font-bold mb-2">Factsheet</h2>
+      {{#each factsheets as |factsheet|}}
+      <div class="border-2 border-gray-300 p-4 mb-4">
+        {{#if (eq factsheet.id selectedFactsheetId)}}
+          <div class="user-factsheet" data-id="2">
+  <h1>Understanding Myopia (Shortsightedness)</h1>
+  <p>An overview of myopia (shortsightedness) and its causes, symptoms, risks, and interventions.</p>
+  <div>
+    <h1>Overview of Myopia</h1>
+    <h2>Causes and Symptoms</h2>
+    <p>
+      Myopia, commonly known as nearsightedness, is a refractive error that affects the eye's ability to focus on distant objects clearly. If you have myopia, you may experience clear vision when looking at objects up close, but distant objects appear blurred or fuzzy.
+    </p>
+    <img class="img-reduced-width-centred" src="../seeds/images/myopia.png" alt="Myopic eye and myopic eye with lens" width="1000">
+    <p>
+      Common symptoms of myopia include:
+    </p>
+    <ul>
+      <li>Blurred vision when looking at distant objects</li>
+      <li>Squinting or straining to see clearly</li>
+      <li>Headaches or eye fatigue after focusing on distant objects for prolonged periods</li>
+      <li>Difficulties seeing the board or screen at school or work</li>
+    </ul>
+    <h2>Myopia Progression and Risks</h2>
+    <p>
+      It is important to address myopia, especially in children, as it can progress over time and lead to increased visual impairment. However, interventions are available to help slow down or reduce the progression of myopia.
+    </p>
+    <p>
+      Myopia is not only a visual concern but also increases the risks of developing other eye conditions, especially later in life, including:
+    </p>
+    <ol>
+      <li><strong>Cataracts:</strong> the clouding of the eye's natural lens, leading to blurred or hazy vision.</li>
+      <li><strong>Macular Degeneration:</strong> a condition that affects the central part of the retina, leading to gradual vision loss.</li>
+      <li><strong>Retinal Detachment:</strong> a serious condition where the retina becomes separated from its supporting tissues. Retinal detachment requires immediate medical attention to prevent permanent vision loss.</li>
+    </ol>
+    <h2>Myopia Interventions</h2>
+    <p>
+      Optometrists can recommend various interventions to manage and control myopia progression. These interventions aim to slow down the elongation of the eyeball and help maintain clearer distance vision. Some common interventions include:
+    </p>
+    <ol>
+      <li><strong>Atropine Eye Drops:</strong> Low-dose atropine eye drops are used to dilate the pupil and temporarily relax the focusing mechanism of the eye. This intervention has shown promising results in slowing down myopia progression in children.</li>
+      <li><strong>Orthokeratology (Ortho-K):</strong> Ortho-K involves using specially designed rigid contact lenses that reshape the cornea overnight. By wearing these lenses while sleeping, the cornea is temporarily reshaped, providing clearer vision during the day without the need for glasses or contact lenses.</li>
+      <li><strong>Myopia-Control Spectacles:</strong> These are eyeglasses specifically designed to reduce the progression of myopia. They incorporate special lens designs or coatings to help optimize visual clarity and slow down the elongation of the eyeball.</li>
+      <li><strong>Myopia Control Contact Lenses:</strong> Similar to myopia-control spectacles, specific contact lenses are available that can help manage myopia progression. These lenses may have different designs or optical properties to address the underlying causes of myopia.</li>
+    </ol>
+    <h2>Importance of Regular Eye Examinations</h2>
+    <p>
+      Regular eye examinations, typically annual, are crucial for myopic individuals, particularly children, to monitor their vision, eye health, and myopia progression. Optometrists can assess the effectiveness of interventions, prescribe suitable visual corrections, and detect any potential eye health issues at an early stage.
+    </p>
+    <h2>How to Correct Myopia</h2>
+    <p>
+      There are several methods available to correct myopia and improve vision. The most common approaches include the use of spectacles, prescription sunglasses, contact lenses, orthokeratology, and refractive surgery. Each method has its advantages and considerations, and the choice depends on various factors such as lifestyle, personal preferences, and the advice of an optometrist.
+    </p>
+    <h3>Spectacles</h3>
+    <p>
+      Spectacles, also known as eyeglasses, are a popular and effective option for correcting myopia. They consist of lenses that are specially designed to compensate for the refractive error and bring distant objects into focus. Spectacles are easy to use, affordable, and suitable for people of all ages. They can be customized according to an individual's prescription and personal style preferences.
+    </p>
+    <h3>Prescription Sunglasses</h3>
+    <p>
+      For individuals with myopia who spend a significant amount of time outdoors, prescription sunglasses are a practical solution. Prescription sunglasses combine the benefits of vision correction with protection from harmful ultraviolet (UV) rays. They come in various styles and lens tints to suit different light conditions and provide visual comfort while enjoying outdoor activities.
+    </p>
+    <h3>Contact Lenses</h3>
+    <p>
+      Contact lenses are an alternative to spectacles for correcting myopia. These small, thin lenses are directly placed on the surface of the eye. They correct vision by focusing light properly onto the retina. Contact lenses offer a wider field of view, natural appearance, and freedom from the constraints of wearing spectacles. However, proper hygiene, lens care, and regular follow-up with an optometrist are crucial to maintain eye health when using contact lenses.
+    </p>
+    <h3>Orthokeratology</h3>
+    <p>
+      Orthokeratology, commonly known as ortho-k or corneal reshaping therapy, is a non-surgical approach to correct myopia. This method involves wearing specially designed rigid gas permeable contact lenses overnight. The lenses reshape the cornea temporarily, allowing for improved vision during the day without the need for glasses or contact lenses. Orthokeratology is typically recommended for individuals with mild to moderate myopia and can provide temporary myopia control benefits.
+    </p>
+    <h3>Refractive Surgery</h3>
+    <p>
+      Refractive surgery offers a long-term solution for myopia correction by permanently reshaping the cornea. Laser-assisted procedures, such as LASIK, SMILE, and PRK, are commonly used to correct myopia. These surgeries aim to change the cornea's curvature to focus light properly on the retina, eliminating the need for glasses or contact lenses. Refractive surgery is a significant decision and requires thorough evaluation, consultation with an ophthalmologist, and consideration of potential risks and benefits.
+    </p>
+    <p>
+      It is important to note that the correction methods mentioned above are intended for vision improvement and myopia management. Regular eye examinations and consultations with qualified optometrists are essential to determine the most suitable approach for individual needs and to ensure proper eye health management.
+    </p>
+    <p><em>Disclaimer: This guide provides general information and should not substitute professional medical advice. Please consult your eye care professional for personalized recommendations and guidance.</em></p>
+  </div>
+</div>
+      {{/each}}
+      <!-- Iterate over your comments and create an <li> for each one -->
+      {{#each usercomments as |usercomment|}}
+      <p class="text-xl font-bold mb-2">Your Comment:</p>
+      <div class="pl-2 text-pulse-grey-dark">
+        <p class="text-base">{{usercomment.content}}</p>
+        <p class="text-xs text-gray-500">Created at:
+          {{format_date usercomment.createdAt}}
+          {{format_time usercomment.createdAt}}</p>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+<script src="/assets/js/user-dashboard.js"></script>
