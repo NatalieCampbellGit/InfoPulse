@@ -4,35 +4,25 @@
     <div class="container">
       <a class="navbar-brand" href="/">
         <img src="assets/images/logo.PNG" alt="Logo" class="w-16 h-16">
-      </a>      
+      </a>
+      {{#if isUserDashboard}}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            {{#ifeq currentPage "home"}}
+              <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+              </li>
+            {{/ifeq}}
+          </ul>
+        </div>
+      {{/if}}
     </div>
   </nav>
 </header>
-
-{{#if (eq currentPage "home")}}
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-          </li>
-        </ul>
-      </div>
-  {{/if}}
-
-  {{#if (eq currentPage "dashboard")}}
-    <!-- content specific to the user dashboard -->
-  {{/if}}
-
-  {{#if (eq currentPage "adminDashboard")}}
-    <!-- content specific to the administrator dashboard -->
-  {{/if}}
-
-  {{!-- {{> header}} 
-USE TO ADD HEADER IN OTHER HANDLEBAR FILES -->
