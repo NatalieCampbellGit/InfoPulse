@@ -347,7 +347,7 @@ async function showPreview() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ markdown, addHTMLTags: true }),
+        body: JSON.stringify({ markdown, addInlineCSSTags: true }),
       });
       const returnedData = await response.json();
       // check if the request was successful

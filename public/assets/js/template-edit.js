@@ -80,7 +80,7 @@ async function saveTemplate() {
   if (CurrentTemplate.id === null || CurrentTemplate.id == 0) {
     // send a POST request with the form data as is a new template
     try {
-      const response = await fetch("/api/rmtemplate", {
+      const response = await fetch("/api/templates", {
         method: "POST",
         body: JSON.stringify(requestData),
         headers: { "Content-Type": "application/json" },
@@ -99,7 +99,7 @@ async function saveTemplate() {
   } else {
     // send a PUT request with the form data as it is updating an existing template
     try {
-      const response = await fetch(`/api/rmtemplate/${CurrentTemplate.id}`, {
+      const response = await fetch(`/api/templates/${CurrentTemplate.id}`, {
         method: "PUT",
         body: JSON.stringify(requestData),
         headers: { "Content-Type": "application/json" },
@@ -168,7 +168,7 @@ async function collateInitialInformation() {
   // get the current template from the api as markdown adds extraneous characters
   if (templateID > 0) {
     try {
-      const templateData = await fetch(`/api/rmtemplate/${templateID}`, {
+      const templateData = await fetch(`/api/templates/${templateID}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });

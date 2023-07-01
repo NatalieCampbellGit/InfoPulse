@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { withAuth } = require("../../utils/auth");
 const {
   convertMarkdownToHTML,
-  addHTMLTags,
+  addInlineCSSTags,
 } = require("../../utils/markdown-utils");
 const { sanitizeHTML } = require("../../utils/html-utils");
 
@@ -10,13 +10,13 @@ const { sanitizeHTML } = require("../../utils/html-utils");
 router.post("/html", withAuth, async (req, res) => {
   try {
     const markdown = req.body.markdown;
-    const addCustomHTMLTags = req.body.addHTMLTags;
+    const addCustomHTMLTags = req.body.addInlineCSSTags;
 
     let html = await convertMarkdownToHTML(markdown);
     html = sanitizeHTML(html);
     if (addCustomHTMLTags) {
-      html = await addHTMLTags(html);
-      html = `<div class="markdown">${html}</div>`;
+      html = await addInlineCSSTags(html);
+      html = `<div class="markdown text-pulse-grey-dark">${html}</div>`;
     }
     res.status(200).json({ html });
   } catch (error) {

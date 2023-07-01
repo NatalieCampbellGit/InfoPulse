@@ -54,8 +54,8 @@ async function convertMarkdownToHTML(markdown) {
   return marked.parse(markdown);
 }
 
-// add html tags to the html using styles stored in the DB
-async function addHTMLTags(html) {
+// add css tags to the html using styles stored in the DB
+async function addInlineCSSTags(html) {
   // get the list of html tags from the DB
   const originalHTML = html;
   // use global variable to store the html tags to avoid repeated calls to the DB
@@ -105,4 +105,4 @@ async function addHTMLTags(html) {
   }
 }
 
-module.exports = { convertMarkdownToHTML, addHTMLTags };
+module.exports = { convertMarkdownToHTML, addInlineCSSTags };

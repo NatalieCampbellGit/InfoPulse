@@ -7,6 +7,7 @@ const {
   UserComment,
   Administrator,
 } = require("../models");
+const { addInlineCSSTags } = require("./markdown-utils");
 
 // return all categories
 async function getAllCategories() {
@@ -60,6 +61,28 @@ async function getAllPublicTemplates() {
         ["title", "ASC"],
       ],
       where: { public: true },
+    });
+    if (!templates) {
+      return [];
+    }
+    const templatesData = templates.map((template) =>
+      template.get({ plain: true })
+    );
+    return templatesData;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+// get all templates with a particular category
+async function getTemplatesByCategoryId(categoryId) {
+  try {
+    categoryId = parseInt(categoryId);
+    const templates = await Template.findAll({
+      include: [{ model: Category }],
+      order: [["title", "ASC"]],
+      where: { category_id: categoryId },
     });
     if (!templates) {
       return [];
@@ -138,6 +161,17 @@ async function getTemplateById(id) {
 
 // get a user by id, include their factsheets (and the template), comments, and administrators
 async function getUserById(id) {
+  if (!id) {
+    return null;
+  }
+  if (Number.isNaN(id)) {
+    return null;
+  }
+  id = parseInt(id);
+  if (id < 1) {
+    return null;
+  }
+
   try {
     id = parseInt(id);
     const user = await User.findByPk(id, {
@@ -167,6 +201,23 @@ async function getUserById(id) {
     console.error(error);
     return null;
   }
+}
+
+async function getUserDashboardData(user_id) {
+  const userData = await getUserById(user_id);
+
+  if (!userData) {
+    return null;
+  }
+
+  // convert the user's factsheet html to use inline styles
+  userData.factsheets.forEach(async (factsheet) => {
+    factsheet.custom_html = await addInlineCSSTags(factsheet.custom_html);
+    factsheet.custom_html = `<div class="markdown text-pulse-grey-dark">${factsheet.custom_html}</div>`;
+    factsheet.template.html = await addInlineCSSTags(factsheet.template.html);
+    factsheet.template.html = `<div class="markdown text-pulse-grey-dark">${factsheet.template.html}</div>`;
+  });
+  return userData;
 }
 
 // pull together all the data needed for the Administrator Dashboard
@@ -233,11 +284,13 @@ async function getTemplateEditData(template_id) {
 module.exports = {
   getAllCategories,
   getAllTemplates,
+  getTemplatesByCategoryId,
   getAllPublicTemplates,
   getUserFactsheets,
   getAdministratorById,
   getUserById,
   getTemplateById,
   getAdministratorDashboardData,
+  getUserDashboardData,
   getTemplateEditData,
 };

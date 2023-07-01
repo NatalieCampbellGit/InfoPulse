@@ -7,8 +7,15 @@ const searchButton = document.getElementById("search-button");
 const searchResults = document.getElementById("template-search-results");
 let templateList = document.getElementsByClassName("template-list-item");
 const viewHTMLModal = document.getElementById("view-html-modal");
+const adminCategoriesButton = document.getElementById("category-admin");
 
 let selectedTemplateId = 0;
+
+// handle admin categories button click
+adminCategoriesButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  window.location.href = "/categories";
+});
 
 // add event handlers to template-list-item
 function addEventHandlersToTemplateList() {
@@ -61,7 +68,7 @@ async function searchForTemplates() {
     let response;
     try {
       // if there is a category selected or a search term, send the request to the server
-      response = await fetch("/api/rmtemplate/search", {
+      response = await fetch("/api/templates/search", {
         method: "POST",
         body: JSON.stringify({
           id: categoryID,
@@ -97,7 +104,7 @@ viewButton.addEventListener("click", async (event) => {
     // get formatted html from the server for the template
     let response;
     try {
-      response = await fetch(`/api/rmtemplate/formatted/${selectedTemplateId}`);
+      response = await fetch(`/api/templates/formatted/${selectedTemplateId}`);
       if (!response.ok) {
         alert("Error getting formatted template");
         return;
@@ -128,14 +135,14 @@ editButton.addEventListener("click", async (event) => {
   event.preventDefault();
   if (selectedTemplateId > 0) {
     // send the user to the edit page for the selected template
-    window.location.href = `/api/rmtemplate/edit?id=${selectedTemplateId}&path=admin`;
+    window.location.href = `/api/templates/edit?id=${selectedTemplateId}&path=admin`;
   }
 });
 
 // when the user clicks the New button, send them to the template's edit page
 newButton.addEventListener("click", (event) => {
   event.preventDefault();
-  window.location.href = "/api/rmtemplate/new";
+  window.location.href = "/api/templates/new";
 });
 
 // when the user clicks the Delete button, confirm that they want to delete the template
@@ -149,7 +156,7 @@ deleteButton.addEventListener("click", async (event) => {
       // send a delete request to the server. If successful, reload the page
       let response;
       try {
-        response = await fetch(`/api/rmtemplate/delete/${selectedTemplateId}`, {
+        response = await fetch(`/api/templates/delete/${selectedTemplateId}`, {
           method: "DELETE",
         });
         if (response.ok) {

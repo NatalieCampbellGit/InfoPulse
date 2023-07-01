@@ -4,7 +4,8 @@ const router = require("express").Router();
 const { withAuth, withUserAuth, withAdminAuth } = require("../utils/auth");
 const {
   getAdministratorDashboardData,
-  getUserById,
+  getUserDashboardData,
+  getAllCategories,
 } = require("../utils/model-utils");
 
 // Display the login page
@@ -105,7 +106,7 @@ router.get("/admin-dashboard/:id", withAdminAuth, async (req, res) => {
     );
     if (!adminDashboardData) {
       // send to 404 route
-      res.status(404).json(, {
+      res.status(404).json({
         message: "Could not retrieve the Administrator Dashboard data",
         previousRoute: "home",
       });
@@ -129,7 +130,7 @@ router.get("/admin-dashboard/:id", withAdminAuth, async (req, res) => {
   }
 });
 
-// display the Administrator Dashboard
+// display the Administrator Dashboard without specific user
 router.get("/admin", withAdminAuth, async (req, res) => {
   try {
     // information that this route needs:
@@ -152,7 +153,7 @@ router.get("/admin", withAdminAuth, async (req, res) => {
     );
     if (!adminDashboardData) {
       // send to 404 route
-      res.status(404).json(, {
+      res.status(404).json({
         message: "Could not retrieve the Administrator Dashboard data",
         previousRoute: "home",
       });
@@ -172,11 +173,27 @@ router.get("/admin", withAdminAuth, async (req, res) => {
   }
 });
 
-// Display the aboutpage
+// go to the categories admin page
+router.get("/categories", withAdminAuth, async (req, res) => {
+  try {
+    // information that this route needs:
+    // all categories
+    const categories = await getAllCategories();
+    console.log(categories);
+    res.render("category-admin", { categories });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error, message: "Error loading the categories admin page" });
+  }
+});
+
+// Display the about page
 // ! TO DO
 router.get("/about", (req, res) => {
   try {
-    res.render("about").status(200);
+    res.render("about");
   } catch (error) {
     res
       .status(500)
@@ -185,70 +202,33 @@ router.get("/about", (req, res) => {
 });
 
 // display user dashboard
-router.get("/user", withUserAuth, async (req, res) => {
+router.get("/userdashboard", withUserAuth, async (req, res) => {
   try {
     // information that this route needs:
-    // all categories
-    // all templates
-    // user's info
+    // all factsheets for the user
+    // logged in info
+    // user info
+    // administrator's info
 
     // guaranteed to be an user because of the withUserAuth middleware
     const user_id = req.session.user_id;
     if (!user_id || user_id === "" || user_id < 1) {
       // send to 404 route
-      res.status(404).json({ message: "User dashboard data not found" });
+      res.status(404).json({ message: "User not found" });
       return;
     }
 
     // get the user dashboard's info using a util function
-    const userDashboardData = await getUserById(user_id);
+    const userDashboardData = await getUserDashboardData(user_id);
+
     if (!userDashboardData) {
       // send to 404 route
-      res.status(404).json(, {
+      res.status(404).json({
         message: "Could not retrieve the User Dashboard data",
         previousRoute: "home",
       });
       return;
     }
-
-    // display user dashboard
-    router.get("/userdashboard", withUserAuth, async (req, res) => {
-      try {
-        // information that this route needs:
-        // all factsheets for the user
-        // logged in info
-        // user info
-        // administrator's info
-
-        // guaranteed to be an user because of the withUserAuth middleware
-        const user_id = req.session.user_id;
-        if (!user_id || user_id === "" || user_id < 1) {
-          // send to 404 route
-          res.status(404).json({ message: "User not found" });
-          return;
-        }
-
-        // get the user dashboard's info using a util function
-        const userDashboardData = await getUserById(user_id);
-
-        if (!userDashboardData) {
-          // send to 404 route
-          res.status(404).json(, {
-            message: "Could not retrieve the User Dashboard data",
-            previousRoute: "home",
-          });
-          return;
-        }
-
-        // configure the userDashboardData object to display the correct buttons
-        res.render("user-dashboard", userDashboardData);
-      } catch (error) {
-        console.log(error);
-        res
-          .status(500)
-          .json({ error, message: "Error loading the User Dashboard" });
-      }
-    });
 
     res.render("user-dashboard", userDashboardData);
   } catch (error) {

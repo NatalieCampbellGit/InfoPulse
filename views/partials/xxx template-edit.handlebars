@@ -3,11 +3,12 @@
         id="markdown-edit-options" data-templateid="{{template.id}}" data-administratorid="{{administrator_id}}">
         <div class="flex flex-col items-baseline w-full">
             <label for="template-category" class="w-auto text-left mr-2 text-pulse-blue-500">Category:</label>
-            <select id="template-category" class="border-gray-300 border rounded  px-2 py-0 w-72 mb-2"
+            <select id="template-category"
+                class="border-gray-300 border rounded text-pulse-grey-dark px-2 py-0 w-72 mb-2"
                 data-initial="{{template.category_id}}">
-                <option value="0">All categories</option>
+                <option class="py-1 my-0" value="0">All categories</option>
                 {{#each categories as |category|}}
-                <option value="{{category.id}}">{{category.title}}</option>
+                <option class="py-1 my-0" value="{{category.id}}">{{category.title}}</option>
                 {{/each}}
             </select>
         </div>
@@ -37,13 +38,13 @@
                 <div>
                     <!-- preview button -->
                     <button
-                        class="btn-style text-pulse-green-800 hover:text-pulse-green-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="btn-style text-pulse-green-800 hover:text-pulse-green-600 relative border border-pulse-blue-700 bg-pulse-grey-slightlyblue rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         data-tag="html">
                         <i class="text-xl fa-brands fa-html5" data-tag="html"></i>
                     </button>
                     <!-- hide preview button hidden -->
                     <button
-                        class="hidden btn-style text-pulse-green-800 hover:text-pulse-green-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="hidden btn-style text-pulse-green-800 hover:text-pulse-green-600 relative border border-pulse-blue-700 bg-pulse-grey-slightlyblue rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         data-tag="md">
                         <i class="text-xl fa-brands fa-markdown" data-tag="md"></i>
                     </button>
@@ -51,34 +52,34 @@
                 <!-- Image and link section -->
                 <div class="flex space-x-2">
                     <button
-                        class="btn-style  text-pulse-lt-blue-700 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="btn-style  text-pulse-lt-blue-700 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-slightlyblue rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         data-tag="image">
                         <i class="text-xl fa-solid fa-image" data-tag="image"></i>
                     </button>
                     <button
-                        class="btn-style  text-pulse-lt-blue-700 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="btn-style  text-pulse-lt-blue-700 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-slightlyblue rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         data-tag="link">
                         <i class="text-xl fa-solid fa-link" data-tag="link"></i>
                     </button>
 
                     <!-- Headers section -->
                     <button
-                        class="btn-style text-pulse-blue-900 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="btn-style text-pulse-blue-900 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-slightlyblue rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         data-tag="#">
                         <i class="text-xl fa-solid fa-h1" data-tag="#"></i>
                     </button>
                     <button
-                        class="btn-style  text-pulse-blue-700 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="btn-style  text-pulse-blue-700 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-slightlyblue rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         data-tag="##">
                         <i class="text-xl fa-solid fa-h2" data-tag="##"></i>
                     </button>
                     <button
-                        class="btn-style  text-pulse-blue-500 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="btn-style  text-pulse-blue-500 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-slightlyblue rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         data-tag="###">
                         <i class="text-xl fa-solid fa-h3" data-tag="###"></i>
                     </button>
                     <button
-                        class="btn-style  text-pulse-blue-500 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="btn-style  text-pulse-blue-500 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-slightlyblue rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         data-tag="####">
                         <i class="text-xl fa-solid fa-h4" data-tag="####"></i>
                     </button>
@@ -87,40 +88,40 @@
                 <!-- Text style section -->
                 <div class="flex space-x-2">
                     <button
-                        class="btn-style  text-pulse-blue-800 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="btn-style  text-pulse-blue-800 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-slightlyblue rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         data-tag="**">
                         <i class="text-xl fa-solid fa-bold" data-tag="**"></i>
                     </button>
                     <button
-                        class="btn-style  text-pulse-blue-800 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="btn-style  text-pulse-blue-800 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-slightlyblue rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         data-tag="*">
                         <i class="text-xl fa-solid fa-italic" data-tag="*"></i>
                     </button>
                     <button
-                        class="btn-style  text-pulse-blue-800 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="btn-style  text-pulse-blue-800 hover:text-pulse-lt-blue-600 relative border border-pulse-blue-700 bg-pulse-grey-slightlyblue rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         data-tag="***">
                         <i class="text-xl fa-solid fa-bold" data-tag="***"></i><i class="text-xl fa-solid fa-italic"
                             data-tag="***"></i>
                     </button>
                     <button
-                        class="btn-style  text-pulse-grey-dark hover:text-pulse-grey relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="btn-style  text-pulse-grey-dark hover:text-pulse-grey relative border border-pulse-blue-700 bg-pulse-grey-slightlyblue rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         data-tag="~~">
                         <i class="text-xl fa-solid fa-strikethrough" data-tag="~~"></i>
                     </button>
                     <button
-                        class="btn-style  text-pulse-green-800 hover:text-pulse-green-600 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="btn-style  text-pulse-green-800 hover:text-pulse-green-600 relative border border-pulse-blue-700 bg-pulse-grey-slightlyblue rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         data-tag="---">
                         <i class="text-xl fa-solid fa-minus" data-tag="---"></i>
                     </button>
                 </div>
                 <div>
                     <button
-                        class="btn-style text-pulse-green-500 hover:text-pulse-green-400 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="btn-style text-pulse-green-500 hover:text-pulse-green-400 relative border border-pulse-blue-700 bg-pulse-grey-slightlyblue rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         data-tag="save">
                         <i class="fa-regular fa-floppy-disk text-xl" data-tag="save"></i> save
                     </button>
                     <button
-                        class="btn-style text-red-500 hover:text-red-300 relative border border-pulse-blue-700 bg-pulse-grey-light rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="btn-style text-red-500 hover:text-red-300 relative border border-pulse-blue-700 bg-pulse-grey-slightlyblue rounded shadow-sm py-0 px-2 text-sm hover:bg-pulse-lt-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         data-tag="cancel">
                         <i class="fa-solid fa-ban text-xl" data-tag="cancel"></i> cancel
                     </button>
@@ -146,7 +147,8 @@
             <div class="flex flex-col space-y-2 sm:flex-row sm:space-x-2 ">
                 <div class="flex flex-col space-y-4">
                     <label for="modal-image-select" class="mr-2">Select an image:</label>
-                    <select id="modal-image-select" class="border-gray-300 border rounded  px-2 py-0">
+                    <select id="modal-image-select"
+                        class="border-gray-300 border rounded text-pulse-grey-dark px-2 py-0">
                         <!-- Add list of images here -->
                     </select>
                     <div>
@@ -155,18 +157,24 @@
                     </div>
                     <div>
                         <label for="modal-class-select" class="mr-2">Select a CSS class:</label>
-                        <select id="modal-class-select" class="border-gray-300 border rounded  px-2 py-0">
+                        <select id="modal-class-select"
+                            class="border-gray-300 border rounded text-pulse-grey-dark px-2 py-0">
                             <!-- list of CSS classes used to style the image in the factsheet (factsheet.css) -->
-                            <option value="img-small-width-centred" data-defaultwidth="420">img-small-width-centred
+                            <option class="py-1 my-0" value="img-small-width-centred" data-defaultwidth="420">
+                                img-small-width-centred
                             </option>
-                            <option value="img-reduced-width-centred" data-defaultwidth="720">
+                            <option class="py-1 my-0" value="img-reduced-width-centred" data-defaultwidth="720">
                                 img-reduced-width-centred</option>
-                            <option value="img-full-width-centred" data-defaultwidth="1200">img-full-width-centred
+                            <option class="py-1 my-0" value="img-full-width-centred" data-defaultwidth="1200">
+                                img-full-width-centred
                             </option>
-                            <option value="img-small-width" data-defaultwidth="420">img-small-width-centred</option>
-                            <option value="img-reduced-width" data-defaultwidth="720">img-reduced-width-centred
+                            <option class="py-1 my-0" value="img-small-width" data-defaultwidth="420">
+                                img-small-width-centred</option>
+                            <option class="py-1 my-0" value="img-reduced-width" data-defaultwidth="720">
+                                img-reduced-width-centred
                             </option>
-                            <option value="img-full-width" data-defaultwidth="1200">img-full-width-centred</option>
+                            <option class="py-1 my-0" value="img-full-width" data-defaultwidth="1200">
+                                img-full-width-centred</option>
                         </select>
                     </div>
                     <div>
