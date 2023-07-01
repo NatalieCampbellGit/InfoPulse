@@ -7,7 +7,6 @@ const {
   UserComment,
   Administrator,
 } = require("../models");
-const { addHTMLTags } = require("./markdown-utils");
 const { addInlineCSSTags } = require("./markdown-utils");
 
 // return all categories
@@ -280,21 +279,6 @@ async function getTemplateEditData(template_id) {
     template_id,
     template,
   };
-}
-
-async function getUserDashboardData(user_id) {
-  const userData = await getUserById(user_id);
-  console.log("userData", userData);
-  if (!userData) {
-    return null;
-  }
-  // convert the user's factsheet html to use inline styles
-  userData.factsheets.forEach( async (factsheet) => {
-    factsheet.custom_html = await addHTMLTags(factsheet.custom_html);
-    factsheet.template.html= await addHTMLTags(factsheet.template.html);
-  })
-  console.log("userData", userData)
-  return userData;
 }
 
 module.exports = {
