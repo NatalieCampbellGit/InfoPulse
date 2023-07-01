@@ -26,20 +26,19 @@
       </div>
     </div>
 
-<div id="view-posts" class="border-t-4 border-pulse-green-500">
-  <div class="mx-auto px-1 sm:px-2 bg-white">
-    <h2 class="text-xl font-bold mb-2">Posts</h2>
-    {{#each factsheets as |factsheet|}}
-    {{#if (eq factsheet.category_id 2)}} <!-- Check if the category ID is 1 -->
-    <div class="border-2 border-gray-300 p-4 mb-4">
+    <div id="view-posts" class="border-t-4 border-pulse-green-500">
+    <div class="mx-auto px-1 sm:px-2 bg-white">
+      <h2 class="text-xl font-bold mb-2">Posts</h2>
+     {{#each factsheets as |factsheet|}}
+     {{#if (eq factsheet.category_id 2)}}
+     <div class="border-2 border-gray-300 p-4 mb-4">
       {{{template.html}}}
     </div>
-    {{> template-comments comments=factsheet.comments}}
-    {{/if}}
+     {{> template-comments comments=factsheet.comments}}
+     {{/if}}
     {{/each}}
-  </div>
+  </div> 
 </div>
-
 
   <div>
     <!-- Buttons section -->
@@ -53,5 +52,3 @@
   </div>
 </section>
 <script src="/assets/js/user-dashboard.js"></script>
-<script src="/assets/js/handlebars-helpers.js"></script>
-
