@@ -757,6 +757,10 @@ video {
   height: 16rem;
 }
 
+.h-72 {
+  height: 18rem;
+}
+
 .h-8 {
   height: 2rem;
 }
@@ -819,6 +823,10 @@ video {
 
 .max-w-screen-2xl {
   max-width: 1536px;
+}
+
+.max-w-screen-lg {
+  max-width: 1024px;
 }
 
 .max-w-screen-md {
@@ -1465,10 +1473,6 @@ video {
 }
 
 @media (min-width: 640px) {
-  .sm\:w-5\/6 {
-    width: 83.333333%;
-  }
-
   .sm\:w-96 {
     width: 24rem;
   }
