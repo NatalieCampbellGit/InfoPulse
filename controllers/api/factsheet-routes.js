@@ -219,7 +219,7 @@ router.delete("/comment/:id", withAuth, (req, res) => {
       return res.status(404).json({ error, message: "User comment not found" });
     }
 
-    return res.json({ message: "Usercomment deleted" });
+    return res.json({ message: "User comment deleted" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({

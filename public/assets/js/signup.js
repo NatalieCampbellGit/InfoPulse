@@ -1,14 +1,13 @@
 // const { User } = require("../../../models");
+// singup.js handles the first time sign up
 
 const signupFormHandler = async (event) => {
   event.preventDefault();
   document.getElementById("signup-button").disabled = true;
 
   // TODO add other form validation here
-  const username = document.querySelector("#username").value.trim();
-  const firstName = document.querySelector("#firstName").value.trim();
-  const lastName = document.querySelector("#lastName").value.trim();
-  const password = document.querySelector("#password").value.trim();
+  const username = document.querySelector("#req-username").value.trim();
+  const password = document.querySelector("#req-password").value.trim();
   const confirmPassword = document.querySelector("#confirmPassword").value.trim();
   const email = document.querySelector("#email").value.trim();
   const authentication_code = document.querySelector("#otp").value.trim();
@@ -16,41 +15,39 @@ const signupFormHandler = async (event) => {
 // ! validate first name, last name email, otp, password(make sure they match)
   if (email && authentication_code) {
 
-    // if(User.validateName(firstName) == false && User.validateName(lastName) == true ){
-    //    // eslint-disable-next-line no-undef
-    //     alertModal(
-    //       "Sign up failed",
-    //       "Please enter a valid first name"
-    //     )
-    //     return;
-    // };
+    if(username.length > 50 || username.length < 1){
+       // eslint-disable-next-line no-undef
+        alertModal(
+            "Please use a username between 1 and 50 characters long"
+        )
+        return;
+    };
 
-  //   if(User.validateName(lastName) == true && User.validateName(lastName) == false){
-  //     // eslint-disable-next-line no-undef
-  //      alertModal(
-  //        "Sign up failed",
-  //        "Please enter a valid last name"
-  //      )
-  //      return;
-  //  };
+    if(username == "" || username == null){
+      // eslint-disable-next-line no-undef
+       alertModal(
+        "Please enter a username"
+       )
+       return;
+   };
 
-    // if (password.length < 12 || password.length > 64) {
-    //   // eslint-disable-next-line no-undef
-    //   alertModal(
-    //     "Sign up failed",
-    //     "Password must be between 12 and 64 characters long."
-    //   );
-    //   return;
-    // }
+    if (password.length < 12 || password.length > 64) {
+      // eslint-disable-next-line no-undef
+      alertModal(
+        "Sign up failed",
+        "Password must be between 12 and 64 characters long."
+      );
+      return;
+    }
 
-    // if(!(password === confirmPassword)){
-    //    // eslint-disable-next-line no-undef
-    //   alertModal(
-    //     "Sign up failed",
-    //     "Passwords must match"
-    //   );
-    //   return;
-    // }
+    if(!(password === confirmPassword)){
+       // eslint-disable-next-line no-undef
+      alertModal(
+        "Sign up failed",
+        "Passwords must match"
+      );
+      return;
+    }
 
 
     const response = await fetch("/api/users/register", {

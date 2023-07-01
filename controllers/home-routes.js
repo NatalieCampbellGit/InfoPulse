@@ -21,13 +21,13 @@ router.get("/", async (req, res) => {
 });
 
 // Display the login page
-router.get("/login", (req, res) => {
+router.get("/login-main", (req, res) => {
   // if the user is already logged in, redirect to the homepage
   if (req.session.loggedIn) {
     res.redirect("/");
     return;
   } // otherwise, render the login template
-  res.render("login", {
+  res.render("login-main", {
     // send data to the template
   });
 });
@@ -63,7 +63,7 @@ router.get("/logout", withAuth, (req, res) => {
   if (req.session.loggedIn) {
     try {
       req.session.destroy(() => {
-        res.redirect("homepage");
+        res.redirect("/");
       });
     } catch (error) {
       console.log(error);

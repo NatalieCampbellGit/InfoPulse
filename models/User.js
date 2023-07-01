@@ -7,7 +7,6 @@ class User extends Model {
     return bcrypt.compareSync(loginPassword, this.password);
   }
 
-
   validateName(name){
     const allowedChars = /^[A-Za-z]+$/;
 

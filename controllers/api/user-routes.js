@@ -7,6 +7,7 @@ const { use } = require("../home-routes");
 const { withAuth } = require("../../utils/auth");
 const router = require("express").Router();
 const { formatUserListItems } = require("../../utils/html-utils");
+const session = require("express-session");
 // CREATE new user: new users are created by administrators only
 // must have:
 // administrator_id
@@ -66,30 +67,55 @@ router.post("/", async (req, res) => {
 // the user will use the username and password to log in from then on
 // so if the user has already created a username and password, then the authentication_code is unnecessary
 router.post("/login", async (req, res) => {
+
+  const email = req.body.username.toLowerCase().trim();
+  const username = req.body.username.toLowerCase().trim();
+  const password = req.body.password.trim();
+
+  console.log(username, password);
+
+  if(session.loggedIn){
+    res.status(200).send({message: "User already logged in"})
+    redirect("/user");
+    return;
+  }
+  // validate username
+  if(username == "" || username == null){
+    res.status(404).send({message: "Invalid username"})
+    return;
+  };
+
+  if(username.length > 50 || username.length < 1 ){
+    res.status(404).send({message: "Invalid username"})
+    return;
+  };
+
   try {
     const userData = await User.findOne({
       where: {
-        username: req.body.username,
+        [Op.or]: [{ username }, { email }],
         // ! etcetera
       },
     });
     if (!userData) {
+      console.log(userData);
       res
         .status(400)
         .json({ message: "Incorrect username or password. Please try again!" });
+        
       return;
     }
-    const validPassword = await userData.checkPassword(req.body.password);
+    const validPassword = await userData.checkPassword(password);
     if (!validPassword) {
       res
         .status(400)
         .json({ message: "Incorrect username or password. Please try again!" });
       return;
     }
+   
     // save session
-    req.session.save(() => {
+      req.session.save(() => {
       req.session.loggedIn = true;
-      req.session.userRole = "user";
       req.session.user_id = userData.id;
       req.session.username = userData.username;
       req.session.userRole = "user";
@@ -104,19 +130,16 @@ router.post("/login", async (req, res) => {
   }
 });
 
-
-// handles the first the first time login for a user 
+// handles the registration of new users
 // uses the email the client has provided and the auth code to verify the user and redirect 
 // to the sign up page
-router.post("/register", withAuth,async (req, res) => {
+router.put("/register", async (req, res) => {
 
 // ! may need to change the req.body for auth code. 
   const email = req.body.email;
   const authentication_code = req.body.authentication_code;
-  // const password = req.body.password
-  // const firstName = req.body.firstName;
-  // const LastName = req.body.LastName;
-  // const userName = req.body.userName;
+  const password = req.body.password
+  const username = req.body.userName;
 
 // !validate email, username and password and trim
   try {
@@ -127,6 +150,7 @@ router.post("/register", withAuth,async (req, res) => {
         // ! etcetera
       },
     });
+
     if (!userData) {
       res
         .status(400)
@@ -142,33 +166,39 @@ router.post("/register", withAuth,async (req, res) => {
 
     } else if (validateAuthCode) {
 
-        const newUser = await User.create({
-
+        const updateUser = await User.update({
+      
+            where: {
+              [Op.and]: [{ authentication_code }, { email }],
+            },
+            set: { username: username, password: password }
         })
+      
 
-      // res
-      //   .status(200)
-      //   .json({ message: "Authorisation successfull"})
-      //   .location.replace('/signup')
-        
-    }
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({ err, message: "Server error" });
-    }
-  });
+        if(updateUser[0] === 0){
+            res.status(400).json({message: "Error creating new user"})
+            return;
+        }
 
-    // save session
-    // req.session.save(() => {
-    //   req.session.loggedIn = true;
-    //   req.session.user_id = userData.id;
-    //   req.session.username = userData.username;
-    //   req.session.userRole = "user";
-    //   // ! etcetera
-    //   res
-    //     .status(200)
-    //     .json({ user: userData, message: "You are now logged in!" });
-    // });
+        if(updateUser[0] === 1){
+              // save session
+        console.log(userData)
+        req.session.save(() => {
+        req.session.loggedIn = true;
+        req.session.user_id = userData.id;
+        req.session.username = userData.username;
+        req.session.userRole = "user";
+        res.status(200).json({ message: "Successfully registered new user"})
+        res.redirect('/')
+      });
+     }
+    } 
+    }catch (error) { 
+      console.log(error);
+      res.status(500).json({ error, message: "Error logging in" });
+    }
+   });
+
 
 
     router.post("/search", withAuth, async (req, res) => {
@@ -265,5 +295,5 @@ router.post("/register", withAuth,async (req, res) => {
       }
     });
     
-
+// ! import to export the router
 module.exports = router;
