@@ -7,32 +7,27 @@ const loginFormHandler = async (event) => {
 
   const username = document.querySelector("#username").value.trim();
   const password = document.querySelector("#password").value.trim();
-  const passcode = document.querySelector("#passcode").value.trim();
-  const confirmPassword = document
-    .querySelector("#confirmPassword")
-    .value.trim();
+  // const passcode = document.querySelector("#passcode").value.trim();
 
-  if (!passcode) {
-    // using already registered user
-  } else {
-    // using first time user
-  }
+  // if (!passcode) {
+  //   // using already registered user
+  // } else {
+  //   // using first time user
+  // }
 
   if (username && password) {
-    const response = await fetch("/api/users/", {
+    const response = await fetch("/api/users/login", {
       method: "POST",
       body: JSON.stringify({
         username,
         password,
-        passcode,
-        confirmPassword,
       }),
       headers: { "Content-Type": "application/json" },
     });
     const data = await response.json();
 
     if (response.ok) {
-      document.location.replace("/");
+      document.location.replace("/user");
     } else {
       // eslint-disable-next-line no-undef
       alertModal("Login failed", data.message);
@@ -41,5 +36,5 @@ const loginFormHandler = async (event) => {
 };
 
 document
-  .querySelector("#login-form")
-  .addEventListener("submit", loginFormHandler);
+  .getElementById("login-button")
+  .addEventListener("click", loginFormHandler);
