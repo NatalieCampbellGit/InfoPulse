@@ -116,7 +116,6 @@ async function seedFactsheets() {
   for (let i = 0; i < factsheets.length; i++) {
     try {
       await Factsheet.create(factsheets[i]);
-      console.log(`Factsheet ${i + 1} created.`);
     } catch (error) {
       console.error(`Factsheet ${i + 1} could not be created.`);
       console.error(error);

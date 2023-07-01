@@ -13,7 +13,6 @@ buttons.forEach((button) => {
 const EditorView = {
   VIEWING: "viewing",
   EDITING: "editing",
-  PREVIEWING: "previewing",
 };
 
 const CurrentItem = {
@@ -120,7 +119,6 @@ document
 document
   .getElementById("cancel-insert-image-link")
   .addEventListener("click", function () {
-    console.log("Cancel button clicked");
     document.getElementById("insert-image-link-modal").style.display = "none";
   });
 // =======================================================================
@@ -164,7 +162,6 @@ document
     formData.append("image", file);
     formData.append("title", title);
     formData.append("description", description);
-    console.log(...formData);
     try {
       // send a POST request with the form data
       const response = await fetch("/api/images", {
@@ -186,7 +183,6 @@ document
       }
       // reload the images into the select
       await loadImages();
-      console.log("uploaded file information: ", returnedData);
 
       // select the image in the select
       imageSelect.value = imageId;
@@ -208,17 +204,14 @@ document.getElementById("file-upload").addEventListener("change", function () {
 
 // update the file name when a file is selected
 function updateFileName() {
-  console.log("updateFileName called");
   const input = document.getElementById("file-upload");
   const fileName = document.getElementById("upload-file-name");
-  console.log(input.files);
   if (input.files && input.files.length > 0) {
     fileName.textContent = input.files[0].name;
   }
 }
 
 document.getElementById("upload-cancel").addEventListener("click", function () {
-  console.log("Cancel button clicked");
   document.getElementById("upload-image-modal").style.display = "none";
 });
 // =======================================================================
@@ -260,7 +253,6 @@ document
 document
   .getElementById("cancel-insert-url")
   .addEventListener("click", function () {
-    console.log("Cancel button clicked");
     document.getElementById("insert-url-modal").style.display = "none";
   });
 
@@ -319,32 +311,25 @@ async function handleEditMenuClick(event) {
         hidePreview();
         break;
       case "save":
-        console.log("Save button clicked");
         window.dispatchEvent(eventSave);
         break;
       case "cancel":
-        console.log("Cancel button clicked");
         window.dispatchEvent(eventCancel);
         break;
       default:
-        console.log("Unknown button clicked");
         break;
     }
   }
 }
 
 // =======================================================================
-// hide the HTML preview of the markdown
+// hide the HTML preview of the markdown, switch to editing
 function hidePreview() {
   const preview = document.getElementById("preview-html");
   preview.classList.add("hidden");
   preview.innerHTML = "";
-
-  if (CurrentItem.currentlyEditing) {
-    showCorrectEditMenu(EditorView.EDITING);
-  } else {
-    showCorrectEditMenu(EditorView.VIEWING);
-  }
+  CurrentItem.currentlyEditing = true;
+  showCorrectEditMenu(EditorView.EDITING);
 }
 
 async function showPreview() {
@@ -362,7 +347,7 @@ async function showPreview() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ markdown, addHTMLTags: true }),
+        body: JSON.stringify({ markdown, addInlineCSSTags: true }),
       });
       const returnedData = await response.json();
       // check if the request was successful
@@ -371,14 +356,13 @@ async function showPreview() {
         alert("error! " + returnedData.message);
         return;
       }
-      console.log("returnedData:", returnedData);
 
       // display the HTML
       preview.innerHTML = returnedData.html;
       // update the UI
       CurrentItem.currentlyEditing = false;
 
-      showCorrectEditMenu(EditorView.PREVIEWING);
+      showCorrectEditMenu(EditorView.VIEWING);
     } catch (error) {
       console.error(
         "An error occurred while converting markdown to HTML:",
@@ -389,16 +373,16 @@ async function showPreview() {
   }
 }
 function showCorrectEditMenu(currentView) {
-  console.log("showCorrectEditMenu called with currentView:", currentView);
   const editMenu = document.getElementById("edit-menu");
   const preview = document.getElementById("preview-html");
   const textEntryControl = document.getElementById("template-text");
   switch (currentView) {
-    case EditorView.EDITING:
+    case EditorView.EDITING: // editing markdown
       console.log("editing");
       hideMenu(editMenu, false);
       // hide the markdown button
       hideButton(editMenu, "md", true);
+      hideButton(editMenu, "html", false);
       // hide the html preview and show the text entry control
       textEntryControl.classList.remove("hidden");
       hideTemplateOptions(false);
@@ -406,26 +390,16 @@ function showCorrectEditMenu(currentView) {
       hideEditingSection(false);
       textEntryControl.readOnly = false;
       break;
-    case EditorView.PREVIEWING:
-      console.log("previewing");
-      hideTemplateOptions(true);
-      hideMenu(editMenu, true);
-      // show the markdown button
-      hideButton(editMenu, "md", false);
-      // hide the text entry control and show the html preview
-      preview.classList.remove("hidden");
-      textEntryControl.classList.add("hidden");
-      hideEditingSection(false);
-      break;
-    case EditorView.VIEWING:
-      console.log("viewing");
+
+    case EditorView.VIEWING: // view HTML version
       hideTemplateOptions(true);
       hideMenu(editMenu, true);
       // show the preview button
-      hideButton(editMenu, "html", false);
+      hideButton(editMenu, "html", true);
+      hideButton(editMenu, "md", false);
       // show the text entry control and hide the html preview
-      preview.classList.add("hidden");
-      textEntryControl.classList.remove("hidden");
+      preview.classList.remove("hidden");
+      textEntryControl.classList.add("hidden");
       hideEditingSection(false);
       textEntryControl.readOnly = true;
       break;

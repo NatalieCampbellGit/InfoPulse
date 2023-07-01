@@ -1,3 +1,5 @@
+
+
 <section class="bg-gray-100">
   <div class="max-w-screen-xl mx-auto border-t-4 border-pulse-green-500">
     <!-- display the factsheets that user has been given -->
@@ -6,12 +8,36 @@
         <h2 class="text-xl font-bold mb-2">Your Factsheets</h2>
         {{#each factsheets as |factsheet|}}
         <div class="border-2 border-gray-300 p-4 mb-4">
-          {{>user-dashboard-factsheet-listitem}}
+          {{> user-dashboard-factsheet-listitem}}
         </div>
         {{/each}}
       </div>
     </div>
   </div>
+
+  <!-- display the factsheets that user has been given -->
+  <div id="view-posts" class="max-w-screen-xl mx-auto border-t-4 border-pulse-green-500">
+    <div class="mx-auto px-1 sm:px-2 bg-white">
+      <h2 class="text-xl font-bold mb-2">Factsheet</h2>
+      {{#each factsheets as |factsheet|}}
+      <div class="border-2 border-gray-300 p-4 mb-4">
+        {{{template.html}}}
+      </div>
+      <!-- Iterate over your comments and create an <li> for each one -->
+      {{#each usercomments as |usercomment|}}
+      <p class="text-xl font-bold mb-2">Your Comment:</p>
+      <div class="pl-2  text-pulse-grey-dark">
+        <p class="text-base">{{usercomment.content}}</p>
+        <p class="text-xs text-gray-500">Created at:
+          {{format_date usercomment.createdAt}}
+          {{format_time usercomment.createdAt}}</p>
+      </div>
+      {{/each}}
+      {{/each}}
+    </div>
+  </div>
+
+
   <div>
     <!-- Buttons section -->
     <div class="flex justify-end mt-4">
@@ -23,5 +49,6 @@
     </div>
   </div>
 </section>
+<script src="/assets/js/user-dashboard.js"></script>
 
 <script src="/assets/js/user-dashboard.js"></script>

@@ -6,8 +6,11 @@ const Category = require("../../models/Category");
 const { use } = require("../home-routes");
 const { withAuth } = require("../../utils/auth");
 const router = require("express").Router();
+const { Op } = require("sequelize");
+const User = require("../../models/User");
+const { withAuth } = require("../../utils/auth");
 const { formatUserListItems } = require("../../utils/html-utils");
-const session = require("express-session");
+
 // CREATE new user: new users are created by administrators only
 // must have:
 // administrator_id
@@ -130,170 +133,102 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// handles the registration of new users
-// uses the email the client has provided and the auth code to verify the user and redirect 
-// to the sign up page
-router.put("/register", async (req, res) => {
+// route a for a search on the users model using either an id or text search
+router.post("/search", withAuth, async (req, res) => {
+  console.log(req.body);
+  let { id, searchTerm, returnFormat } = req.body;
 
-// ! may need to change the req.body for auth code. 
-  const email = req.body.email;
-  const authentication_code = req.body.authentication_code;
-  const password = req.body.password
-  const username = req.body.userName;
+  // validate the search criteria
+  let idIsValid = false;
+  let searchTermIsValid = false;
 
-// !validate email, username and password and trim
-  try {
-    const userData = await User.findOne({
-      where: {
-        [Op.and]: [{ authentication_code }, { email }],
-      
-        // ! etcetera
-      },
-    });
-
-    if (!userData) {
-      res
-        .status(400)
-        .json({ message: "Incorrect details. Please try again!" });
-      return;
-    }
-    const validateAuthCode = await userData.checkAuthenticationCode(authentication_code);
-    if (!validateAuthCode) {
-      res
-        .status(400)
-        .json({ message: "Error validating authorisation code or email" })
-      return;
-
-    } else if (validateAuthCode) {
-
-        const updateUser = await User.update({
-      
-            where: {
-              [Op.and]: [{ authentication_code }, { email }],
-            },
-            set: { username: username, password: password }
-        })
-      
-
-        if(updateUser[0] === 0){
-            res.status(400).json({message: "Error creating new user"})
-            return;
-        }
-
-        if(updateUser[0] === 1){
-              // save session
-        console.log(userData)
-        req.session.save(() => {
-        req.session.loggedIn = true;
-        req.session.user_id = userData.id;
-        req.session.username = userData.username;
-        req.session.userRole = "user";
-        res.status(200).json({ message: "Successfully registered new user"})
-        res.redirect('/')
-      });
-     }
-    } 
-    }catch (error) { 
-      console.log(error);
-      res.status(500).json({ error, message: "Error logging in" });
-    }
-   });
-
-
-
-    router.post("/search", withAuth, async (req, res) => {
-      console.log(req.body);
-      let { id, searchTerm, returnFormat } = req.body;
-    
-      // validate the search criteria
-      let idIsValid = false;
-      let searchTermIsValid = false;
-    
-      if (id) {
-        if (!isNaN(id)) {
-          id = parseInt(id);
-          if (id > 0) {
-            idIsValid = true;
-          }
-        }
+  if (id) {
+    if (!isNaN(id)) {
+      id = parseInt(id);
+      if (id > 0) {
+        idIsValid = true;
       }
-    
-      if (searchTerm) {
-        if (typeof searchTerm === "string") {
-          // add a minimum length for the search text
-          if (searchTerm.length > 2) {
-            searchTermIsValid = true;
-          }
-        }
+    }
+  }
+
+  if (searchTerm) {
+    if (typeof searchTerm === "string") {
+      // add a minimum length for the search text
+      if (searchTerm.length > 2) {
+        searchTermIsValid = true;
       }
-    
-      // create a empty query object
-      let query = {};
-      if (!searchTermIsValid && !idIsValid) {
-        // if neither search criteria is valid, return all users
-      } else if (idIsValid && searchTermIsValid) {
-        query = {
-          [Op.and]: [
-            { id },
-            {
-              [Op.or]: [
-                { first_name: { [Op.like]: `%${searchTerm}%` } },
-                { last_name: { [Op.like]: `%${searchTerm}%` } },
-              ],
-            },
-          ],
-        };
-      } else if (searchTermIsValid) {
-        query = {
+    }
+  }
+
+  // create a empty query object
+  let query = {};
+  if (!searchTermIsValid && !idIsValid) {
+    // if neither search criteria is valid, return all users
+  } else if (idIsValid && searchTermIsValid) {
+    query = {
+      [Op.and]: [
+        { id },
+        {
           [Op.or]: [
             { first_name: { [Op.like]: `%${searchTerm}%` } },
             { last_name: { [Op.like]: `%${searchTerm}%` } },
           ],
-        };
-      } else if (idIsValid) {
-        query = {
-          id,
-        };
-      }
-    
-      // Query the model based on the search criteria
-      try {
-        const userData = await User.findAll({
-          where: query,
-          order: [
-            ["last_name", "ASC"],
-            ["first_name", "ASC"],
-          ],
-        });
-        if (!userData || userData.length === 0) {
-          switch (returnFormat) {
-            case "html":
-              res
-                .status(200)
-                .send('<p class="text-pulse-green-500">No users were found</p>');
-              break;
-            default:
-              res.status(404).json({ message: "No users were found" });
-          }
-          return;
-        }
-        // return the data
-        const users = userData.map((image) => image.get({ plain: true }));
-        switch (returnFormat) {
-          case "html": {
-            // use handlebars to render the data
-            const htmlFormat = formatUserListItems(users);
-            res.status(200).send(htmlFormat);
-            break;
-          }
-          default:
-            res.status(200).json(users);
-        }
-      } catch (error) {
-        console.error("Error retrieving user search results", error);
-        res.status(500).send("Error retrieving user search results");
-      }
+        },
+      ],
+    };
+  } else if (searchTermIsValid) {
+    query = {
+      [Op.or]: [
+        { first_name: { [Op.like]: `%${searchTerm}%` } },
+        { last_name: { [Op.like]: `%${searchTerm}%` } },
+      ],
+    };
+  } else if (idIsValid) {
+    query = {
+      id,
+    };
+  }
+
+  // Query the model based on the search criteria
+  try {
+    const userData = await User.findAll({
+      where: query,
+      order: [
+        ["last_name", "ASC"],
+        ["first_name", "ASC"],
+      ],
     });
-    
-// ! import to export the router
+    if (!userData || userData.length === 0) {
+      switch (returnFormat) {
+        case "html":
+          res
+            .status(200)
+            .send('<p class="text-pulse-green-500">No users were found</p>');
+          break;
+        default:
+          res.status(404).json({ message: "No users were found" });
+      }
+      return;
+    }
+    // return the data
+    const users = userData.map((image) => image.get({ plain: true }));
+    switch (returnFormat) {
+      case "html": {
+        // use handlebars to render the data
+        const htmlFormat = formatUserListItems(users);
+        res.status(200).send(htmlFormat);
+        break;
+      }
+      default:
+        res.status(200).json(users);
+    }
+  } catch (error) {
+    console.error("Error retrieving user search results", error);
+    res.status(500).send("Error retrieving user search results");
+  }
+});
+
+// maybe add a first login route to handle the first login with the authentication_code
+// the user will use the authentication_code to create their own username and password
+
 module.exports = router;
