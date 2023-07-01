@@ -1,0 +1,52 @@
+<div id="categoryCrudContainer" class="w-full max-w-screen-md mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-pulse-grey-slightlyblue">
+        <div class="">
+            <h1 class="text-3xl font-bold text-pulse-lt-blue-500 text-center mb-4 py-2">Manage Categories</h1>
+        </div>
+        <div class="flex flex-col mb-4">
+            <label for="category" class="w-full text-base sm:text-lg mb-2 font-bold text-gray-900">Select
+                category:</label>
+            <select id="category"
+                class="w-full text-base sm:text-lg px-3 py-2 border rounded text-gray-700 focus:outline-none focus:shadow-outline">
+                <option value="0">Create New Category</option>
+                {{#each categories as |category|}}
+                <option value="{{category.id}}">{{category.title}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="flex flex-col mb-4">
+            <label for="categoryTitle" class="w-full text-base sm:text-lg mb-2 font-bold text-gray-900">Category
+                Title:</label>
+            <input type="text" id="categoryTitle" name="categoryTitle" placeholder="Category Title"
+                class="w-full text-base sm:text-lg px-3 py-2 border rounded text-gray-700 focus:outline-none focus:shadow-outline">
+        </div>
+
+        <div class="flex flex-col mb-4">
+            <label for="categoryDescription" class="w-full text-base sm:text-lg mb-2 font-bold text-gray-900">Category
+                Description:</label>
+            <input type="text" id="categoryDescription" name="categoryDescription" placeholder="Category Description"
+                class="w-full text-base sm:text-lg px-3 py-2 border rounded text-gray-700 focus:outline-none focus:shadow-outline h-auto overflow-y-auto">
+        </div>
+
+        <div class="flex justify-between w-full">
+            <div class="flex justify-start space-x-2">
+                <button id="createCategory"
+                    class="px-4 py-2 ml-1 rounded text-white bg-pulse-green-500 hover:bg-pulse-green-700 focus:outline-none focus:shadow-outline">Create
+                    New</button>
+                <button id="updateCategory"
+                    class="px-4 py-2 rounded text-white bg-pulse-blue-500 hover:bg-pulse-blue-700 focus:outline-none focus:shadow-outline">Update</button>
+                <button id="deleteCategory"
+                    class="px-4 py-2 rounded text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:shadow-outline">Delete</button>
+            </div>
+            <div>
+                <button id="goBack"
+                    class="px-4 py-2 rounded text-white bg-pulse-lt-blue-500 hover:bg-pulse-lt-blue-700 focus:outline-none focus:shadow-outline">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/assets/js/category-admin.js"></script>

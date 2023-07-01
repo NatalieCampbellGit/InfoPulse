@@ -1,0 +1,16 @@
+<div id="view-html-modal" class="fixed z-50 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog"
+    aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 backdrop" aria-hidden="true"></div>
+
+        <!-- Modal -->
+        <div class="bg-white rounded shadow-xl max-w-screen-lg w-4/5 h-4/5 flex flex-col justify-between relative">
+            <!-- Close button -->
+            <button id="close-view-html" class="self-end bg-pulse-blue-500 text-white rounded p-2 m-2">Close</button>
+            <!-- Content -->
+            <div id="view-html" class="border-green-300 border mx-4 p-6 overflow-auto bg-white h-2/3 py-4">
+                <!-- Dynamically inserted HTML goes here -->
+            </div>
+        </div>
+    </div>
+</div>

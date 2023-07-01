@@ -6,6 +6,7 @@ const CurrentFactsheet = {
   markdown: null,
   administratorId: null,
   returnPath: null,
+  userId: 0,
 };
 
 // save template
@@ -28,7 +29,6 @@ async function saveFactsheet() {
   // this must always be >0 as it is never a new factsheet
   if (Number.isNaN(CurrentFactsheet.id)) {
     CurrentFactsheet.id = 0;
-    console.log("CurrentFactsheet.id is NaN");
     returnToRequestedPath();
   }
 
@@ -67,7 +67,7 @@ async function saveFactsheet() {
 function returnToRequestedPath() {
   let returnPath = CurrentFactsheet.returnPath;
   if (!returnPath || returnPath === "") {
-    returnPath = "/admin";
+    returnPath = `/admin-dashboard/${CurrentFactsheet.userId}`;
   } else {
     if (returnPath.substring(0, 1) !== "/") {
       returnPath = "/" + returnPath;
@@ -113,6 +113,8 @@ async function collateInitialInformation() {
       const factsheet = await factsheetData.json();
       CurrentFactsheet.markdown = factsheet.custom_markdown;
       CurrentFactsheet.html = factsheet.html;
+      CurrentFactsheet.userId = factsheet.user_id;
+
       // add the markdown to the textarea
       document.getElementById("template-text").value =
         CurrentFactsheet.markdown;
@@ -131,12 +133,10 @@ window.addEventListener("load", async function () {
 
 // Add an event listener for the custom events triggered by the editor
 window.addEventListener("customEventSave", async function (e) {
-  console.log("customEventSave was fired!");
   await saveFactsheet();
 });
 
 window.addEventListener("customEventCancel", function (e) {
-  console.log("customEventCancel was fired!");
   cancelEditingTemplate();
 });
 

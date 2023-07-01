@@ -4,11 +4,12 @@
         data-return-path="{{returnPath}}">
         <div class="flex flex-col items-baseline w-full">
             <label for="template-category" class="w-auto text-left mr-2 text-pulse-blue-500">Category:</label>
-            <select id="template-category" class="border-gray-300 border rounded  px-2 py-0 w-72 mb-2"
+            <select id="template-category"
+                class="border-gray-300 border rounded text-pulse-grey-dark px-2 py-0 w-72 mb-2"
                 data-initial="{{template.category_id}}">
-                <option value="0">All categories</option>
+                <option class="py-1 my-0" value="0">All categories</option>
                 {{#each categories as |category|}}
-                <option value="{{category.id}}">{{category.title}}</option>
+                <option class="py-1 my-0" value="{{category.id}}">{{category.title}}</option>
                 {{/each}}
             </select>
         </div>

@@ -7,12 +7,16 @@ If a user selects a template, the template will be displayed in the editor by ca
 <div class="flex items-center mb-2 mt-0">
     <label for="search-category" class="w-48 text-left mr-2 mt-0 mb-0 text-base text-pulse-lt-blue-500">Select
         category:</label>
-    <select id="search-category" class="border-pulse-green-300 border-2 rounded  px-2 py-1 w-full mt-0 mb-0 ">
-        <option value="0">All categories</option>
+    <select id="search-category"
+        class="border-pulse-green-300 border-2 rounded text-pulse-grey-dark px-2 py-1 w-full mt-0 mb-0 ">
+        <option class="py-1 my-0" value="0">All categories</option>
         {{#each categories as |category|}}
-        <option value="{{category.id}}">{{category.title}}</option>
+        <option class="py-1 my-0" value="{{category.id}}">{{category.title}}</option>
         {{/each}}
     </select>
+    <button
+        class="w-auto bg-pulse-grey-middark hover:bg-pulse-grey-dark text-sm text-white rounded px-2 py-1 ml-2 mt-0 mb-0"
+        id="category-admin">Admin</button>
 </div>
 <div class="flex items-center mb-2 mt-0">
     <label for="search-title-text" class="text-base text-pulse-lt-blue-500 w-48 text-left mr-2 mt-0 mb-0">Search
@@ -32,7 +36,7 @@ If a user selects a template, the template will be displayed in the editor by ca
         id="search-button">Search</button>
 </div>
 
-<div class="h-72 overflow-auto py-2 pl-2 pr-4 bg-white" id="template-search-results">
+<div class="h-96 overflow-auto py-2 pl-2 pr-4 bg-white" id="template-search-results">
     <ul aria-label="Search results" id="template-list">
         {{>template-list templates=templates }}
     </ul>
@@ -61,5 +65,5 @@ If a user selects a template, the template will be displayed in the editor by ca
     </div>
     {{/unless}}
 </div>
-
+{{>modal-view-html}}
 <script src="/assets/js/template-select.js"></script>
