@@ -6,9 +6,6 @@ const Category = require("../../models/Category");
 const { use } = require("../home-routes");
 const { withAuth } = require("../../utils/auth");
 const router = require("express").Router();
-const { Op } = require("sequelize");
-const User = require("../../models/User");
-const { withAuth } = require("../../utils/auth");
 const { formatUserListItems } = require("../../utils/html-utils");
 
 // CREATE new user: new users are created by administrators only
