@@ -19,11 +19,11 @@ async function getEmojis() {
     global.emojis = {};
     try {
       const octokit = new Octokit();
-      console.log("Getting emojis from github...");
+      // console.log("Getting emojis from github...");
       const emojiData = await octokit.rest.emojis.get();
       global.emojis = emojiData.data;
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
       global.emojis = {};
     }
   }
@@ -54,8 +54,8 @@ async function convertMarkdownToHTML(markdown) {
   return marked.parse(markdown);
 }
 
-// add html tags to the html using styles stored in the DB
-async function addHTMLTags(html) {
+// add css tags to the html using styles stored in the DB
+async function addInlineCSSTags(html) {
   // get the list of html tags from the DB
   const originalHTML = html;
   // use global variable to store the html tags to avoid repeated calls to the DB
@@ -66,8 +66,8 @@ async function addHTMLTags(html) {
   let htmlTags;
   try {
     htmlTags = await MarkdownTagStyle.findAll();
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     return html;
   }
   // if there are no html tags, return the html
@@ -99,10 +99,10 @@ async function addHTMLTags(html) {
     });
     console.log(html);
     return html;
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     return originalHTML;
   }
 }
 
-module.exports = { convertMarkdownToHTML, addHTMLTags };
+module.exports = { convertMarkdownToHTML, addInlineCSSTags };

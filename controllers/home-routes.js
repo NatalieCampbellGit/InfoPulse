@@ -5,20 +5,8 @@ const { withAuth, withUserAuth, withAdminAuth } = require("../utils/auth");
 const {
   getAdministratorDashboardData,
   getUserDashboardData,
+  getAllCategories,
 } = require("../utils/model-utils");
-
-// Display the homepage
-router.get("/", async (req, res) => {
-  try {
-    res.render("homepage", {
-      // send the session variable (loggedIn) to the template
-      loggedIn: req.session.loggedIn,
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err, message: "Error getting blog posts" });
-  }
-});
 
 // Display the login page
 router.get("/login", (req, res) => {
@@ -65,9 +53,9 @@ router.get("/logout", withAuth, (req, res) => {
       req.session.destroy(() => {
         res.redirect("homepage");
       });
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({ err, message: "Error logging out" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error, message: "Error logging out" });
     }
   } else {
     // otherwise, redirect to the homepage
@@ -79,7 +67,7 @@ router.get("/logout", withAuth, (req, res) => {
 router.get("/signup", (req, res) => {
   // if the user is already logged in, redirect to the homepage
   if (req.session.loggedIn) {
-    res.redirect("homepage");;
+    res.redirect("homepage");
     return;
   }
   // otherwise, render the signup template
@@ -88,7 +76,61 @@ router.get("/signup", (req, res) => {
   });
 });
 
-// display the Administrator Dashboard
+// display the Administrator Dashboard with particular user
+router.get("/admin-dashboard/:id", withAdminAuth, async (req, res) => {
+  // get the user id from the request
+  let userId = req.params.id;
+  if (!userId || userId === "" || userId < 1) {
+    userId = 0;
+  }
+  userId = parseInt(userId);
+
+  try {
+    // information that this route needs:
+    // all categories
+    // all templates
+    // administrator's info
+
+    // guaranteed to be an administrator because of the withAdminAuth middleware
+    const administrator_id = req.session.user_id;
+    if (!administrator_id || administrator_id === "" || administrator_id < 1) {
+      // send to admin login page
+      res.redirect("/adminlogin");
+      return;
+    }
+
+    // get the administrator dashboard's info using a util function
+    const adminDashboardData = await getAdministratorDashboardData(
+      administrator_id,
+      0 // 0 means general view on dashboard
+    );
+    if (!adminDashboardData) {
+      // send to 404 route
+      res.status(404).json({
+        message: "Could not retrieve the Administrator Dashboard data",
+        previousRoute: "home",
+      });
+      return;
+    }
+    adminDashboardData.userId = userId;
+    if (userId > 0) {
+      adminDashboardData.hasUser = true;
+    } else {
+      adminDashboardData.hasUser = false;
+    }
+    adminDashboardData.pageTitle = "Administrator Dashboard";
+
+    // configure the adminDashboardData object to display the correct buttons
+    res.render("admin-dashboard", adminDashboardData);
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error, message: "Error loading the Administrator Dashboard" });
+  }
+});
+
+// display the Administrator Dashboard without specific user
 router.get("/admin", withAdminAuth, async (req, res) => {
   try {
     // information that this route needs:
@@ -111,47 +153,68 @@ router.get("/admin", withAdminAuth, async (req, res) => {
     );
     if (!adminDashboardData) {
       // send to 404 route
-      res.status(404).render("error-404", {
+      res.status(404).json({
         message: "Could not retrieve the Administrator Dashboard data",
         previousRoute: "home",
       });
       return;
     }
+    adminDashboardData.userId = 0;
+    adminDashboardData.hasUser = false;
+    adminDashboardData.pageTitle = "Administrator Dashboard";
+
     // configure the adminDashboardData object to display the correct buttons
     res.render("admin-dashboard", adminDashboardData);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     res
       .status(500)
-      .json({ err, message: "Error loading the Administrator Dashboard" });
+      .json({ error, message: "Error loading the Administrator Dashboard" });
   }
 });
 
-// Display the aboutpage
+// go to the categories admin page
+router.get("/categories", withAdminAuth, async (req, res) => {
+  try {
+    // information that this route needs:
+    // all categories
+    const categories = await getAllCategories();
+    console.log(categories);
+    res.render("category-admin", { categories });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error, message: "Error loading the categories admin page" });
+  }
+});
+
+// Display the about page
 // ! TO DO
 router.get("/about", (req, res) => {
   try {
-    res.render("about").status(200);
-  } catch (err) {
+    res.render("about");
+  } catch (error) {
     res
       .status(500)
-      .json({ err, message: "Server Error displaying about page" });
+      .json({ error, message: "Server Error displaying about page" });
   }
 });
 
 // display user dashboard
-router.get("/user", withUserAuth, async (req, res) => {
+router.get("/userdashboard", withUserAuth, async (req, res) => {
   try {
     // information that this route needs:
-    // all categories
-    // all templates
-    // user's info
+    // all factsheets for the user
+    // logged in info
+    // user info
+    // administrator's info
 
     // guaranteed to be an user because of the withUserAuth middleware
     const user_id = req.session.user_id;
     if (!user_id || user_id === "" || user_id < 1) {
       // send to 404 route
-      res.status(404).render("error-404", { message: "User not found" });
+      res.status(404).json({ message: "User not found" });
       return;
     }
 
@@ -159,65 +222,33 @@ router.get("/user", withUserAuth, async (req, res) => {
     const userDashboardData = await getUserDashboardData(user_id);
     if (!userDashboardData) {
       // send to 404 route
-      res.status(404).render("error-404", {
+      res.status(404).json({
         message: "Could not retrieve the User Dashboard data",
         previousRoute: "home",
       });
       return;
     }
 
-    // display user dashboard
-    router.get("/userdashboard", withUserAuth, async (req, res) => {
-      try {
-        // information that this route needs:
-        // all factsheets for the user
-        // logged in info
-        // user info
-        // administrator's info
-
-        // guaranteed to be an user because of the withUserAuth middleware
-        const user_id = req.session.user_id;
-        if (!user_id || user_id === "" || user_id < 1) {
-          // send to 404 route
-          res.status(404).render("error-404", { message: "User not found" });
-          return;
-        }
-
-        // get the user dashboard's info using a util function
-        const userDashboardData = await getUserDashboardData(user_id);
-        console.log(userDashboardData);
-        if (!userDashboardData) {
-          // send to 404 route
-          res.status(404).render("error-404", {
-            message: "Could not retrieve the User Dashboard data",
-            previousRoute: "home",
-          });
-          return;
-        }
-        // console.log(userDashboardData)
-
-        // configure the userDashboardData object to display the correct buttons
-        res.render("user-dashboard", userDashboardData);
-      } catch (err) {
-        console.log(err);
-        res
-          .status(500)
-          .json({ err, message: "Error loading the User Dashboard" });
-      }
-    });
-
     res.render("user-dashboard", userDashboardData);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err, message: "Error loading the User Dashboard" });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error, message: "Error loading the User Dashboard" });
   }
 });
-// ! DELETE THIS ROUTE BEFORE DEPLOYING
-// Display the test page
-router.get("/rm-test", (req, res) => {
-  res.render("rm-test", {
-    // send data to the template
-  });
+
+// Display the homepage
+router.get("/", async (req, res) => {
+  try {
+    res.render("homepage", {
+      // send the session variable (loggedIn) to the template
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error, message: "Error getting blog posts" });
+  }
 });
 
 module.exports = router;

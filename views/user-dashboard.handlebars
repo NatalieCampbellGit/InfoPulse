@@ -1,3 +1,5 @@
+
+
 <section class="bg-gray-100">
   <div class="max-w-screen-xl mx-auto border-t-4 border-pulse-green-500">
     <!-- display the factsheets that user has been given -->
@@ -5,25 +7,24 @@
       <div class="mx-auto px-1 sm:px-2 bg-white">
         <h2 class="text-xl font-bold mb-2">Your Factsheets</h2>
         {{#each factsheets as |factsheet|}}
-        <div class="border-2 border-gray-300 p-4 mb-4 cursor-pointer" data-id="{{factsheet.id}}">
-          <h3 class="text-base font-bold text-pulse-blue-700">{{factsheet.template.title}}</h3>
-          <span class="toggle-icon">▼</span>
+        <div class="border-2 border-gray-300 p-4 mb-4">
+          {{> user-dashboard-factsheet-listitem}}
         </div>
         {{/each}}
       </div>
     </div>
   </div>
-  <!-- display the selected factsheet -->
+
+  <!-- display the factsheets that user has been given -->
   <div id="view-posts" class="max-w-screen-xl mx-auto border-t-4 border-pulse-green-500">
     <div class="mx-auto px-1 sm:px-2 bg-white">
       <h2 class="text-xl font-bold mb-2">Factsheet</h2>
       {{#each factsheets as |factsheet|}}
-      <div class="border-2 border-gray-300 p-4 mb-4 factsheet-content hidden" data-id="{{factsheet.id}}">
-        {{{factsheet.custom_html}}}
+      <div class="border-2 border-gray-300 p-4 mb-4">
+        {{{template.html}}}
       </div>
       <!-- Iterate over your comments and create an <li> for each one -->
       {{#each usercomments as |usercomment|}}
-      {{#if (eq usercomment.factsheet_id factsheet.id)}}
       <p class="text-xl font-bold mb-2">Your Comment:</p>
       <div class="pl-2  text-pulse-grey-dark">
         <p class="text-base">{{usercomment.content}}</p>
@@ -31,9 +32,21 @@
           {{format_date usercomment.createdAt}}
           {{format_time usercomment.createdAt}}</p>
       </div>
-      {{/if}}
       {{/each}}
       {{/each}}
     </div>
   </div>
+
+
+  <div>
+    <!-- Buttons section -->
+    <div class="flex justify-end mt-4">
+      <button class="bg-pulse-blue-500 hover:bg-pulse-blue-700 text-white rounded px-4 py-2 mr-2" id="add-comment">Add
+        Comment</button>
+      <button class="bg-pulse-green-500 hover:bg-pulse-green-700 text-white rounded px-4 py-2" id="save-comment">Save
+        Comment</button>
+      <!-- <button class="btn btn-danger" id="log-out">Log Out</button> -->
+    </div>
+  </div>
 </section>
+<script src="/assets/js/user-dashboard.js"></script>

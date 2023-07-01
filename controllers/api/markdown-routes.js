@@ -1,30 +1,29 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const { withAuth } = require("../../utils/auth");
 const {
   convertMarkdownToHTML,
-  addHTMLTags,
+  addInlineCSSTags,
 } = require("../../utils/markdown-utils");
 const { sanitizeHTML } = require("../../utils/html-utils");
 
-// create a GET route that has an input parameter some markdown string and returns sanitized html
+// input parameter some markdown string and returns sanitized html with optionally inline CSS tags
 router.post("/html", withAuth, async (req, res) => {
   try {
     const markdown = req.body.markdown;
-    const addCustomHTMLTags = req.body.addHTMLTags;
-    console.log("markdown-routes.js: markdown = ", markdown);
+    const addCustomHTMLTags = req.body.addInlineCSSTags;
+
     let html = await convertMarkdownToHTML(markdown);
-    console.log("markdown-routes.js: html = ", html);
     html = sanitizeHTML(html);
     if (addCustomHTMLTags) {
-      html = await addHTMLTags(html);
-      html = `<div class="markdown">${html}</div>`;
-      console.log("markdown-routes.js: html with tags = ", html);
+      html = await addInlineCSSTags(html);
+      html = `<div class="markdown text-pulse-grey-dark">${html}</div>`;
     }
     res.status(200).json({ html });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err, message: "Error converting markdown to html" });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error, message: "Error converting markdown to html" });
   }
 });
 

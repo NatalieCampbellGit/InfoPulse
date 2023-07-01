@@ -1,255 +1,24 @@
-/* eslint-disable camelcase */
-// get elements from the page
+// Used to edit markdown
 const imageSelect = document.getElementById("modal-image-select");
+const buttons = document.querySelectorAll(".btn-style");
+
+// event for when the Save button is clicked
+const eventSave = new CustomEvent("customEventSave");
+const eventCancel = new CustomEvent("customEventCancel");
+
+buttons.forEach((button) => {
+  button.addEventListener("click", handleEditMenuClick);
+});
 
 const EditorView = {
   VIEWING: "viewing",
   EDITING: "editing",
-  PREVIEWING: "previewing",
 };
 
-const CurrentTemplate = {
+const CurrentItem = {
   currentlyEditing: false,
-  id: null,
-  markdown: null,
-  title: null,
-  description: null,
-  category_id: null,
-  public: true,
-  administratorId: null,
+  returnPath: "",
 };
-
-// Search for a specific template
-// =======================================================================
-
-document
-  .getElementById("search-button")
-  .addEventListener("click", async function () {
-    console.log("Search button clicked");
-
-    // get the value of the category-list select
-    let categoryId;
-    const categoryList = document.getElementById("category-list");
-    if (categoryList) {
-      categoryId = categoryList.options[categoryList.selectedIndex].value;
-    }
-    console.log(categoryId);
-
-    // get the value of the search-title-text input
-    const searchBox = document.getElementById("search-title-text");
-    const searchText = searchBox.value.trim();
-    let returnedData;
-    console.log(searchText);
-    // basic validation
-    if ((!categoryId || Number.isNaN(parseInt(categoryId))) && !searchText) {
-      alert("Please select a category or enter some search text.");
-      return;
-    }
-
-    // send a GET request with the form data
-    try {
-      const requestData = { category_id: categoryId, search_text: searchText };
-      const response = await fetch("/api/templates", {
-        method: "GET",
-        body: JSON.stringify(requestData),
-        headers: { "Content-Type": "application/json" },
-      });
-
-      returnedData = await response.json();
-      // check if the request was successful
-      if (!response.ok) {
-        // get the response body
-        alert("error! " + returnedData.message);
-        return;
-      }
-    } catch (error) {
-      alert("error! " + error.message);
-      return;
-    }
-
-    // load up the returned data into the template list
-    const templateList = document.getElementById("template-list");
-    templateList.innerHTML = "";
-    returnedData.forEach((template) => {
-      const templateListItem = document.createElement("li");
-      templateListItem.textContent = template.name;
-      // Store the template id in the data-id attribute
-      templateListItem.dataset.id = template.id;
-      templateList.appendChild(templateListItem);
-    });
-  });
-
-// =======================================================================
-// ** EDIT A TEMPLATE **
-// =======================================================================
-document
-  .getElementById("edit-template")
-  .addEventListener("click", async function (event) {
-    event.preventDefault();
-    // get the template id from the data-id attribute of the list item in template-list
-    const templateList = document.getElementById("template-list");
-    // find the li with the data-selected attribute
-    // const selectedTemplate = templateList.querySelector("[data-selected]");
-    // if (!selectedTemplate) {
-    //   alert("Please select a template to edit.");
-    // TODO uncomment this return
-    // return;
-    // }
-    // TODO uncomment this return
-    // const templateId = selectedTemplate.dataset.id;
-    const templateId = 1;
-    // if (!templateId || Number.isNaN(parseInt(templateId))) {
-    //   alert("Please select a template to edit.");
-    //   return;
-    // }
-    // get the template text from the server
-    let returnedData;
-    try {
-      const response = await fetch(`/api/rmtest/templates/${templateId}`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-      returnedData = await response.json();
-      // check if the request was successful
-      if (!response.ok) {
-        // get the response body
-        alert("error! " + returnedData.message);
-        return;
-      }
-    } catch (error) {
-      alert("error! " + error.message);
-      return;
-    }
-
-    CurrentTemplate.currentTemplateId = templateId;
-    const textEditor = document.getElementById("template-text");
-    CurrentTemplate.markdown = returnedData.markdown;
-    CurrentTemplate.title = returnedData.title;
-    CurrentTemplate.description = returnedData.description;
-    CurrentTemplate.category_id = returnedData.category_id;
-    CurrentTemplate.publicTemplate = returnedData.public;
-    CurrentTemplate.administrator_id = returnedData.administrator_id;
-
-    // set the text in the textarea
-    textEditor.value = CurrentTemplate.markdown;
-    document.getElementById("template-category").value =
-      CurrentTemplate.category_id;
-    document.getElementById("template-title").value = CurrentTemplate.title;
-    document.getElementById("template-description").value =
-      CurrentTemplate.description;
-    document.getElementById("template-public").checked =
-      CurrentTemplate.publicTemplate;
-
-    // update the UI
-    // hide the search area
-    document.getElementById("search-area").classList.add("hidden");
-    // show the edit controls and set the flag
-    CurrentTemplate.currentlyEditing = true;
-    showCorrectEditMenu(EditorView.EDITING);
-    // set focus to the textarea
-    document.getElementById("template-text").focus();
-  });
-
-// save template
-async function saveTemplate() {
-  // get the template text from the textarea
-  const templateText = document.getElementById("template-text").value;
-  // get the template title and the template category
-  const templateTitle = document.getElementById("template-title").value;
-  const templateCategory = document.getElementById("template-category").value;
-  const category_id = document.getElementById("template-category").dataset.id;
-  // basic validation
-  if (!templateText) {
-    alert("Please enter some template text.");
-    return;
-  }
-  if (!templateTitle) {
-    alert("Please enter a template title.");
-    return;
-  }
-  if (!templateCategory) {
-    alert("Please select a template category.");
-    return;
-  }
-  if (!category_id || Number.isNaN(parseInt(category_id))) {
-    alert("Please select a template category.");
-    return;
-  }
-
-  const requestData = {
-    markdown: templateText,
-    title: templateTitle,
-    category_id,
-    administrator_id: CurrentTemplate.administrator_id,
-  };
-  // ! TODO remove this once routes are set up
-  if (false) {
-    if (CurrentTemplate.id === null) {
-      // send a POST request with the form data as is a new template
-      try {
-        const response = await fetch("/api/templates", {
-          method: "POST",
-          body: JSON.stringify(requestData),
-          headers: { "Content-Type": "application/json" },
-        });
-        const returnedData = await response.json();
-        // check if the request was successful
-        if (!response.ok) {
-          // get the response body
-          alert("error! " + returnedData.message);
-          return;
-        }
-      } catch (error) {
-        alert("error! " + error.message);
-        return;
-      }
-    } else {
-      // send a PUT request with the form data as it is updating an existing template
-      try {
-        const response = await fetch(`/api/templates/${CurrentTemplate.id}`, {
-          method: "PUT",
-          body: JSON.stringify(requestData),
-          headers: { "Content-Type": "application/json" },
-        });
-        const returnedData = await response.json();
-        // check if the request was successful
-        if (!response.ok) {
-          // get the response body
-          alert("error! " + returnedData.message);
-          return;
-        }
-      } catch (error) {
-        alert("error! " + error.message);
-        return;
-      }
-    }
-  }
-  // update the UI
-  // hide the edit controls and set the flag
-  CurrentTemplate.currentlyEditing = false;
-  showCorrectEditMenu(EditorView.VIEWING);
-  // show the search area
-  document.getElementById("search-area").classList.remove("hidden");
-  // set focus to the search box
-  document.getElementById("search-title-text").focus();
-}
-
-// cancel editing
-function cancelEditingTemplate() {
-  CurrentTemplate.currentlyEditing = false;
-  CurrentTemplate.id = null;
-
-  // update the UI
-  // hide the edit controls and set the flag
-  showCorrectEditMenu(EditorView.VIEWING);
-  // put it back to the original text
-  document.getElementById("template-text").value = CurrentTemplate.markdown;
-
-  // show the search area
-  document.getElementById("search-area").classList.remove("hidden");
-  // set focus to the search box
-  document.getElementById("search-title-text").focus();
-}
 
 // =======================================================================
 // ** INSERT AN IMAGE LINK INTO TEMPLATE **
@@ -350,7 +119,6 @@ document
 document
   .getElementById("cancel-insert-image-link")
   .addEventListener("click", function () {
-    console.log("Cancel button clicked");
     document.getElementById("insert-image-link-modal").style.display = "none";
   });
 // =======================================================================
@@ -394,7 +162,6 @@ document
     formData.append("image", file);
     formData.append("title", title);
     formData.append("description", description);
-    console.log(...formData);
     try {
       // send a POST request with the form data
       const response = await fetch("/api/images", {
@@ -416,7 +183,6 @@ document
       }
       // reload the images into the select
       await loadImages();
-      console.log("uploaded file information: ", returnedData);
 
       // select the image in the select
       imageSelect.value = imageId;
@@ -438,17 +204,14 @@ document.getElementById("file-upload").addEventListener("change", function () {
 
 // update the file name when a file is selected
 function updateFileName() {
-  console.log("updateFileName called");
   const input = document.getElementById("file-upload");
   const fileName = document.getElementById("upload-file-name");
-  console.log(input.files);
   if (input.files && input.files.length > 0) {
     fileName.textContent = input.files[0].name;
   }
 }
 
 document.getElementById("upload-cancel").addEventListener("click", function () {
-  console.log("Cancel button clicked");
   document.getElementById("upload-image-modal").style.display = "none";
 });
 // =======================================================================
@@ -490,15 +253,13 @@ document
 document
   .getElementById("cancel-insert-url")
   .addEventListener("click", function () {
-    console.log("Cancel button clicked");
     document.getElementById("insert-url-modal").style.display = "none";
   });
 
 // =======================================================================
 // ** Handle click events for the edit menu
 // =======================================================================
-const editMenu = document.getElementById("edit-menu");
-editMenu.addEventListener("click", async function (event) {
+async function handleEditMenuClick(event) {
   event.preventDefault();
 
   // see if it is a button that was clicked
@@ -511,83 +272,64 @@ editMenu.addEventListener("click", async function (event) {
     const tag = event.currentTarget.dataset.tag;
     switch (tag) {
       case "**":
-        console.log("Bold button clicked");
         surroundAtCursor(textEntryControl, tag);
         break;
       case "*":
-        console.log("Italic button clicked");
         surroundAtCursor(textEntryControl, tag);
         break;
       case "***":
-        console.log("Bold and Italic button clicked");
         surroundAtCursor(textEntryControl, tag);
         break;
       case "~~":
-        console.log("Strikethrough button clicked");
         surroundAtCursor(textEntryControl, tag);
         break;
       case "---":
-        console.log("Horizontal Rule button clicked");
         insertOnSeparateLine(textEntryControl, tag);
         break;
       case "#":
-        console.log("Heading h1 button clicked");
         addMarkdownHeadingTag(textEntryControl, tag);
         break;
       case "##":
-        console.log("Subheading h2 button clicked");
         addMarkdownHeadingTag(textEntryControl, tag);
         break;
       case "###":
-        console.log("Subheading h3 button clicked");
         addMarkdownHeadingTag(textEntryControl, tag);
         break;
       case "####":
-        console.log("Subheading h4 button clicked");
         addMarkdownHeadingTag(textEntryControl, tag);
         break;
       case "image":
         openInsertImageLinkModal();
-        console.log("Image button clicked");
         break;
       case "html":
-        console.log("HTML button clicked");
         await showPreview();
         break;
       case "link":
-        console.log("Link button clicked");
         openInsertURLModal();
         break;
       case "md":
-        console.log("Markdown button clicked");
         hidePreview();
         break;
       case "save":
-        console.log("Save button clicked");
-        await saveTemplate();
+        window.dispatchEvent(eventSave);
         break;
       case "cancel":
-        console.log("Cancel button clicked");
-        cancelEditingTemplate();
+        window.dispatchEvent(eventCancel);
         break;
       default:
-        console.log("Unknown button clicked");
         break;
     }
   }
-});
+}
 
 // =======================================================================
-// Show or hide the HTML preview of the markdown
+// hide the HTML preview of the markdown, switch to editing
 function hidePreview() {
   const preview = document.getElementById("preview-html");
   preview.classList.add("hidden");
   preview.innerHTML = "";
-  if (CurrentTemplate.currentlyEditing) {
-    showCorrectEditMenu(EditorView.EDITING);
-  } else {
-    showCorrectEditMenu(EditorView.VIEWING);
-  }
+  CurrentItem.currentlyEditing = true;
+  showCorrectEditMenu(EditorView.EDITING);
 }
 
 async function showPreview() {
@@ -597,49 +339,50 @@ async function showPreview() {
 
   if (markdown === "") {
     preview.innerHTML = "";
-    return;
-  }
-  // call the API to convert markdown to HTML
-  try {
-    const response = await fetch("/api/markdown/html", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ markdown, addHTMLTags: true }),
-    });
-    const returnedData = await response.json();
-    // check if the request was successful
-    if (!response.ok) {
-      // get the response body
-      alert("error! " + returnedData.message);
-      return;
-    }
-    console.log("returnedData:", returnedData);
+  } else {
+    // call the API to convert markdown to HTML
+    try {
+      const response = await fetch("/api/markdown/html", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ markdown, addInlineCSSTags: true }),
+      });
+      const returnedData = await response.json();
+      // check if the request was successful
+      if (!response.ok) {
+        // get the response body
+        alert("error! " + returnedData.message);
+        return;
+      }
 
-    // display the HTML
-    preview.innerHTML = returnedData.html;
-    // update the UI
-    showCorrectEditMenu(EditorView.PREVIEWING);
-  } catch (error) {
-    console.error(
-      "An error occurred while converting markdown to HTML:",
-      error
-    );
-    alert(error.message);
+      // display the HTML
+      preview.innerHTML = returnedData.html;
+      // update the UI
+      CurrentItem.currentlyEditing = false;
+
+      showCorrectEditMenu(EditorView.VIEWING);
+    } catch (error) {
+      console.error(
+        "An error occurred while converting markdown to HTML:",
+        error
+      );
+      alert(error.message);
+    }
   }
 }
 function showCorrectEditMenu(currentView) {
-  console.log("showCorrectEditMenu called with currentView:", currentView);
   const editMenu = document.getElementById("edit-menu");
   const preview = document.getElementById("preview-html");
   const textEntryControl = document.getElementById("template-text");
   switch (currentView) {
-    case EditorView.EDITING:
+    case EditorView.EDITING: // editing markdown
       console.log("editing");
       hideMenu(editMenu, false);
       // hide the markdown button
       hideButton(editMenu, "md", true);
+      hideButton(editMenu, "html", false);
       // hide the html preview and show the text entry control
       textEntryControl.classList.remove("hidden");
       hideTemplateOptions(false);
@@ -647,26 +390,16 @@ function showCorrectEditMenu(currentView) {
       hideEditingSection(false);
       textEntryControl.readOnly = false;
       break;
-    case EditorView.PREVIEWING:
-      console.log("previewing");
-      hideTemplateOptions(true);
-      hideMenu(editMenu, true);
-      // show the markdown button
-      hideButton(editMenu, "md", false);
-      // hide the text entry control and show the html preview
-      preview.classList.remove("hidden");
-      textEntryControl.classList.add("hidden");
-      hideEditingSection(false);
-      break;
-    case EditorView.VIEWING:
-      console.log("viewing");
+
+    case EditorView.VIEWING: // view HTML version
       hideTemplateOptions(true);
       hideMenu(editMenu, true);
       // show the preview button
-      hideButton(editMenu, "html", false);
+      hideButton(editMenu, "html", true);
+      hideButton(editMenu, "md", false);
       // show the text entry control and hide the html preview
-      preview.classList.add("hidden");
-      textEntryControl.classList.remove("hidden");
+      preview.classList.remove("hidden");
+      textEntryControl.classList.add("hidden");
       hideEditingSection(false);
       textEntryControl.readOnly = true;
       break;
@@ -685,7 +418,7 @@ function hideEditingSection(hide) {
 }
 
 function hideTemplateOptions(hide) {
-  const templateOptions = document.getElementById("template-options");
+  const templateOptions = document.getElementById("markdown-edit-options");
   if (hide) {
     templateOptions.classList.add("hidden");
   } else {
@@ -736,7 +469,7 @@ function hideButton(element, tag, hide) {
 // ** INSERTING TEXT INTO MARKDOWN FUNCTIONS
 // add text to the text area where the cursor is
 function insertAtCursor(myField, myValue, ensureSpaces = false) {
-  if (myField.selectionStart || myField.selectionStart == "0") {
+  if (myField.selectionStart || myField.selectionStart === 0) {
     // check for spaces before and after the cursor
     const startPos = myField.selectionStart;
     if (ensureSpaces) {
@@ -767,7 +500,7 @@ function insertAtCursor(myField, myValue, ensureSpaces = false) {
 }
 
 function surroundAtCursor(myField, myValue) {
-  if (myField.selectionStart || myField.selectionStart == "0") {
+  if (myField.selectionStart || myField.selectionStart === 0) {
     const startPos = myField.selectionStart;
     const endPos = myField.selectionEnd;
     if (startPos === endPos) {
@@ -822,7 +555,7 @@ function removeMarkdownTags(text) {
   return text;
 }
 function addMarkdownHeadingTag(myField, myValue) {
-  if (myField.selectionStart || myField.selectionStart == "0") {
+  if (myField.selectionStart || myField.selectionStart === 0) {
     const startPos = myField.selectionStart;
     let headerTag = myValue;
     // ensure there is a line break before the heading
@@ -837,7 +570,7 @@ function addMarkdownHeadingTag(myField, myValue) {
   }
 }
 function insertOnSeparateLine(myField, myValue) {
-  if (myField.selectionStart || myField.selectionStart == "0") {
+  if (myField.selectionStart || myField.selectionStart === 0) {
     const startPos = myField.selectionStart;
     let headerTag = myValue;
     // see if there are any line breaks before the current position
@@ -911,59 +644,9 @@ async function loadImages() {
   });
 }
 
-// =======================================================================
-// ** Load the Categories Selects **
-// =======================================================================
-async function loadCategories() {
-  // ! TODO change to the correct API endpoint
-  const response = await fetch("/api/rmtest/categories", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  });
-  if (!response.ok) {
-    alert("error! " + response.message);
-    return;
-  }
-
-  const returnedData = await response.json();
-  if (!returnedData) {
-    console.log("no category data returned");
-    return;
-  }
-  const categorySelect = document.getElementById("search-category");
-  const categorySelect2 = document.getElementById("template-category");
-  // add blank option
-  const option = document.createElement("option");
-  option.value = 0;
-  option.textContent = "No category selected";
-  categorySelect.appendChild(option);
-  const option2 = document.createElement("option");
-  option2.value = 0;
-  option2.textContent = "No category selected";
-  categorySelect2.appendChild(option2);
-
-  // console.log(returnedData);
-
-  // add the categories to the select
-  returnedData.forEach((category) => {
-    const option = document.createElement("option");
-    option.value = category.id;
-    option.textContent = category.title;
-    categorySelect.appendChild(option);
-    const option2 = document.createElement("option");
-    option2.value = category.id;
-    option2.textContent = category.title;
-    categorySelect2.appendChild(option2);
-  });
-}
-
-// =======================================================================
-// call loadImages on page load
 // detect page load
 window.addEventListener("load", async function () {
-  hideEditingSection(true);
-  CurrentTemplate.currentlyEditing = false;
-  showCorrectEditMenu(EditorView.VIEWING);
-  await loadCategories();
+  //   collateInitialInformation();
+  showCorrectEditMenu(EditorView.EDITING);
   await loadImages();
 });
