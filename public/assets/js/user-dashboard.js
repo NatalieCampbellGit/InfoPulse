@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   const factsheets = [
     {
-      category_id: 1, // Unique ID for the factsheet
+      category_id: 1,
       title: "Understanding Glaucoma",
       description: "Overview of Glaucoma",
       template: {
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
       ],
     },
     {
-      category_id: 2, // Unique ID for the factsheet
+      category_id: 2,
       title: "Understanding Myopia (Shortsightedness)",
       description: "An overview of myopia (shortsightedness) and its causes, symptoms, risks, and interventions.",
       template: {
@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Comments for the Understanding Myopia factsheet
       ],
     },
-    // Add more factsheets here
   ];
 
   // Check if the "Understanding Glaucoma" factsheet exists and add a click event listener
