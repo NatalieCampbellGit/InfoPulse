@@ -25,7 +25,7 @@ window.addEventListener("load", async function () {
 const enrolFormHandler = async (event) => {
   event.preventDefault();
   // avoid double click
-  // document.getElementById("enrol").disabled = true;
+  document.getElementById("enrol").disabled = true;
 
   const first_name = document.querySelector("#firstname").value.trim();
   const last_name = document.querySelector("#lastname").value.trim();
@@ -36,34 +36,6 @@ const enrolFormHandler = async (event) => {
   const authentication_code = document
     .getElementById("authcode")
     .textContent.trim();
-
-  // try {
-  //   const authcodeResponse = await fetch("/api/admin/authcode/", {
-  //     method: "GET",
-  //     headers: { "Content-Type": "application/json" },
-  //   });
-  //   if (!authcodeResponse.ok) {
-  //     const authcodeResponseJson = await authcodeResponse.json();
-  //     alert("Error getting authcode " + authcodeResponseJson.message);
-  //     return;
-  //   }
-  //   if (authcodeResponse.ok) {
-  //     console.log(typeof authcodeResponse);
-
-  //     const authcode = await authcodeResponse.json();
-  //     console.log(authcode);
-  //     const convertAuthCode = authcode.authcode;
-  //     // alert("Authcode is " + convertAuthCode);
-  //     document.getElementById("authcode").value = convertAuthCode;
-
-  //     // const convertAuthCode = JSON.stringify(authcode.authcode);
-  //     console.log(typeof convertAuthCode);
-  //     console.log(convertAuthCode);
-  //   }
-  // } catch (error) {
-  //   console.error(error);
-  //   alert("Error getting authcode " + error);
-  // }
 
   const enrollmentData = {
     first_name,
@@ -105,6 +77,7 @@ const enrolFormHandler = async (event) => {
       alertModal("Login failed", data.message);
     }
   }
+  document.getElementById("enrol").disabled = false;
 };
 
 document.getElementById("enrol").addEventListener("click", enrolFormHandler);

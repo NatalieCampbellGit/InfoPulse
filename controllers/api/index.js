@@ -8,6 +8,7 @@ const templateRoutes = require("./template-routes");
 const factsheetRoutes = require("./factsheet-routes");
 const adminRoutes = require("./admin-routes");
 const categoriesRoutes = require("./category-routes");
+const userCommentRoutes = require("./user-comment-routes");
 
 router.use("/users", userRoutes);
 router.use("/images", imageRoutes);
@@ -16,10 +17,6 @@ router.use("/templates", templateRoutes);
 router.use("/factsheets", factsheetRoutes);
 router.use("/admin", adminRoutes);
 router.use("/categories", categoriesRoutes);
-
-// // add default 404 message> {
-// router.use((req, res) => {
-//   res.status(404).json({ message: "No such API route exists" });
-// });
+router.use("/comments", userCommentRoutes);
 
 module.exports = router;

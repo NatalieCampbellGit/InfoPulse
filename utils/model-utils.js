@@ -212,27 +212,35 @@ async function getUserDashboardData(user_id) {
   userData.currentPage = "userDashboard";
 
   // convert the user's factsheet html to use inline styles
-  userData.factsheets.forEach(async (factsheet) => {
-    factsheet.custom_html = await addInlineCSSTags(factsheet.custom_html);
-    factsheet.custom_html = `<div class="markdown text-pulse-bluegrey-900">${factsheet.custom_html}</div>`;
-    factsheet.template.html = await addInlineCSSTags(factsheet.template.html);
-    factsheet.template.html = `<div class="markdown text-pulse-bluegrey-900">${factsheet.template.html}</div>`;
-    const customMarkdown = factsheet.custom_markdown;
+  for (let i = 0; i < userData.factsheets.length; i++) {
+    let html = userData.factsheets[i].template.html;
+    html = await addInlineCSSTags(html);
+    userData.factsheets[
+      i
+    ].template.html = `<div class="markdown text-pulse-bluegrey-900">${html}</div>`;
+
+    const customMarkdown = userData.factsheets[i].custom_markdown;
     if (customMarkdown) {
       if (customMarkdown.length > 0) {
-        factsheet.hasCustomMarkdown = true;
+        userData.factsheets[i].hasCustomMarkdown = true;
+        html = userData.factsheets[i].custom_html;
+        html = await addInlineCSSTags(html);
+        userData.factsheets[
+          i
+        ].custom_html = `<div class="markdown text-pulse-bluegrey-900">${html}</div>`;
       } else {
-        factsheet.hasCustomMarkdown = false;
+        userData.factsheets[i].hasCustomMarkdown = false;
       }
     } else {
-      factsheet.hasCustomMarkdown = false;
+      userData.factsheets[i].hasCustomMarkdown = false;
     }
-    if (factsheet.usercomments.length > 0) {
-      factsheet.hasComments = true;
+
+    if (userData.factsheets[i].usercomments.length > 0) {
+      userData.factsheets[i].hasComments = true;
     } else {
-      factsheet.hasComments = false;
+      userData.factsheets[i].hasComments = false;
     }
-  });
+  }
 
   return userData;
 }
