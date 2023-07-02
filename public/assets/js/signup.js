@@ -11,25 +11,20 @@ const signupFormHandler = async (event) => {
   const confirmPassword = document.querySelector("#confirmPassword").value.trim();
   const email = document.querySelector("#email").value.trim();
   const authentication_code = document.querySelector("#otp").value.trim();
-  
-// ! validate first name, last name email, otp, password(make sure they match)
+
+  // ! validate first name, last name email, otp, password(make sure they match)
   if (email && authentication_code) {
-
-    if(username.length > 50 || username.length < 1){
-       // eslint-disable-next-line no-undef
-        alertModal(
-            "Please use a username between 1 and 50 characters long"
-        )
-        return;
-    };
-
-    if(username == "" || username == null){
+    if (username.length > 50 || username.length < 1) {
       // eslint-disable-next-line no-undef
-       alertModal(
-        "Please enter a username"
-       )
-       return;
-   };
+      alertModal("Please use a username between 1 and 50 characters long");
+      return;
+    }
+
+    if (username == "" || username == null) {
+      // eslint-disable-next-line no-undef
+      alertModal("Please enter a username");
+      return;
+    }
 
     if (password.length < 12 || password.length > 64) {
       // eslint-disable-next-line no-undef
@@ -40,19 +35,15 @@ const signupFormHandler = async (event) => {
       return;
     }
 
-    if(!(password === confirmPassword)){
-       // eslint-disable-next-line no-undef
-      alertModal(
-        "Sign up failed",
-        "Passwords must match"
-      );
+    if (!(password === confirmPassword)) {
+      // eslint-disable-next-line no-undef
+      alertModal("Sign up failed", "Passwords must match");
       return;
     }
 
-
     const response = await fetch("/api/users/register", {
-      method: "POST",
-      body: JSON.stringify({ email, authentication_code }),
+      method: "PUT",
+      body: JSON.stringify({ email, authentication_code, username, password, confirmPassword }),
       headers: { "Content-Type": "application/json" },
     });
 
@@ -71,5 +62,5 @@ const signupFormHandler = async (event) => {
 };
 
 document
-.getElementById("signup-button")
-.addEventListener("click", signupFormHandler);
+  .getElementById("signup-button")
+  .addEventListener("click", signupFormHandler);
