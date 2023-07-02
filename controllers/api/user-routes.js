@@ -1,9 +1,6 @@
 // Purpose: user routes
 const { sequelize, Op } = require("sequelize");
 const User = require("../../models/User");
-const Template = require("../../models/Template");
-const Category = require("../../models/Category");
-const { use } = require("../home-routes");
 const { withAuth } = require("../../utils/auth");
 const router = require("express").Router();
 const { formatUserListItems } = require("../../utils/html-utils");
@@ -68,7 +65,7 @@ router.post("/", async (req, res) => {
 // so if the user has already created a username and password, then the authentication_code is unnecessary
 router.post("/login", async (req, res) => {
   const email = req.body.username.toLowerCase().trim();
-  const username = req.body.username.toLowerCase().trim();
+  const username = req.body.username.trim();
   const password = req.body.password.trim();
 
   console.log(username, password);
@@ -80,6 +77,7 @@ router.post("/login", async (req, res) => {
       .redirect("/user");
     return;
   }
+
   // validate username
   if (username == "" || username == null) {
     res.status(404).send({ message: "Invalid username" });

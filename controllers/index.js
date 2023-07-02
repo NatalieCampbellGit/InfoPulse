@@ -8,7 +8,7 @@ router.use("/api", apiRoutes);
 
 // add default 404 route for completeness
 router.use((req, res) => {
-  res.status(404).render("error-404", {});
+  res.status(404).render("error-404", { loggedIn: req.session.loggedIn });
 });
 
 module.exports = router;

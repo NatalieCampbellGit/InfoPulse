@@ -16,7 +16,7 @@ router.post("/html", withAuth, async (req, res) => {
     html = sanitizeHTML(html);
     if (addCustomHTMLTags) {
       html = await addInlineCSSTags(html);
-      html = `<div class="markdown text-pulse-grey-dark">${html}</div>`;
+      html = `<div class="markdown text-pulse-bluegrey-900">${html}</div>`;
     }
     res.status(200).json({ html });
   } catch (error) {

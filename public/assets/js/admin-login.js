@@ -5,7 +5,7 @@
 const loginFormHandler = async (event) => {
   event.preventDefault();
   // avoid double click
-  document.getElementById("admin-login-button").disabled = true;
+  document.getElementById("login-button").disabled = true;
 
   const username = document.querySelector("#username").value.trim();
   const password = document.querySelector("#password").value.trim();
@@ -37,5 +37,10 @@ document
   });
 
 document
-  .getElementById("admin-login-button")
+  .getElementById("login-button")
   .addEventListener("click", loginFormHandler);
+
+// cancel button
+document.getElementById("home-button").addEventListener("click", () => {
+  document.location.replace("/");
+});

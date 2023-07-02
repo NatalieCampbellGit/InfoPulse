@@ -10,6 +10,25 @@ const viewHTMLModal = document.getElementById("view-html-modal");
 const adminCategoriesButton = document.getElementById("category-admin");
 
 let selectedTemplateId = 0;
+updateButtons();
+
+function updateButtons() {
+  if (selectedTemplateId > 0) {
+    viewButton.disabled = false;
+    editButton.disabled = false;
+    deleteButton.disabled = false;
+    viewButton.classList.remove("hidden");
+    editButton.classList.remove("hidden");
+    deleteButton.classList.remove("hidden");
+  } else {
+    viewButton.disabled = true;
+    editButton.disabled = true;
+    deleteButton.disabled = true;
+    viewButton.classList.add("hidden");
+    editButton.classList.add("hidden");
+    deleteButton.classList.add("hidden");
+  }
+}
 
 // handle admin categories button click
 adminCategoriesButton.addEventListener("click", (event) => {
@@ -34,32 +53,42 @@ function markTemplateAsSelected(event) {
   for (let i = 0; i < templateList.length; i++) {
     const id = templateList[i].dataset.id;
     if (id === templateId) {
-      templateList[i].classList.add("bg-pulse-lt-blue-400");
+      templateList[i].classList.add("bg-pulse-bluegrey-300");
       templateList[i].classList.add("text-white");
-      templateList[i].classList.remove("bg-pulse-lt-blue-100");
+      templateList[i].classList.remove("bg-pulse-bluegrey-100");
       templateList[i].classList.remove("text-pulse-blue-700");
       // set the module variable to the selected template's id
       selectedTemplateId = templateId;
+
       addTemplateIDToDataStore(templateId);
     } else {
-      templateList[i].classList.add("bg-pulse-lt-blue-100");
+      templateList[i].classList.add("bg-pulse-bluegrey-100");
       templateList[i].classList.add("text-pulse-blue-700");
-      templateList[i].classList.remove("bg-pulse-lt-blue-400");
+      templateList[i].classList.remove("bg-pulse-bluegrey-300");
       templateList[i].classList.remove("text-white");
     }
   }
+  updateButtons();
 }
 
 searchButton.addEventListener("click", async (event) => {
   event.preventDefault();
+  searchButton.disabled = true;
   await searchForTemplates();
+  searchButton.disabled = false;
 });
 
 async function searchForTemplates() {
+  // clear the selected template id
+  selectedTemplateId = 0;
+  // update the UI
+  updateButtons();
+
   const categoryID = document.getElementById("search-category").value;
   const searchText = document.getElementById("search-title-text").value;
   const searchMarkdown = document.getElementById("search-markdown-text").value;
   const returnFormat = "html"; // ask for html format
+  selectedTemplateId = 0;
 
   if (categoryID >= 0 || searchText.length > 2 || searchMarkdown.length > 2) {
     searchResults.innerHTML = "";
@@ -90,7 +119,8 @@ async function searchForTemplates() {
       searchResults.innerHTML = htmlFormat;
     } else {
       searchResults.innerHTML = "";
-      alert("Error searching for templates");
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Error searching for templates");
     }
     // add back the event handlers to the template list items
     addEventHandlersToTemplateList();
@@ -106,7 +136,8 @@ viewButton.addEventListener("click", async (event) => {
     try {
       response = await fetch(`/api/templates/formatted/${selectedTemplateId}`);
       if (!response.ok) {
-        alert("Error getting formatted template");
+        // eslint-disable-next-line no-undef
+        alertModal("InfoPulse Alert", "Error getting formatted template");
         return;
       }
       const htmlFormat = await response.text();
@@ -148,11 +179,14 @@ newButton.addEventListener("click", (event) => {
 // when the user clicks the Delete button, confirm that they want to delete the template
 deleteButton.addEventListener("click", async (event) => {
   event.preventDefault();
+  deleteButton.disabled = true;
   if (selectedTemplateId > 0) {
-    const confirmDelete = confirm(
+    // eslint-disable-next-line no-undef
+    const confirmation = await confirmModal(
+      "Delete Template?",
       "Are you sure you want to delete this template?"
     );
-    if (confirmDelete) {
+    if (confirmation) {
       // send a delete request to the server. If successful, reload the page
       let response;
       try {
@@ -164,10 +198,12 @@ deleteButton.addEventListener("click", async (event) => {
         }
       } catch (error) {
         console.log(error);
-        alert("Error deleting template");
+        // eslint-disable-next-line no-undef
+        alertModal("InfoPulse Alert", "Error deleting template");
       }
     }
   }
+  deleteButton.disabled = false;
 });
 
 function addTemplateIDToDataStore(id) {

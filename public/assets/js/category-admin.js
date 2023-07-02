@@ -15,7 +15,8 @@ idField.addEventListener("change", async (event) => {
 
 async function getCategory(id) {
   if (!id) {
-    alert("Missing category id");
+    // eslint-disable-next-line no-undef
+    alertModal("InfoPulse Alert", "Missing category id");
     return;
   }
   id = parseInt(id);
@@ -40,7 +41,11 @@ async function getCategory(id) {
     const response = await fetch(`/api/categories/${id}`);
     if (!response.ok) {
       const responseJson = await response.json();
-      alert("Error getting category " + responseJson.message);
+      // eslint-disable-next-line no-undef
+      alertModal(
+        "InfoPulse Alert",
+        "Error getting category " + responseJson.message
+      );
       return;
     }
     const category = await response.json();
@@ -48,7 +53,8 @@ async function getCategory(id) {
     descriptionField.value = category.description;
   } catch (error) {
     console.error(error);
-    alert("Error getting category " + error);
+    // eslint-disable-next-line no-undef
+    alertModal("InfoPulse Alert", "Error getting category " + error);
   }
 }
 
@@ -63,7 +69,8 @@ document
     };
     // validate
     if (!categoryData.title || !categoryData.description) {
-      alert("Missing required fields");
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Missing required fields");
       return;
     }
     try {
@@ -74,14 +81,19 @@ document
       });
       if (!response.ok) {
         const responseJson = await response.json();
-        alert("Error creating category " + responseJson.message);
+        // eslint-disable-next-line no-undef
+        alertModal(
+          "InfoPulse Alert",
+          "Error creating category " + responseJson.message
+        );
         return;
       }
       // refill the select list
       loadCategories();
     } catch (error) {
       console.error(error);
-      alert("Error creating category " + error);
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Error creating category " + error);
     }
   });
 
@@ -96,17 +108,20 @@ document
     };
     // validate
     if (!categoryData.title || !categoryData.description) {
-      alert("Missing required fields");
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Missing required fields");
       return;
     }
     let id = idField.value;
     if (!id) {
-      alert("Missing category id");
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Missing category id");
       return;
     }
     id = parseInt(id);
     if (id < 1) {
-      alert("Invalid category id");
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Invalid category id");
       return;
     }
 
@@ -118,15 +133,24 @@ document
       });
       if (!response.ok) {
         const responseJson = await response.json();
-        alert("Error updating category " + responseJson.message);
+        // eslint-disable-next-line no-undef
+        alertModal(
+          "InfoPulse Alert",
+          "Error updating category " + responseJson.message
+        );
         return;
       }
       const updatedCategory = await response.json();
       loadCategories();
-      alert("Category updated " + JSON.stringify(updatedCategory));
+      // eslint-disable-next-line no-undef
+      alertModal(
+        "InfoPulse Alert",
+        "Category updated " + JSON.stringify(updatedCategory)
+      );
     } catch (error) {
       console.error(error);
-      alert("Error updating category " + error);
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Error updating category " + error);
     }
   });
 
@@ -138,17 +162,20 @@ document
     let categoryId = idField.value;
     // validate
     if (!categoryId) {
-      alert("Missing category id");
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Missing category id");
       return;
     }
     if (Number.isNaN(parseInt(categoryId))) {
-      alert("Category id is not a number");
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Category id is not a number");
       return;
     }
     categoryId = parseInt(categoryId);
 
     if (categoryId < 1) {
-      alert("Invalid category id");
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Invalid category id");
       return;
     }
     // make sure there are no templates using this category
@@ -159,7 +186,9 @@ document
       });
       if (!response.ok) {
         const responseJson = await response.json();
-        alert(
+        // eslint-disable-next-line no-undef
+        alertModal(
+          "InfoPulse Alert",
           "Error getting templates for the category" + responseJson.message
         );
         return;
@@ -170,7 +199,9 @@ document
         for (let i = 0; i < templates.length; i++) {
           templateList += templates[i].title + "\n";
         }
-        alert(
+        // eslint-disable-next-line no-undef
+        alertModal(
+          "InfoPulse Alert",
           "You cannot delete this category as the following templates are using this category:\n" +
             templateList
         );
@@ -178,11 +209,25 @@ document
       }
     } catch (error) {
       console.error(error);
-      alert("Error getting templates for the category" + error);
+      // eslint-disable-next-line no-undef
+      alertModal(
+        "InfoPulse Alert",
+        "Error getting templates for the category" + error
+      );
     }
 
     // confirm delete
-    if (!confirm("Are you sure you want to delete this category?")) {
+    try {
+      // eslint-disable-next-line no-undef
+      const confirmation = await confirmModal(
+        "Delete this category?",
+        "Are you sure you want to delete this category?"
+      );
+      if (!confirmation) {
+        return;
+      }
+    } catch (error) {
+      console.error(error);
       return;
     }
 
@@ -193,14 +238,20 @@ document
       });
       if (!response.ok) {
         const responseJson = await response.json();
-        alert("Error deleting category " + responseJson.message);
+        // eslint-disable-next-line no-undef
+        alertModal(
+          "InfoPulse Alert",
+          "Error deleting category " + responseJson.message
+        );
         return;
       }
       loadCategories();
-      alert("Category deleted");
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Category deleted");
     } catch (error) {
       console.error(error);
-      alert("Error deleting category " + error);
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Error deleting category " + error);
     }
   });
 
@@ -213,7 +264,11 @@ async function loadCategories() {
     });
     if (!response.ok) {
       const responseJson = await response.json();
-      alert("Error getting categories " + responseJson.message);
+      // eslint-disable-next-line no-undef
+      alertModal(
+        "InfoPulse Alert",
+        "Error getting categories " + responseJson.message
+      );
       return;
     }
 
@@ -232,7 +287,8 @@ async function loadCategories() {
     }
   } catch (error) {
     console.error(error);
-    alert("Error getting categories " + error);
+    // eslint-disable-next-line no-undef
+    alertModal("InfoPulse Alert", "Error getting categories " + error);
   }
 }
 

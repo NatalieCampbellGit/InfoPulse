@@ -8,7 +8,9 @@ const signupFormHandler = async (event) => {
   // TODO add other form validation here
   const username = document.querySelector("#req-username").value.trim();
   const password = document.querySelector("#req-password").value.trim();
-  const confirmPassword = document.querySelector("#confirmPassword").value.trim();
+  const confirmPassword = document
+    .querySelector("#confirmPassword")
+    .value.trim();
   const email = document.querySelector("#email").value.trim();
   const authentication_code = document.querySelector("#otp").value.trim();
 
@@ -20,7 +22,7 @@ const signupFormHandler = async (event) => {
       return;
     }
 
-    if (username == "" || username == null) {
+    if  (username == "" || username == null)  {
       // eslint-disable-next-line no-undef
       alertModal("Please enter a username");
       return;
@@ -64,3 +66,8 @@ const signupFormHandler = async (event) => {
 document
   .getElementById("signup-button")
   .addEventListener("click", signupFormHandler);
+
+// cancel button
+document.getElementById("home-button").addEventListener("click", () => {
+  document.location.replace("/");
+});

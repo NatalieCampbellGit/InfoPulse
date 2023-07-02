@@ -20,7 +20,7 @@ const loginFormHandler = async (event) => {
     const data = await response.json();
 
     if (response.ok) {
-      document.location.replace("/user");
+      document.location.replace("/userdashboard");
     } else {
       // eslint-disable-next-line no-undef
       alertModal("Login failed", data.message);
@@ -31,3 +31,8 @@ const loginFormHandler = async (event) => {
 document
   .getElementById("login-button")
   .addEventListener("click", loginFormHandler);
+
+// cancel button
+document.getElementById("home-button").addEventListener("click", () => {
+  document.location.replace("/");
+});

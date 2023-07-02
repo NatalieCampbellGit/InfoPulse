@@ -1,55 +1,54 @@
 <!-- Login Form -->
-<div class="container mt-2">
-  <div class="row d-flex justify-content-center">
-    <div class="col-lg-6">
-      <div class="card">
-        <div class="card-header bg-primary-subtle">
-          <h3 class="card-title text-dark">Login</h3>
-        </div>
-        <div class="card-body">
-          <form id="login-form">
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input
-                type="text"
-                class="form-control"
-                id="username"
-                name="username"
-                autocomplete="username"
-              />
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                autocomplete="current-password"
-              />
-            </div>
-            <button
-              type="submit"
-              id="login-button"
-              class="btn btn-primary mt-1"
-            >Login</button>
-          </form>
-        </div>
-         <button
-              type="home"
-              id="login-button"
-              class="btn btn-primary mt-1"
-              href="/"
-            >Home</button>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Don't have an account?
-            <a href="/signup">Sign up instead</a></small>
+<div class="container mx-auto mt-8">
+  <div class="flex justify-center">
+    <div class="w-full lg:w-1/2">
+      <div class="bg-white shadow-lg rounded-lg">
+
+        {{#ifeq currentPage 'login-main'}}
+        <div class="bg-pulse-bluegrey-500 p-5  flex justify-between">
+          <h3 class="text-white text-xl">Client Login</h3>
+          <a href="/signup"
+            class="bg-pulse-bluegrey-500 hover:bg-pulse-bluegrey-700 border-2 border-white text-sm text-center text-white m-0 w-auto px-2 py-1 rounded inline-block">Have
+            a
+            passcode?</a>
+          {{else}}
+          <div class="bg-pulse-green-500 p-5">
+            <h3 class="text-white text-xl">Administrator Login</h3>
+            {{/ifeq}}
+          </div>
+          <div class="py-2 px-5">
+            <form id="login-form">
+              <div class="mb-4">
+                <label for="username" class="block text-pulse-bluegrey-900">Username or email</label>
+                <input type="text" class="form-input mt-1 block w-full" id="username" name="username"
+                  autocomplete="username" />
+              </div>
+              <div class="mb-4">
+                <label for="password" class="block text-pulse-bluegrey-900">Password</label>
+                <input type="password" class="form-input mt-1 block w-full" id="password" name="password"
+                  autocomplete="current-password" />
+              </div>
+              <div class="flex flex-row justify-between">
+                <button type="submit" id="login-button"
+                  class="bg-pulse-bluegrey-500 text-white mt-1 w-1/4 py-2 rounded">Login</button>
+                <button type="button" id="home-button" class="bg-pulse-bluegrey-500 text-white mt-1 w-1/4 py-2 rounded"
+                  href="/">Cancel</button>
+              </div>
+            </form>
+          </div>
+          <div class="bg-pulse-bluegrey-50 px-5 py-2 flex flex-row justify-between ">
+            {{#ifeq currentPage 'login-main'}}
+            <small class="text-pulse-bluegrey-600">Don't have an account?
+              <a href="/signup" class="text-pulse-bluegrey-500">Sign up instead</a></small>
+            <small class="text-pulse-bluegrey-600">Administrator?
+              <a href="/login-admin" class="text-pulse-bluegrey-500" id="admin-login-button">Admin login</a></small>
+            {{else}}
+            <small class="text-pulse-bluegrey-600">Are you a client?
+              <a href="/login-main" class="text-pulse-bluegrey-500" id="user-login-button">Client login
+                instead</a></small>
+            {{/ifeq}}
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<!-- login script -->
-<script src="../public/assets/js/login.js"></script>

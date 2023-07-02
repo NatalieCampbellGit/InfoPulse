@@ -148,6 +148,9 @@ router.get("/new", withAdminAuth, async (req, res) => {
       markdown: "",
       description: "",
       category_id: 0,
+      loggedIn: req.session.loggedIn,
+      isUser: req.session.userRole === "user",
+      pageTitle: "Create New Template",
     };
     res.render("template-edit", templateData);
   } catch (error) {
@@ -185,6 +188,9 @@ router.get("/edit", withAdminAuth, async (req, res) => {
       returnPath = "/admin";
     }
     templateData.returnPath = returnPath;
+    templateData.loggedIn = req.session.loggedIn;
+    templateData.isUser = req.session.userRole === "user";
+    templateData.pageTitle = "Edit Template";
 
     console.log(templateData);
     res.render("template-edit", templateData);
@@ -215,7 +221,7 @@ router.get("/formatted/:id", withAuth, async (req, res) => {
   let html = templateData.html;
   html = sanitizeHTML(html);
   html = await addInlineCSSTags(html);
-  html = `<div class="markdown text-pulse-grey-dark">${html}</div>`;
+  html = `<div class="markdown text-pulse-bluegrey-900">${html}</div>`;
 
   res.status(200).send(html);
 });

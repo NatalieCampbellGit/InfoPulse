@@ -1,22 +1,22 @@
 <div>
-    <h2 class="text-base text-pulse-lt-blue-500 font-bold mb-0">Select User:</h2>
+    <h2 class="text-base text-pulse-bluegrey-600 font-bold mb-0">Select User:</h2>
     <div class="space-y-4">
         <div class="flex justify-between">
             <input id="user-search-text" type="text" placeholder="Enter name"
-                class="w-2/3 px-2 py-1 border-2 border-pulse-green-300 rounded">
+                class="w-2/3 px-2 py-1 border-2 border-pulse-bluegrey-300 rounded">
             <button id="user-search-button"
-                class="w-1/4 bg-pulse-green-500 hover:bg-pulse-green-700 text-white rounded px-3 py-1 mt-0 mb-0">Search</button>
+                class="w-1/4 bg-pulse-blue-500 hover:bg-pulse-blue-700 text-white rounded px-3 py-1 mt-0 mb-0">Search</button>
         </div>
 
-        <div class="h-56 mt-0 overflow-y-auto border-2 bg-white border-pulse-green-300 p-1 rounded"
+        <div class="h-56 mt-0 overflow-y-auto border-2 bg-white border-pulse-bluegrey-300 p-1 rounded"
             id="user-search-results">
             <!-- Iterate over the users and create an entry for each one -->
             <!-- ... -->
         </div>
 
         <div class="my-0 py-0">
-            <p class="my-0 py-0 text-pulse-lt-blue-500 text-sm">User's factsheets and comments:</p>
-            <div class="mt-0 p-1 h-64 overflow-y-auto border-2 bg-white border-pulse-green-300 rounded"
+            <p class="my-0 py-0 text-pulse-bluegrey-600 text-sm">User's factsheets and comments:</p>
+            <div class="mt-0 p-1 h-64 overflow-y-auto border-2 bg-white border-pulse-bluegrey-300 rounded"
                 id="user-factsheets">
                 <!-- Iterate over the selected user's factsheets and create an entry for each one -->
                 <!-- ... -->
@@ -24,11 +24,12 @@
         </div>
         <div class="flex flex-grow h-10 space-x-4">
             <button id="factsheet-add"
-                class="hidden w-auto bg-pulse-lt-blue-500 hover:bg-pulse-lt-blue-700 text-white rounded p-2">Link</button>
+                class="hidden w-auto rounded bg-pulse-blue-500 hover:bg-pulse-blue-700 px-3 py-1 text-white">Link
+                Template</button>
             <button id="factsheet-personalise"
-                class="hidden w-auto bg-pulse-green-500 hover:bg-pulse-green-700 text-white rounded p-2">Personalise</button>
+                class="hidden w-auto rounded bg-pulse-blue-500 hover:bg-pulse-blue-700 px-3 py-1 text-white">Personalise...</button>
             <button id="factsheet-remove"
-                class=" hidden w-auto bg-red-500 hover:bg-red-700 text-white rounded p-2">Remove</button>
+                class=" hidden w-auto rounded px-3 py-1 text-white bg-red-500 hover:bg-red-700 ">Remove</button>
         </div>
     </div>
 </div>

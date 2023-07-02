@@ -100,7 +100,11 @@ document
     }
     // validate
     if (!imageId || Number.isNaN(parseInt(imageId)) || !classCSSName) {
-      alert("Please select an image and a style css class for the image.");
+      // eslint-disable-next-line no-undef
+      alertModal(
+        "InfoPulse Alert",
+        "Please select an image and a style css class for the image."
+      );
       return;
     }
     // construct proper html img tag to allow use of css class
@@ -141,17 +145,20 @@ document
 
     // basic validation
     if (!file) {
-      alert("Please select a file.");
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Please select a file.");
       return;
     }
 
     if (!title) {
-      alert("Please enter a title.");
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Please enter a title.");
       return;
     }
 
     if (!description) {
-      alert("Please enter a description.");
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Please enter a description.");
       return;
     }
 
@@ -172,13 +179,15 @@ document
       // check if the request was successful
       if (!response.ok) {
         // get the response body
-        alert("error! " + returnedData.message);
+        // eslint-disable-next-line no-undef
+        alertModal("InfoPulse Alert", "error! " + returnedData.message);
         return;
       }
 
       const imageId = returnedData.id;
       if (!imageId || Number.isNaN(parseInt(imageId))) {
-        alert("error! " + returnedData.message);
+        // eslint-disable-next-line no-undef
+        alertModal("InfoPulse Alert", "error! " + returnedData.message);
         return;
       }
       // reload the images into the select
@@ -193,7 +202,8 @@ document
       document.getElementById("upload-image-modal").style.display = "none";
     } catch (error) {
       console.error("An error occurred while uploading the image:", error);
-      alert(error.message);
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", error.message);
     }
   });
 
@@ -238,7 +248,8 @@ document
     const url = document.getElementById("url-hyperlink").value.trim();
     // validate data
     if (!title || !url) {
-      alert("Please enter a title and a url.");
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "Please enter a title and a url.");
       return;
     }
     // construct the markdown
@@ -353,7 +364,8 @@ async function showPreview() {
       // check if the request was successful
       if (!response.ok) {
         // get the response body
-        alert("error! " + returnedData.message);
+        // eslint-disable-next-line no-undef
+        alertModal("InfoPulse Alert", "error! " + returnedData.message);
         return;
       }
 
@@ -368,7 +380,8 @@ async function showPreview() {
         "An error occurred while converting markdown to HTML:",
         error
       );
-      alert(error.message);
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", error.message);
     }
   }
 }
@@ -611,11 +624,13 @@ async function getImages() {
     // check if the request was successful
     if (!response.ok) {
       // get the response body
-      alert("error! " + returnedData.message);
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "error! " + returnedData.message);
       return;
     }
   } catch (error) {
-    alert("error! " + error.message);
+    // eslint-disable-next-line no-undef
+    alertModal("InfoPulse Alert", "error! " + error.message);
     return;
   }
   return returnedData;
