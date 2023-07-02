@@ -123,6 +123,7 @@ router.put("/:id", withAdminAuth, async (req, res) => {
           where: {
             id: template_id,
           },
+          individualHooks: true,
         }
       );
       res.status(200).json(updatedTemplate);
@@ -192,7 +193,7 @@ router.get("/edit", withAdminAuth, async (req, res) => {
     templateData.isUser = req.session.userRole === "user";
     templateData.pageTitle = "Edit Template";
 
-    console.log(templateData);
+    // console.log(templateData);
     res.render("template-edit", templateData);
   } catch (error) {
     console.log(error);

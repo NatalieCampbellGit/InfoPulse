@@ -5,7 +5,6 @@ const descriptionField = document.getElementById("categoryDescription");
 // handle select event
 idField.addEventListener("change", async (event) => {
   event.preventDefault();
-  console.log("idField change event");
 
   const categoryID = idField.value;
   if (categoryID) {

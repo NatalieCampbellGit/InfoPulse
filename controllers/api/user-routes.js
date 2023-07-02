@@ -68,13 +68,13 @@ router.post("/login", async (req, res) => {
   const username = req.body.username.trim();
   const password = req.body.password.trim();
 
-  console.log(username, password);
+  // console.log(username, password);
 
   if (req.session.loggedIn) {
     res
       .status(200)
       .send({ message: "User already logged in" })
-      .redirect("/user");
+      .redirect("/userdashboard");
     return;
   }
 
@@ -97,7 +97,7 @@ router.post("/login", async (req, res) => {
       },
     });
     if (!userData) {
-      console.log(userData);
+      // console.log(userData);
       res
         .status(400)
         .json({ message: "Incorrect username or password. Please try again!" });
@@ -118,11 +118,10 @@ router.post("/login", async (req, res) => {
       req.session.user_id = userData.id;
       req.session.username = userData.username;
       req.session.userRole = "user";
-      // ! etcetera
-      res
-        .status(200)
-        .json({ user: userData, message: "You are now logged in!" });
+          res.status(200).json({ user: userData, message: "You are now logged in!" });
     });
+    // ! etcetera
+
   } catch (error) {
     console.log(error);
     res.status(500).json({ error, message: "Error logging in" });
@@ -131,7 +130,7 @@ router.post("/login", async (req, res) => {
 
 // route a for a search on the users model using either an id or text search
 router.post("/search", withAuth, async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   let { id, searchTerm, returnFormat } = req.body;
 
   // validate the search criteria
@@ -224,61 +223,79 @@ router.post("/search", withAuth, async (req, res) => {
   }
 });
 
-
 // maybe add a first login route to handle the first login with the authentication_code
 // the user will use the authentication_code to create their own username and password
 router.put("/register", async (req, res) => {
-  // ! may need to change the req.body for auth code. 
-    try {
-      const authentication_code =  req.body.authentication_code;
-      const email = req.body.email;
-      const username = req.body.username;
-      const password = req.body.password
-      const confirmPassword = req.body.confirmPassword
-      
-      if (password !== confirmPassword) {
-        res.status(400).json({ message: "Passwords do not match" });
-        return;
-      }
-     
+  // ! may need to change the req.body for auth code.
+  try {
+    const authentication_code = req.body.authentication_code;
+    const email = req.body.email;
+    const username = req.body.username;
+    const password = req.body.password;
+    const confirmPassword = req.body.confirmPassword;
 
-      const updatedUserData = await User.update( 
-
-        {
-          username: username,
-          password: password,
-        },
-        {
-        where: { [Op.and]:
-         { email: { [Op.eq]: email }, authentication_code: { [Op.eq]: authentication_code } }
-        }
-      }
-      );
-        
-
-        if(!updatedUserData){
-          res.status(400).json({ message: "No user data found" });
-        }
-      
-
-      if (updatedUserData.username[0] === 0 || updatedUserData.password[0] === 0) {
-        res.status(400).json({ message: "Error updating user data" });
-        return;
-      }
-      if (updatedUserData.username[0] === 1 && updatedUserData.password[0] === 1) {
-        res
-        .status(200)
-        .json({ message: "User account updated" })
-        .redirect("/user");
-        return;
-      }
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ error, message: "Error registering user" });
+    if (password !== confirmPassword) {
+      res.status(400).json({ message: "Passwords do not match" });
+      return;
     }
-  });
 
+    const updatedUserData = await User.update(
+      {
+        username,
+        password,
+      },
+      {
+        where: {
+          [Op.and]: {
+            email: { [Op.eq]: email },
+            authentication_code: { [Op.eq]: authentication_code },
+          },
+        },
+        individualHooks: true,
+      }
+    );
 
-       
+    if (!updatedUserData) {
+      res.status(400).json({ message: "No user data found" });
+      return
+    }
+    if (updatedUserData[0] === 0) {
+      res.status(400).json({ message: "No user data found" });
+      return
+    }
+    
+    // find the user id
+    const findUserData = await User.findOne(
+      {
+        where: {
+          [Op.and]: {
+            email: { [Op.eq]: email },
+            authentication_code: { [Op.eq]: authentication_code },
+          },
+        },
+      }
+    );
+
+    if (!findUserData) {
+      res.status(400).json({ message: "No user data found" });
+      return
+    }
+
+    const userData = findUserData.get({ plain: true });
+
+    req.session.save(() => {
+      req.session.loggedIn = true;
+      req.session.user_id = userData.id;
+      req.session.username = userData.username;
+      req.session.userRole = "user";
+      res.status(200).json({ message: "User successfully registered" });
+    });
+
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error, message: "Error registering user" });
+  }
+});
 
 module.exports = router;

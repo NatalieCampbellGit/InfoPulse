@@ -97,7 +97,6 @@ async function addInlineCSSTags(html) {
         html = html.replaceAll(tag.toUpperCase(), newTag);
       }
     });
-    console.log(html);
     return html;
   } catch (error) {
     console.error(error);

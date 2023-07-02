@@ -9,7 +9,6 @@ class User extends Model {
 
   validateName(name) {
     const allowedChars = /^[A-Za-z]+$/;
-
     if (allowedChars.test(name) === false) {
       return false;
     } else if (name < 0 || name > 40) {
@@ -88,7 +87,7 @@ User.init(
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
-        len: [1, 64],
+        len: [0, 64],
       },
     },
     authentication_code: {
@@ -109,7 +108,6 @@ User.init(
       beforeCreate: async (newUserData) => {
         newUserData.password = await bcrypt.hash(newUserData.password, 10);
         newUserData.email = newUserData.email.toLowerCase();
-        console.log(newUserData)
         return newUserData;
       },
       beforeUpdate: async (updatedUserData) => {
@@ -118,7 +116,6 @@ User.init(
           10
         );
         updatedUserData.email = updatedUserData.email.toLowerCase();
-        console.log(updatedUserData)
         return updatedUserData;
       },
     },
