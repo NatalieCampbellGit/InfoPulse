@@ -68,8 +68,6 @@ router.post("/login", async (req, res) => {
   const username = req.body.username.trim();
   const password = req.body.password.trim();
 
-  // console.log(username, password);
-
   if (req.session.loggedIn) {
     res
       .status(200)
@@ -131,7 +129,6 @@ router.post("/login", async (req, res) => {
 
 // route a for a search on the users model using either an id or text search
 router.post("/search", withAuth, async (req, res) => {
-  // console.log(req.body);
   let { id, searchTerm, returnFormat } = req.body;
 
   // validate the search criteria

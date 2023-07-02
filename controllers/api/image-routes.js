@@ -97,9 +97,7 @@ router.post("/", withAuth, upload.single("image"), async function (req, res) {
         const metaData = await sharp(image).metadata();
         width = metaData.width;
         height = metaData.height;
-      } catch (error) {
-        // console.log("Couldn't rescale the image" + error.message);
-      }
+      } catch (error) {}
     }
 
     const title = req.body.title;
@@ -122,7 +120,6 @@ router.post("/", withAuth, upload.single("image"), async function (req, res) {
         id: savedImage.id,
       });
     } else {
-      // console.log("An error occurred while uploading image");
       res
         .status(500)
         .json({ message: "An error occurred while saving the image" });

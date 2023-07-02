@@ -17,7 +17,7 @@ router.post("/", withUserAuth, async (req, res) => {
       res.status(404).json({ message: "User Comment not created" });
       return;
     }
-    // console.log(response);
+
     const newUserComment = response.get({ plain: true });
     res.status(200).json(newUserComment);
   } catch (error) {
@@ -68,6 +68,11 @@ router.put("/:id", withUserAuth, async (req, res) => {
       res.status(404).json({ message: "User comment not updated" });
       return;
     }
+    if (response[0] === 0) {
+      res.status(404).json({ message: "User comment not found" });
+      return;
+    }
+
     // returns the id of the updated userComment
 
     res.status(200).json({ message: "User comment updated" });

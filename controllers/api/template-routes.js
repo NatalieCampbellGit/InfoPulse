@@ -126,6 +126,14 @@ router.put("/:id", withAdminAuth, async (req, res) => {
           individualHooks: true,
         }
       );
+      if (!updatedTemplate) {
+        res.status(404).json({ message: "Template not found" });
+        return;
+      }
+      if (updatedTemplate[0] === 0) {
+        res.status(404).json({ message: "Template not found" });
+        return;
+      }
       res.status(200).json(updatedTemplate);
     } catch (error) {
       console.log(error);
@@ -193,7 +201,6 @@ router.get("/edit", withAdminAuth, async (req, res) => {
     templateData.isUser = req.session.userRole === "user";
     templateData.pageTitle = "Edit Template";
 
-    // console.log(templateData);
     res.render("template-edit", templateData);
   } catch (error) {
     console.log(error);

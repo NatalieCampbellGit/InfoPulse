@@ -254,7 +254,7 @@ function markFactsheetAsSelected(event) {
 function showSelectedInformation() {
   commentDeleteButton.classList.add("hidden");
   commentEditButton.classList.add("hidden");
-  
+
   // find all the factsheet divs
   const factsheetDivs = document.querySelectorAll(".factsheet-html");
   // loop through the divs
@@ -326,7 +326,7 @@ function displayHTMLInNewTab() {
     }
     htmlString = `<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" 
     content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Factsheet</title> </head> <body style="font-family: sans-serif;"> ${htmlString} </body> </html>`
+    <title>Factsheet</title> </head> <body style="font-family: sans-serif;"> ${htmlString} </body> </html>`;
 
     const newWindow = window.open("", "_blank");
     newWindow.document.write(htmlString);

@@ -26,3 +26,20 @@ async function toggleRegister() {
     alert("Error getting authcode " + error);
   }
 }
+
+// copy code to clipboard
+document.getElementById("clipboard-code").addEventListener("click", () => {
+  const authCodeString = document.getElementById("authcode").textContent;
+  navigator.clipboard
+    .writeText(authCodeString)
+    .then(() => {
+      // eslint-disable-next-line no-undef
+      alertModal(
+        "Copied to Clipboard",
+        "The User's authentication code has been copied to the clipboard"
+      );
+    })
+    .catch((error) => {
+      console.error("Error occurred while copying text: ", error);
+    });
+});

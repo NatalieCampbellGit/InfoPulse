@@ -287,7 +287,6 @@ router.get("/userdashboard", withUserAuth, async (req, res) => {
     }
     userDashboardData.loggedIn = req.session.loggedIn;
     userDashboardData.isUser = req.session.userRole === "user";
-    console.log(userDashboardData);
 
     userDashboardData.pageTitle =
       userDashboardData.username + " - Your Dashboard";

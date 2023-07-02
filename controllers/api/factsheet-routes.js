@@ -168,12 +168,20 @@ router.put("/custom_markdown/:id", withAuth, async (req, res) => {
   try {
     const updatedFactsheet = await Factsheet.update(
       { custom_markdown: markdown, administrator_id },
-      { where: { id: factsheet_id, individualHooks: true } }
+      {
+        where: { id: factsheet_id },
+        individualHooks: true,
+      }
     );
     if (!updatedFactsheet) {
       res.status(404).json({ message: "Factsheet not found" });
       return;
     }
+    if (updatedFactsheet[0] === 0) {
+      res.status(404).json({ message: "Factsheet not found" });
+      return;
+    }
+
     res.status(200).json({ message: "Factsheet updated" });
   } catch (error) {
     console.log(error);

@@ -112,7 +112,6 @@ router.post("/enrol", withAdminAuth, async (req, res) => {
 router.get("/authcode", async (req, res) => {
   try {
     const authcode = generatePassphrase();
-    // console.log(typeof authcode);
 
     if (authcode === "" || authcode === null || authcode === undefined) {
       res.status(400).json({ message: "Error generating authentication code" });

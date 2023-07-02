@@ -391,7 +391,6 @@ function showCorrectEditMenu(currentView) {
   const textEntryControl = document.getElementById("template-text");
   switch (currentView) {
     case EditorView.EDITING: // editing markdown
-      console.log("editing");
       hideMenu(editMenu, false);
       // hide the markdown button
       hideButton(editMenu, "md", true);
