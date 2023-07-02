@@ -22,7 +22,7 @@ const signupFormHandler = async (event) => {
       return;
     }
 
-    if (username == "" || username == null) {
+    if  (username == "" || username == null)  {
       // eslint-disable-next-line no-undef
       alertModal("Please enter a username");
       return;
@@ -44,8 +44,8 @@ const signupFormHandler = async (event) => {
     }
 
     const response = await fetch("/api/users/register", {
-      method: "POST",
-      body: JSON.stringify({ email, authentication_code }),
+      method: "PUT",
+      body: JSON.stringify({ email, authentication_code, username, password, confirmPassword }),
       headers: { "Content-Type": "application/json" },
     });
 

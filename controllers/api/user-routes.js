@@ -1,5 +1,5 @@
 // Purpose: user routes
-const { Op } = require("sequelize");
+const { sequelize, Op } = require("sequelize");
 const User = require("../../models/User");
 const { withAuth } = require("../../utils/auth");
 const router = require("express").Router();
@@ -71,7 +71,10 @@ router.post("/login", async (req, res) => {
   console.log(username, password);
 
   if (req.session.loggedIn) {
-    res.status(200).redirect("/user");
+    res
+      .status(200)
+      .send({ message: "User already logged in" })
+      .redirect("/user");
     return;
   }
 
@@ -221,7 +224,61 @@ router.post("/search", withAuth, async (req, res) => {
   }
 });
 
+
 // maybe add a first login route to handle the first login with the authentication_code
 // the user will use the authentication_code to create their own username and password
+router.put("/register", async (req, res) => {
+  // ! may need to change the req.body for auth code. 
+    try {
+      const authentication_code =  req.body.authentication_code;
+      const email = req.body.email;
+      const username = req.body.username;
+      const password = req.body.password
+      const confirmPassword = req.body.confirmPassword
+      
+      if (password !== confirmPassword) {
+        res.status(400).json({ message: "Passwords do not match" });
+        return;
+      }
+     
+
+      const updatedUserData = await User.update( 
+
+        {
+          username: username,
+          password: password,
+        },
+        {
+        where: { [Op.and]:
+         { email: { [Op.eq]: email }, authentication_code: { [Op.eq]: authentication_code } }
+        }
+      }
+      );
+        
+
+        if(!updatedUserData){
+          res.status(400).json({ message: "No user data found" });
+        }
+      
+
+      if (updatedUserData.username[0] === 0 || updatedUserData.password[0] === 0) {
+        res.status(400).json({ message: "Error updating user data" });
+        return;
+      }
+      if (updatedUserData.username[0] === 1 && updatedUserData.password[0] === 1) {
+        res
+        .status(200)
+        .json({ message: "User account updated" })
+        .redirect("/user");
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error, message: "Error registering user" });
+    }
+  });
+
+
+       
 
 module.exports = router;

@@ -109,6 +109,7 @@ User.init(
       beforeCreate: async (newUserData) => {
         newUserData.password = await bcrypt.hash(newUserData.password, 10);
         newUserData.email = newUserData.email.toLowerCase();
+        console.log(newUserData)
         return newUserData;
       },
       beforeUpdate: async (updatedUserData) => {
@@ -117,6 +118,7 @@ User.init(
           10
         );
         updatedUserData.email = updatedUserData.email.toLowerCase();
+        console.log(updatedUserData)
         return updatedUserData;
       },
     },
