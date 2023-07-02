@@ -1,5 +1,5 @@
 // Purpose: user routes
-const {sequelize, Op } = require("sequelize");
+const { sequelize, Op } = require("sequelize");
 const User = require("../../models/User");
 const Template = require("../../models/Template");
 const Category = require("../../models/Category");
@@ -67,28 +67,29 @@ router.post("/", async (req, res) => {
 // the user will use the username and password to log in from then on
 // so if the user has already created a username and password, then the authentication_code is unnecessary
 router.post("/login", async (req, res) => {
-
   const email = req.body.username.toLowerCase().trim();
   const username = req.body.username.toLowerCase().trim();
   const password = req.body.password.trim();
 
   console.log(username, password);
 
-  if(session.loggedIn){
-    res.status(200).send({message: "User already logged in"})
-    redirect("/user");
+  if (req.session.loggedIn) {
+    res
+      .status(200)
+      .send({ message: "User already logged in" })
+      .redirect("/user");
     return;
   }
   // validate username
-  if(username == "" || username == null){
-    res.status(404).send({message: "Invalid username"})
+  if (username == "" || username == null) {
+    res.status(404).send({ message: "Invalid username" });
     return;
-  };
+  }
 
-  if(username.length > 50 || username.length < 1 ){
-    res.status(404).send({message: "Invalid username"})
+  if (username.length > 50 || username.length < 1) {
+    res.status(404).send({ message: "Invalid username" });
     return;
-  };
+  }
 
   try {
     const userData = await User.findOne({
@@ -102,7 +103,7 @@ router.post("/login", async (req, res) => {
       res
         .status(400)
         .json({ message: "Incorrect username or password. Please try again!" });
-        
+
       return;
     }
     const validPassword = await userData.checkPassword(password);
@@ -112,9 +113,9 @@ router.post("/login", async (req, res) => {
         .json({ message: "Incorrect username or password. Please try again!" });
       return;
     }
-   
+
     // save session
-      req.session.save(() => {
+    req.session.save(() => {
       req.session.loggedIn = true;
       req.session.user_id = userData.id;
       req.session.username = userData.username;
@@ -225,7 +226,61 @@ router.post("/search", withAuth, async (req, res) => {
   }
 });
 
+
 // maybe add a first login route to handle the first login with the authentication_code
 // the user will use the authentication_code to create their own username and password
+router.put("/register", async (req, res) => {
+  // ! may need to change the req.body for auth code. 
+    try {
+      const authentication_code =  req.body.authentication_code;
+      const email = req.body.email;
+      const username = req.body.username;
+      const password = req.body.password
+      const confirmPassword = req.body.confirmPassword
+      
+      if (password !== confirmPassword) {
+        res.status(400).json({ message: "Passwords do not match" });
+        return;
+      }
+     
+
+      const updatedUserData = await User.update( 
+
+        {
+          username: username,
+          password: password,
+        },
+        {
+        where: { [Op.and]:
+         { email: { [Op.eq]: email }, authentication_code: { [Op.eq]: authentication_code } }
+        }
+      }
+      );
+        
+
+        if(!updatedUserData){
+          res.status(400).json({ message: "No user data found" });
+        }
+      
+
+      if (updatedUserData.username[0] === 0 || updatedUserData.password[0] === 0) {
+        res.status(400).json({ message: "Error updating user data" });
+        return;
+      }
+      if (updatedUserData.username[0] === 1 && updatedUserData.password[0] === 1) {
+        res
+        .status(200)
+        .json({ message: "User account updated" })
+        .redirect("/user");
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error, message: "Error registering user" });
+    }
+  });
+
+
+       
 
 module.exports = router;

@@ -68,7 +68,7 @@ router.get("/signup", (req, res) => {
   // if the user is already logged in, redirect to the homepage
   // ! this redirect is broken
   if (req.session.loggedIn) {
-    res.redirect("/");;
+    res.redirect("/");
     return;
   }
   // otherwise, render the signup template
