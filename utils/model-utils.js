@@ -209,14 +209,31 @@ async function getUserDashboardData(user_id) {
   if (!userData) {
     return null;
   }
+  userData.currentPage = "userDashboard";
 
   // convert the user's factsheet html to use inline styles
   userData.factsheets.forEach(async (factsheet) => {
     factsheet.custom_html = await addInlineCSSTags(factsheet.custom_html);
-    factsheet.custom_html = `<div class="markdown text-pulse-grey-dark">${factsheet.custom_html}</div>`;
+    factsheet.custom_html = `<div class="markdown text-pulse-bluegrey-900">${factsheet.custom_html}</div>`;
     factsheet.template.html = await addInlineCSSTags(factsheet.template.html);
-    factsheet.template.html = `<div class="markdown text-pulse-grey-dark">${factsheet.template.html}</div>`;
+    factsheet.template.html = `<div class="markdown text-pulse-bluegrey-900">${factsheet.template.html}</div>`;
+    const customMarkdown = factsheet.custom_markdown;
+    if (customMarkdown) {
+      if (customMarkdown.length > 0) {
+        factsheet.hasCustomMarkdown = true;
+      } else {
+        factsheet.hasCustomMarkdown = false;
+      }
+    } else {
+      factsheet.hasCustomMarkdown = false;
+    }
+    if (factsheet.usercomments.length > 0) {
+      factsheet.hasComments = true;
+    } else {
+      factsheet.hasComments = false;
+    }
   });
+
   return userData;
 }
 
@@ -242,6 +259,7 @@ async function getAdministratorDashboardData(administrator_id) {
       administrator,
       categories,
       templates,
+      currentPage: "adminDashboard",
     };
   } catch (error) {
     console.error(error);

@@ -1,6 +1,6 @@
 <!-- Sign Up Form -->
 
-
+{{!--
 <div class="container mt-2">
   <div class="row d-flex justify-content-center">
     <div class="col-lg-6">
@@ -9,77 +9,99 @@
           <h3 class="card-title">Sign Up</h3>
         </div>
         <form id="signup-form">
-      <div id="signup-form" class="card-body">
-          <div class="form-group">
-            <label for="username">One-time Passcode</label>
-            <input
-              type="text"
-              class="form-control"
-              id="otp"
-              name="otp"
-              autocomplete="off"
-            />
-        </div>
-        <div class="card-body">
+          <div id="signup-form" class="card-body">
             <div class="form-group">
-              <label for="username">Email</label>
-              <input
-                type="text"
-                class="form-control"
-                id="email"
-                name="email"
-                autocomplete="off"
-              />
-        </div>
-        <div class="card-body">
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input
-                type="text"
-                class="form-control"
-                id="req-username"
-                name="username"
-                autocomplete="off"
-              />
+              <label for="username">One-time Passcode</label>
+              <input type="text" class="form-control" id="otp" name="otp" autocomplete="off" />
             </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="req-password"
-                name="password"
-                autocomplete="off"
-              />
-             </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="username">Email</label>
+                <input type="text" class="form-control" id="email" name="email" autocomplete="off" />
+              </div>
               <div class="card-body">
-            <div class="form-group">
-              <label for="username">Confirm password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="confirmPassword"
-                name="confirmPassword"
-                autocomplete="off"
-              />
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" id="req-username" name="username" autocomplete="off" />
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="req-password" name="password" autocomplete="off" />
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="username">Confirm password</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                      autocomplete="off" />
+                  </div>
+                  <button type="button" id="signup-button" class="btn btn-success mt-1">Sign up</button>
+        </form>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">Already have an account?
+          <a href="/login-main">Login instead</a></small>
+      </div>
+    </div>
+  </div>
+</div> --}}
+
+<div class="container mx-auto mt-8">
+  <div class="flex justify-center">
+    <div class="w-full lg:w-1/2">
+      <div class="bg-white shadow-lg rounded-lg">
+        <div class="bg-pulse-bluegrey-500 p-5">
+          <h3 class="text-white text-xl">Use Your Passcode to Finish Your Sign Up</h3>
+        </div>
+        <div class="py-2 px-5 text-base">
+          <form id="signup-form">
+            <div class="my-2">
+              <label for="otp" class="block text-pulse-bluegrey-900">One-time Passcode:</label>
+              <input type="text" class="form-input px-2 py-1 mt-0 mb-0 block w-full" id="otp" name="otp"
+                autocomplete="off" />
             </div>
-            <button
-              type="button"
-              id="signup-button"
-              class="btn btn-success mt-1"
-            >Sign up</button>
+            <div class="my-2">
+              <label for="email" class="block text-pulse-bluegrey-900">Email:</label>
+              <input type="text" class="form-input px-2 py-1 mt-0 mb-0 block w-full" id="email" name="email"
+                autocomplete="off" />
+            </div>
+            <div class="my-2">
+              <label for="req-username" class="block text-pulse-bluegrey-900">Username:</label>
+              <input type="text" class="form-input px-2 py-1 mt-0 mb-0 block w-full" id="req-username" name="username"
+                autocomplete="off" />
+            </div>
+            <div class="my-2">
+              <label for="req-password" class="block text-pulse-bluegrey-900">Password:</label>
+              <input type="password" class="form-input px-2 py-1 mt-0 mb-0 block w-full" id="req-password"
+                name="password" autocomplete="off" />
+            </div>
+            <div class="my-2">
+              <label for="confirmPassword" class="block text-pulse-bluegrey-900">Confirm password:</label>
+              <input type="password" class="form-input px-2 py-1 mt-0 mb-0 block w-full" id="confirmPassword"
+                name="confirmPassword" autocomplete="off" />
+            </div>
+            <div class="flex flex-row justify-between">
+              <button type="submit" id="signup-button"
+                class="bg-pulse-bluegrey-500 text-white mt-1 w-1/4 py-2 rounded">Sign
+                Up</button>
+              <button type="button" id="home-button"
+                class="bg-pulse-bluegrey-500 text-white mt-1 w-1/4 py-2 rounded">Cancel</button>
+            </div>
           </form>
         </div>
-        <div class="card-footer">
-          <small class="text-muted">Already have an account?
-            <a href="/login">Login instead</a></small>
+        <div class="bg-pulse-bluegrey-50 px-5 py-2 flex flex-row justify-between ">
+          <small class="text-pulse-bluegrey-600">Already have an account?
+            <a href="/login-main" class="text-pulse-bluegrey-500">Login instead</a></small>
+          <small class="text-pulse-bluegrey-600">Administrator?
+            <a href="/login-admin" class="text-pulse-bluegrey-500" id="admin-login-button">Admin login</a></small>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-{{> login}}
+
 
 <!-- signup script -->
 <script src="/assets/js/signup.js"></script>
-<script src="/assets/js/login.js"></script>
+{{!--
+<script src="/assets/js/login.js"></script> --}}

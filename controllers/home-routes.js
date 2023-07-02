@@ -12,28 +12,46 @@ const {
 router.get("/login-main", (req, res) => {
   // if the user is already logged in, redirect to the homepage
   if (req.session.loggedIn) {
-    res.redirect("/");
+    if (req.session.userRole === "user") {
+      res.redirect("/userdashboard");
+    } else if (req.session.userRole === "admin") {
+      res.redirect("/admin");
+    }
     return;
   } // otherwise, render the login template
   res.render("login-main", {
     // send data to the template
+    currentPage: "login-main",
+    isUser: req.session.userRole === "user",
+    loggedIn: req.session.loggedIn,
+    pageTitle: "Client Login",
   });
 });
 
 // Display the admin-login page, or go to the admin dashboard if the administrator is already logged in
-router.get("/adminlogin", async (req, res) => {
+router.get("/login-admin", async (req, res) => {
   // if the user is already logged in, redirect to the admin dashboard
   if (req.session.loggedIn && req.session.userRole === "admin") {
     const administrator_id = req.session.user_id;
     if (!administrator_id || administrator_id === "" || administrator_id < 1) {
-      res.render("admin-login");
+      res.render("admin-login", {
+        currentPage: "admin-login",
+        loggedIn: req.session.loggedIn,
+        isUser: req.session.userRole === "user",
+        pageTitle: "Administrator Login",
+      });
       return;
     }
     const adminDashboardData = await getAdministratorDashboardData(
       administrator_id
     );
     if (!adminDashboardData) {
-      res.render("admin-login");
+      res.render("admin-login", {
+        currentPage: "admin-login",
+        loggedIn: req.session.loggedIn,
+        isUser: req.session.userRole === "user",
+        pageTitle: "Administrator Login",
+      });
       return;
     }
     res.redirect("/admin");
@@ -41,6 +59,10 @@ router.get("/adminlogin", async (req, res) => {
   }
   // otherwise, render the login template
   res.render("admin-login", {
+    currentPage: "admin-login",
+    loggedIn: req.session.loggedIn,
+    isUser: req.session.userRole === "user",
+    pageTitle: "Administrator Login",
     // send data to the template
   });
 });
@@ -66,14 +88,21 @@ router.get("/logout", withAuth, (req, res) => {
 // Display the signup page
 router.get("/signup", (req, res) => {
   // if the user is already logged in, redirect to the homepage
-  // ! this redirect is broken
   if (req.session.loggedIn) {
-    res.redirect("/");;
+    if (req.session.userRole === "user") {
+      res.redirect("/userdashboard");
+    } else {
+      res.redirect("/admin");
+    }
     return;
   }
   // otherwise, render the signup template
   res.render("signup", {
     // send data to the template
+    currentPage: "signup",
+    loggedIn: req.session.loggedIn,
+    isUser: req.session.userRole === "user",
+    pageTitle: "Client Sign Up",
   });
 });
 
@@ -96,7 +125,7 @@ router.get("/admin-dashboard/:id", withAdminAuth, async (req, res) => {
     const administrator_id = req.session.user_id;
     if (!administrator_id || administrator_id === "" || administrator_id < 1) {
       // send to admin login page
-      res.redirect("/adminlogin");
+      res.redirect("/login-admin");
       return;
     }
 
@@ -120,7 +149,8 @@ router.get("/admin-dashboard/:id", withAdminAuth, async (req, res) => {
       adminDashboardData.hasUser = false;
     }
     adminDashboardData.pageTitle = "Administrator Dashboard";
-
+    adminDashboardData.loggedIn = req.session.loggedIn;
+    adminDashboardData.isUser = req.session.userRole === "user";
     // configure the adminDashboardData object to display the correct buttons
     res.render("admin-dashboard", adminDashboardData);
   } catch (error) {
@@ -143,7 +173,7 @@ router.get("/admin", withAdminAuth, async (req, res) => {
     const administrator_id = req.session.user_id;
     if (!administrator_id || administrator_id === "" || administrator_id < 1) {
       // send to admin login page
-      res.redirect("/adminlogin");
+      res.redirect("/login-admin");
       return;
     }
 
@@ -163,6 +193,8 @@ router.get("/admin", withAdminAuth, async (req, res) => {
     adminDashboardData.userId = 0;
     adminDashboardData.hasUser = false;
     adminDashboardData.pageTitle = "Administrator Dashboard";
+    adminDashboardData.loggedIn = req.session.loggedIn;
+    adminDashboardData.isUser = req.session.userRole === "user";
 
     // configure the adminDashboardData object to display the correct buttons
     res.render("admin-dashboard", adminDashboardData);
@@ -181,7 +213,12 @@ router.get("/categories", withAdminAuth, async (req, res) => {
     // all categories
     const categories = await getAllCategories();
     console.log(categories);
-    res.render("category-admin", { categories });
+    res.render("category-admin", {
+      categories,
+      loggedIn: req.session.loggedIn,
+      isUser: req.session.userRole === "user",
+      pageTitle: "Categories Administration",
+    });
   } catch (error) {
     console.log(error);
     res
@@ -194,11 +231,29 @@ router.get("/categories", withAdminAuth, async (req, res) => {
 // ! TO DO
 router.get("/about", (req, res) => {
   try {
-    res.render("about");
+    res.render("about", {
+      loggedIn: req.session.loggedIn,
+      isUser: req.session.userRole === "user",
+      pageTitle: "About InfoPulse",
+    });
   } catch (error) {
     res
       .status(500)
       .json({ error, message: "Server Error displaying about page" });
+  }
+});
+
+router.get("/privacy-policy/", (req, res) => {
+  try {
+    res.render("privacy-policy", {
+      loggedIn: req.session.loggedIn,
+      isUser: req.session.userRole === "user",
+      pageTitle: "Privacy Policy",
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error, message: "Server Error displaying privacy policy page" });
   }
 });
 
@@ -230,6 +285,9 @@ router.get("/userdashboard", withUserAuth, async (req, res) => {
       });
       return;
     }
+    userDashboardData.loggedIn = req.session.loggedIn;
+    userDashboardData.isUser = req.session.userRole === "user";
+    userDashboardData.pageTitle = "Your Dashboard";
 
     res.render("user-dashboard", userDashboardData);
   } catch (error) {
@@ -246,6 +304,8 @@ router.get("/", async (req, res) => {
     res.render("homepage", {
       // send the session variable (loggedIn) to the template
       loggedIn: req.session.loggedIn,
+      isUser: req.session.userRole === "user",
+      pageTitle: "InfoPulse Home",
     });
   } catch (error) {
     console.log(error);

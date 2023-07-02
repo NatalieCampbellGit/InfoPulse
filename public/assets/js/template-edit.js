@@ -27,30 +27,37 @@ async function saveTemplate() {
 
   // basic validation
   if (!templateText) {
-    alert("Please enter some template text.");
+    // eslint-disable-next-line no-undef
+    alertModal("InfoPulse Alert", "Please enter some template text.");
     return;
   }
   if (!templateTitle) {
-    alert("Please enter a template title.");
+    // eslint-disable-next-line no-undef
+    alertModal("InfoPulse Alert", "Please enter a template title.");
     return;
   }
 
   if (!category_id || Number.isNaN(parseInt(category_id))) {
-    alert("Please select a template category.");
+    // eslint-disable-next-line no-undef
+    alertModal("InfoPulse Alert", "Please select a template category.");
     return;
   }
   category_id = parseInt(category_id);
   if (category_id < 1) {
-    alert("Please select a template category.");
+    // eslint-disable-next-line no-undef
+    alertModal("InfoPulse Alert", "Please select a template category.");
     return;
   }
 
   if (!templateDescription) {
-    alert("Please enter a template description.");
+    // eslint-disable-next-line no-undef
+    alertModal("InfoPulse Alert", "Please enter a template description.");
     return;
   }
   if (templateDescription.length > 255) {
-    alert(
+    // eslint-disable-next-line no-undef
+    alertModal(
+      "InfoPulse Alert",
       "Please enter a template description that is less than 255 characters."
     );
     return;
@@ -89,11 +96,13 @@ async function saveTemplate() {
       // check if the request was successful
       if (!response.ok) {
         // get the response body
-        alert("error! " + returnedData.message);
+        // eslint-disable-next-line no-undef
+        alertModal("InfoPulse Alert", "error! " + returnedData.message);
         return;
       }
     } catch (error) {
-      alert("error! " + error.message);
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "error! " + error.message);
       return;
     }
   } else {
@@ -108,11 +117,13 @@ async function saveTemplate() {
       // check if the request was successful
       if (!response.ok) {
         // get the response body
-        alert("error! " + returnedData.message);
+        // eslint-disable-next-line no-undef
+        alertModal("InfoPulse Alert", "error! " + returnedData.message);
         return;
       }
     } catch (error) {
-      alert("error! " + error.message);
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "error! " + error.message);
       return;
     }
   }
@@ -173,7 +184,8 @@ async function collateInitialInformation() {
         headers: { "Content-Type": "application/json" },
       });
       if (!templateData.ok) {
-        alert("error! " + templateData.message);
+        // eslint-disable-next-line no-undef
+        alertModal("InfoPulse Alert", "error! " + templateData.message);
         return;
       }
       const template = await templateData.json();
@@ -182,7 +194,8 @@ async function collateInitialInformation() {
       // add the markdown to the textarea
       document.getElementById("template-text").value = CurrentTemplate.markdown;
     } catch (error) {
-      alert("error! " + error.message);
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "error! " + error.message);
     }
   }
 }

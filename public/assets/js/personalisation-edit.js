@@ -17,7 +17,8 @@ async function saveFactsheet() {
 
   // basic validation
   if (!templateText) {
-    alert("Please enter some template text.");
+    // eslint-disable-next-line no-undef
+    alertModal("InfoPulse Alert", "Please enter some template text.");
     return;
   }
 
@@ -52,11 +53,13 @@ async function saveFactsheet() {
     // check if the request was successful
     if (!response.ok) {
       // get the response body
-      alert("error! " + returnedData.message);
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "error! " + returnedData.message);
       return;
     }
   } catch (error) {
-    alert("error! " + error.message);
+    // eslint-disable-next-line no-undef
+    alertModal("InfoPulse Alert", "error! " + error.message);
     return;
   }
 
@@ -107,7 +110,8 @@ async function collateInitialInformation() {
         headers: { "Content-Type": "application/json" },
       });
       if (!factsheetData.ok) {
-        alert("error! " + factsheetData.message);
+        // eslint-disable-next-line no-undef
+        alertModal("InfoPulse Alert", "error! " + factsheetData.message);
         return;
       }
       const factsheet = await factsheetData.json();
@@ -119,7 +123,8 @@ async function collateInitialInformation() {
       document.getElementById("template-text").value =
         CurrentFactsheet.markdown;
     } catch (error) {
-      alert("error! " + error.message);
+      // eslint-disable-next-line no-undef
+      alertModal("InfoPulse Alert", "error! " + error.message);
     }
   }
 }

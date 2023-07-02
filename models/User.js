@@ -7,21 +7,18 @@ class User extends Model {
     return bcrypt.compareSync(loginPassword, this.password);
   }
 
-  validateName(name){
+  validateName(name) {
     const allowedChars = /^[A-Za-z]+$/;
 
-    if(allowedChars.test(name) === false){
+    if (allowedChars.test(name) === false) {
       return false;
-    }
-    else if(name < 0 || name > 40){
+    } else if (name < 0 || name > 40) {
       return false;
-
-    }else if(name == "" || name == null){
+    } else if (name == "" || name == null) {
       return false;
-
-    }else{
+    } else {
       return true;
-    };
+    }
   }
 
   checkAuthenticationCode(loginAuthenticationCode) {

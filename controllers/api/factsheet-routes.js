@@ -89,9 +89,11 @@ router.get("/personalise/:id", withAdminAuth, async (req, res) => {
   // display the personalise page
   res.render("factsheet-personalise", {
     factsheet,
-    pageTitle: "Personalise Factsheet",
     administrator_id: req.session.user_id,
     returnPath,
+    loggedIn: req.session.loggedIn,
+    isUser: req.session.userRole === "user",
+    pageTitle: "Personalise Factsheet",
   });
 });
 

@@ -70,7 +70,8 @@ async function searchUsers(searchText = "", userId = 0) {
     // clear the search results, replace with new html
     userSearchResults.innerHTML = htmlFormat;
   } else {
-    alert("Error searching for users");
+    // eslint-disable-next-line no-undef
+    alertModal("InfoPulse Alert", "Error searching for users");
   }
   // add back the event handlers to the user list items
   addEventHandlers();
@@ -101,16 +102,16 @@ async function markUserAsSelected(event) {
   for (let i = 0; i < userList.length; i++) {
     const id = userList[i].dataset.id;
     if (id == userId) {
-      userList[i].classList.add("bg-pulse-green-200");
-      userList[i].classList.remove("bg-pulse-green-100");
+      userList[i].classList.add("bg-pulse-bluegrey-100");
+      userList[i].classList.remove("bg-pulse-bluegrey-50");
       // set the module variable to the selected user's id
       selectedUserId = userId;
       addUserIDToDataStore(userId);
       // show the add factsheet button
       factsheetAddButton.classList.remove("hidden");
     } else {
-      userList[i].classList.remove("bg-pulse-green-200");
-      userList[i].classList.add("bg-pulse-green-100");
+      userList[i].classList.remove("bg-pulse-bluegrey-100");
+      userList[i].classList.add("bg-pulse-bluegrey-50");
     }
   }
   // if the user has changed, reload the factsheets
@@ -131,7 +132,7 @@ function markFactsheetAsSelected(event) {
   for (let i = 0; i < factsheetList.length; i++) {
     const id = factsheetList[i].dataset.id;
     if (id == factsheetId) {
-      factsheetList[i].classList.add("bg-pulse-green-200");
+      factsheetList[i].classList.add("bg-pulse-bluegrey-100");
       factsheetList[i].classList.remove("bg-white");
       // set the module variable to the selected user's id
       selectedFactsheetId = factsheetId;
@@ -140,7 +141,7 @@ function markFactsheetAsSelected(event) {
       factsheetRemoveButton.classList.remove("hidden");
       factsheetPersonaliseButton.classList.remove("hidden");
     } else {
-      factsheetList[i].classList.remove("bg-pulse-green-200");
+      factsheetList[i].classList.remove("bg-pulse-bluegrey-100");
       factsheetList[i].classList.add("bg-white");
     }
   }

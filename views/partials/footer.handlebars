@@ -1,31 +1,20 @@
 <!-- Footer -->
-<footer class="footer mt-3 pt-3 bg-dark-subtle text-dark">
-    <div class="container text-center">
+<footer class="bg-gray-900 text-white w-full py-4 px-6">
+    <div class="bg-gray-900 mx-auto flex flex-col md:flex-row justify-between items-center">
         {{#if isDashboard}}
-        <div class="d-flex flex-column flex-md-row justify-content-between">
-            <div>
-                <p>InfoPulse</p>
-            </div>
-            <div mt-0>
-                <button type="button" class="btn btn-primary mt-0 mb-2" id="new-post-button">New Post</button>
-            </div>
-            <div>
-                <p>© 2023 Group 2</p>
-            </div>
+        <div class="md:text-left">
+            <a href="/privacy-policy" class="text-sm">Privacy Policy</a>
+        </div>
+        <div class="md:text-right">
+            <p class="text-sm">&copy; 2023 Group 2</p>
         </div>
         {{else}}
-        <div class="d-flex flex-column flex-md-row justify-content-between">
-            <div>
-                <p>InfoPulse</p>
-            </div>
-            <div>
-                <p>© 2023 Group 2</p>
-            </div>
+        <div class="md:text-left">
+            <a href="/privacy-policy" class="text-sm">Privacy Policy</a>
+        </div>
+        <div class="md:text-right">
+            <p class="text-sm">&copy; 2023 René, Daniel, Natalie, David</p>
         </div>
         {{/if}}
     </div>
 </footer>
-
-
-{{!-- {{{> footer}}}
-USE TO ADD FOOTER IN OTHER HANDLEBAR FILES  --}}
