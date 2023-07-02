@@ -17,7 +17,6 @@ async function toggleRegister() {
     }
     if (authcodeResponse.ok) {
       const authcode = await authcodeResponse.json();
-      console.log(authcode);
       const authCodeString = authcode.authcode;
 
       document.getElementById("authcode").textContent = authCodeString;

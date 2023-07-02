@@ -23,7 +23,7 @@ router.post("/login", async (req, res) => {
         .send({
           message: "Logged in as user, please log out and back in as admin",
         })
-        .redirect("/user");
+        .redirect("/userdashboard");
       return;
     }
 
@@ -89,19 +89,19 @@ router.post("/enrol", withAdminAuth, async (req, res) => {
     const authentication_code = req.body.authentication_code.trim();
 
     const newUser = await User.create({
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      date_of_birth: date_of_birth,
-      authentication_code: authentication_code,
-      mobile_phone: mobile_phone,
-      crm_id: crm_id,
+      first_name,
+      last_name,
+      email,
+      date_of_birth,
+      authentication_code,
+      mobile_phone,
+      crm_id: "",
       username: "",
       password: "",
-      administrator_id: "1",
+      administrator_id: Number.parseInt(req.session.user_id),
     });
 
-    console.log(newUser);
+    // console.log(newUser);
 
     if (newUser[0] === 0) {
       res.status(400).json({ message: "Error creating new user" });
@@ -116,7 +116,7 @@ router.post("/enrol", withAdminAuth, async (req, res) => {
 router.get("/authcode", async (req, res) => {
   try {
     const authcode = generatePassphrase();
-    console.log(typeof authcode);
+    // console.log(typeof authcode);
 
     if (authcode === "" || authcode === null || authcode === undefined) {
       res.status(400).json({ message: "Error generating authentication code" });
@@ -129,22 +129,18 @@ router.get("/authcode", async (req, res) => {
     }
 
     if (req.session.loggedIn && req.session.role === "user") {
-      res
-        .status(400)
-        .json({
-          message:
-            "You must have admin privileges to generate an authentication code",
-        });
-      res.redirect("/user");
+      res.status(400).json({
+        message:
+          "You must have admin privileges to generate an authentication code",
+      });
+      res.redirect("/userdashboard");
     }
 
     if (req.session.loggedIn) {
-      res
-        .status(200)
-        .json({
-          authcode,
-          message: "Successfully generated authentication code",
-        });
+      res.status(200).json({
+        authcode,
+        message: "Successfully generated authentication code",
+      });
     }
   } catch (error) {
     console.log(error);

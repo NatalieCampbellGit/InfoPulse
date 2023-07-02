@@ -25,7 +25,7 @@ window.addEventListener("load", async function () {
 const enrolFormHandler = async (event) => {
   event.preventDefault();
   // avoid double click
-  document.getElementById("enrol").disabled = true;
+  // document.getElementById("enrol").disabled = true;
 
   const first_name = document.querySelector("#firstname").value.trim();
   const last_name = document.querySelector("#lastname").value.trim();
@@ -33,7 +33,9 @@ const enrolFormHandler = async (event) => {
   const email = document.querySelector("#email").value.trim();
   const mobile_phone = document.querySelector("#mobile-num").value.trim();
   const crm_id = document.querySelector("#crm").value.trim();
-  const authentication_code = document.getElementById("authcode").textContent.trim();
+  const authentication_code = document
+    .getElementById("authcode")
+    .textContent.trim();
 
   // try {
   //   const authcodeResponse = await fetch("/api/admin/authcode/", {
@@ -72,8 +74,6 @@ const enrolFormHandler = async (event) => {
     crm_id,
     authentication_code,
   };
-  console.log(typeof authentication_code);
-  console.log(authentication_code);
 
   if (enrollmentData) {
     const response = await fetch("/api/admin/enrol", {

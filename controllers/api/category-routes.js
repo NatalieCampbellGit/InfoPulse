@@ -34,7 +34,7 @@ router.post("/", withAdminAuth, async (req, res) => {
       res.status(404).json({ message: "Category not created" });
       return;
     }
-    console.log(response);
+    // console.log(response);
     const newCategory = response.get({ plain: true });
     res.status(200).json(newCategory);
   } catch (error) {
@@ -66,6 +66,7 @@ router.put("/:id", withAdminAuth, async (req, res) => {
   try {
     const response = await Category.update(categoryData, {
       where: { id: categoryId },
+      individualHooks: true,
     });
     if (!response) {
       res.status(404).json({ message: "Category not updated" });

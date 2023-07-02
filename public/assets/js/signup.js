@@ -1,5 +1,5 @@
 // const { User } = require("../../../models");
-// singup.js handles the first time sign up
+// signup.js handles the first time sign up
 
 const signupFormHandler = async (event) => {
   event.preventDefault();
@@ -19,12 +19,14 @@ const signupFormHandler = async (event) => {
     if (username.length > 50 || username.length < 1) {
       // eslint-disable-next-line no-undef
       alertModal("Please use a username between 1 and 50 characters long");
+      document.getElementById("signup-button").disabled = false;
       return;
     }
 
-    if  (username == "" || username == null)  {
+    if (username == "" || username == null) {
       // eslint-disable-next-line no-undef
       alertModal("Please enter a username");
+      document.getElementById("signup-button").disabled = false;
       return;
     }
 
@@ -34,24 +36,32 @@ const signupFormHandler = async (event) => {
         "Sign up failed",
         "Password must be between 12 and 64 characters long."
       );
+      document.getElementById("signup-button").disabled = false;
       return;
     }
 
     if (!(password === confirmPassword)) {
       // eslint-disable-next-line no-undef
       alertModal("Sign up failed", "Passwords must match");
+      document.getElementById("signup-button").disabled = false;
       return;
     }
 
     const response = await fetch("/api/users/register", {
       method: "PUT",
-      body: JSON.stringify({ email, authentication_code, username, password, confirmPassword }),
+      body: JSON.stringify({
+        email,
+        authentication_code,
+        username,
+        password,
+        confirmPassword,
+      }),
       headers: { "Content-Type": "application/json" },
     });
 
     if (response.ok) {
       // if successful, redirect to the homepage or userdashboard
-      document.location.replace("/");
+      document.location.replace("/userdashboard");
     } else {
       const data = await response.json();
       // eslint-disable-next-line no-undef
@@ -61,6 +71,7 @@ const signupFormHandler = async (event) => {
     // eslint-disable-next-line no-undef
     alertModal("Sign up failed", "Please enter a username and password.");
   }
+  document.getElementById("signup-button").disabled = false;
 };
 
 document
