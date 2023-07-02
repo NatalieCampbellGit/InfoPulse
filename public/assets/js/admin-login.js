@@ -28,6 +28,7 @@ const loginFormHandler = async (event) => {
       alertModal("Login failed", data.message);
     }
   }
+  document.getElementById("login-button").disabled = false;
 };
 
 document

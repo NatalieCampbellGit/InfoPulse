@@ -1,13 +1,9 @@
 // handles the log-in for admins
-const passphrase = require("../../utils/codes-utils");
 const { Op } = require("sequelize");
 const router = require("express").Router();
 const Administrator = require("../../models/Administrator");
 const User = require("../../models/User");
-const session = require("express-session");
-const { isUtf8 } = require("buffer");
 const { withAdminAuth } = require("../../utils/auth");
-const { generate } = require("generate-passphrase");
 const generatePassphrase = require("../../utils/codes-utils");
 
 // Login
@@ -95,7 +91,7 @@ router.post("/enrol", withAdminAuth, async (req, res) => {
       date_of_birth,
       authentication_code,
       mobile_phone,
-      crm_id: "",
+      crm_id,
       username: "",
       password: "",
       administrator_id: Number.parseInt(req.session.user_id),
@@ -116,7 +112,6 @@ router.post("/enrol", withAdminAuth, async (req, res) => {
 router.get("/authcode", async (req, res) => {
   try {
     const authcode = generatePassphrase();
-    // console.log(typeof authcode);
 
     if (authcode === "" || authcode === null || authcode === undefined) {
       res.status(400).json({ message: "Error generating authentication code" });

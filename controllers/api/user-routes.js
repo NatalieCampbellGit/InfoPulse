@@ -1,5 +1,5 @@
 // Purpose: user routes
-const { sequelize, Op } = require("sequelize");
+const { Op } = require("sequelize");
 const User = require("../../models/User");
 const { withAuth } = require("../../utils/auth");
 const router = require("express").Router();
@@ -68,8 +68,6 @@ router.post("/login", async (req, res) => {
   const username = req.body.username.trim();
   const password = req.body.password.trim();
 
-  // console.log(username, password);
-
   if (req.session.loggedIn) {
     res
       .status(200)
@@ -118,10 +116,11 @@ router.post("/login", async (req, res) => {
       req.session.user_id = userData.id;
       req.session.username = userData.username;
       req.session.userRole = "user";
-          res.status(200).json({ user: userData, message: "You are now logged in!" });
+      res
+        .status(200)
+        .json({ user: userData, message: "You are now logged in!" });
     });
     // ! etcetera
-
   } catch (error) {
     console.log(error);
     res.status(500).json({ error, message: "Error logging in" });
@@ -130,7 +129,6 @@ router.post("/login", async (req, res) => {
 
 // route a for a search on the users model using either an id or text search
 router.post("/search", withAuth, async (req, res) => {
-  // console.log(req.body);
   let { id, searchTerm, returnFormat } = req.body;
 
   // validate the search criteria
@@ -257,28 +255,26 @@ router.put("/register", async (req, res) => {
 
     if (!updatedUserData) {
       res.status(400).json({ message: "No user data found" });
-      return
+      return;
     }
     if (updatedUserData[0] === 0) {
       res.status(400).json({ message: "No user data found" });
-      return
+      return;
     }
-    
+
     // find the user id
-    const findUserData = await User.findOne(
-      {
-        where: {
-          [Op.and]: {
-            email: { [Op.eq]: email },
-            authentication_code: { [Op.eq]: authentication_code },
-          },
+    const findUserData = await User.findOne({
+      where: {
+        [Op.and]: {
+          email: { [Op.eq]: email },
+          authentication_code: { [Op.eq]: authentication_code },
         },
-      }
-    );
+      },
+    });
 
     if (!findUserData) {
       res.status(400).json({ message: "No user data found" });
-      return
+      return;
     }
 
     const userData = findUserData.get({ plain: true });
@@ -290,8 +286,6 @@ router.put("/register", async (req, res) => {
       req.session.userRole = "user";
       res.status(200).json({ message: "User successfully registered" });
     });
-
-    
   } catch (error) {
     console.log(error);
     res.status(500).json({ error, message: "Error registering user" });
