@@ -18,12 +18,12 @@
     <div class="mx-auto px-1 sm:px-2 bg-white">
       <h2 class="text-xl font-bold mb-2">Factsheet</h2>
       {{#each factsheets as |factsheet|}}
-      <div class="border-2 border-gray-300 p-4 mb-4">
+      <div class="hidden factsheet border-2 border-gray-300 p-4 mb-4" id="factsheet-{{id}}">
         {{{template.html}}}
       </div>
       <!-- Iterate over your comments and create an <li> for each one -->
       {{#each usercomments as |usercomment|}}
-      <p class="text-xl font-bold mb-2">Your Comment:</p>
+      <p class="usercomment text-xl font-bold mb-2" id="usercomment-{{usercomment.id}}" data-factsheet-id="{{id}}">Your Comment:</p>
       <div class="pl-2 text-pulse-grey-dark">
         <p class="text-base">{{usercomment.content}}</p>
         <p class="text-xs text-gray-500">Created at:
@@ -66,10 +66,8 @@
   <div>
     <!-- Buttons section -->
     <div class="flex justify-end mt-4">
-      <button class="bg-pulse-blue-500 hover:bg-pulse-blue-700 text-white rounded px-4 py-2 mr-2" id="add-comment">Add
-        Comment</button>
-      <button class="bg-pulse-green-500 hover:bg-pulse-green-700 text-white rounded px-4 py-2" id="save-comment">Save
-        Comment</button>
+      <button class="bg-pulse-blue-500 hover:bg-pulse-blue-700 text-white rounded px-4 py-2 mr-2" id="add-comment">Add Comment</button>
+      <button class="bg-pulse-green-500 hover:bg-pulse-green-700 text-white rounded px-4 py-2" id="save-comment">Save Comment</button>
       <!-- <button class="btn btn-danger" id="log-out">Log Out</button> -->
     </div>
   </div>
