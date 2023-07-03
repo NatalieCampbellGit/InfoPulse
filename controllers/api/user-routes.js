@@ -63,12 +63,17 @@ router.post("/", async (req, res) => {
 // the email address and the authentication_code identifies the user the first time
 // the user will use the username and password to log in from then on
 // so if the user has already created a username and password, then the authentication_code is unnecessary
+
+router.get("/login", (req, res) => {
+  res.render("login");
+});
+
 router.post("/login", async (req, res) => {
   try {
     const userData = await User.findOne({
       where: {
         username: req.body.username,
-        // ! etcetera
+        // ... other criteria
       },
     });
     if (!userData) {
@@ -90,7 +95,7 @@ router.post("/login", async (req, res) => {
       req.session.userRole = "user";
       req.session.user_id = userData.id;
       req.session.username = userData.username;
-      // ! etcetera
+      // ... other session properties
       res
         .status(200)
         .json({ user: userData, message: "You are now logged in!" });
@@ -201,7 +206,65 @@ router.post("/search", withAuth, async (req, res) => {
   }
 });
 
+// Sign up
+router.get("/signup", (req, res) => {
+  res.render("signup"); // Render the signup page template
+});
+
+// route for signup
+router.post("/signup", async (req, res) => {
+  try {
+    // Registration logic
+  } catch (error) {
+    console.error("Error signing up", error);
+    res.render("signup", { message: "Error signing up" });
+  }
+});
+
 // maybe add a first login route to handle the first login with the authentication_code
 // the user will use the authentication_code to create their own username and password
+
+//single user
+router.post("/signup", async (req, res) => {
+  try {
+    // Create the user with the provided form data
+    const userData = await User.create({
+      administrator_id: req.body.administrator_id,
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      date_of_birth: req.body.date_of_birth,
+      email: req.body.email,
+      mobile_phone: req.body.mobile_phone,
+      crm_id: req.body.crm_id,
+      authentication_code: req.body.authentication_code,
+      username: req.body.username,
+      password: req.body.password,
+    });
+
+    res
+      .status(200)
+      .json({ user: userData, message: "User created successfully." });
+  } catch (error) {
+    console.error("Error signing up", error);
+    res.status(500).json({ error, message: "Error signing up" });
+  }
+});
+
+const seedUsers = require("../seeds/seed-users");
+
+router.post("/signup-multiple", async (req, res) => {
+  try {
+    // Seed multiple users
+    await seedUsers();
+
+    // Additional logic if needed
+    // ...
+
+    res.status(200).json({ message: "Users seeded successfully." });
+  } catch (error) {
+    console.error("Error signing up", error);
+    res.status(500).json({ error, message: "Error signing up" });
+  }
+});
 
 module.exports = router;

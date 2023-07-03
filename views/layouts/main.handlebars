@@ -22,9 +22,10 @@
 </head>
 
 <body class="bg-pulse-grey-light font-sans">
+
   <header>
     <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-dark-subtle pb-2 mb-0">
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark-subtle pb-2 mb-0">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -68,43 +69,41 @@
   <!-- Footer -->
   {{> footer}}
 
-    <!-- Feedback Modal -->
-    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="feedbackModalLabel">Modal Title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body bg-info-subtle" id="feedbackModalBody">
-                    Modal Body
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
+<!-- Feedback Modal -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="feedbackModalLabel">Modal Title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body bg-blue-100" id="feedbackModalBody">
+        Modal Body
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
+</div>
 
-    <!-- Confirmation Modal -->
-    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmationModalLabel">Modal Title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body  bg-warning-subtle" id="confirmationModalBody">
-                    Modal Body
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="confirm-no" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <button type="button" id="confirm-yes" class="btn btn-primary">Yes</button>
-                </div>
-            </div>
-        </div>
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmationModalLabel">Modal Title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body bg-yellow-100" id="confirmationModalBody">
+        Modal Body
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="confirm-no" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <button type="button" id="confirm-yes" class="btn btn-primary">Yes</button>
+      </div>
     </div>
-</body>
+  </div>
+</div>
 
 </html>
