@@ -1,11 +1,11 @@
 <section class="bg-gray-100">
   <div class="max-w-screen-xl mx-auto border-t-4 border-pulse-green-500">
-    <!-- display the factsheets that user has been given -->
+    <!-- Display the factsheets that user has been given -->
     <div id="view-factsheets" class="border-t-4 border-pulse-green-500">
       <div class="mx-auto px-1 sm:px-2 bg-white">
         <h2 class="text-xl font-bold mb-2">Your Factsheets</h2>
         {{#each factsheets as |factsheet|}}
-        <div class="border-2 border-gray-300 p-4 mb-4">
+        <div class="border-2 border-gray-300 p-4 mb-4" onclick="toggleFactsheet('{{factsheet.id}}')">
           {{> user-dashboard-factsheet-listitem}}
         </div>
         {{/each}}
@@ -63,13 +63,5 @@
     </div>
   </div>
 
-  <div>
-    <!-- Buttons section -->
-    <div class="flex justify-end mt-4">
-      <button class="bg-pulse-blue-500 hover:bg-pulse-blue-700 text-white rounded px-4 py-2 mr-2" id="add-comment">Add Comment</button>
-      <button class="bg-pulse-green-500 hover:bg-pulse-green-700 text-white rounded px-4 py-2" id="save-comment">Save Comment</button>
-      <!-- <button class="btn btn-danger" id="log-out">Log Out</button> -->
-    </div>
-  </div>
 </section>
 <script src="/assets/js/user-dashboard.js"></script>
